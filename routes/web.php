@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('/','Mobile\IndexController@index');
+Route::prefix('mobile')->get('/','Mobile\IndexController@index');
