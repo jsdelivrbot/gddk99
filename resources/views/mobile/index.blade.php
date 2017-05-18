@@ -11,7 +11,7 @@
         <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{"directionNav":false}' >
             <ul class="am-slides">
                 <li>
-                    <img src="{{ url('build/img/fl01.png') }}">
+                    <img src="{{ url('build/img/fl03.jpg') }}">
                     <div class="pet_slider_font">
                         <span class="pet_slider_emoji"> (╭￣3￣)╭♡   </span>
                         <span>“大白”有望成为现实：充气机器人研究取得进展</span>
@@ -27,7 +27,7 @@
                     <div class="pet_slider_shadow"></div>
                 </li>
                 <li>
-                    <img src="{{ url('build/img/fl03.png') }}">
+                    <img src="{{ url('build/img/fl01.png') }}">
                     <div class="pet_slider_font">
                         <span class="pet_slider_emoji"> (｡・`ω´･)　</span>
                         <span>《星际争霸2:虚空之遗》国服过审!</span>
@@ -40,11 +40,11 @@
 
         <div class="pet_circle_nav">
             <ul class="pet_circle_nav_list">
-                <li><a href="" class="iconfont pet_nav_xinxianshi ">&#xe61e;</a><span>新鲜事</span></li>
-                <li><a href="" class="iconfont pet_nav_zhangzhishi ">&#xe607;</a><span>趣闻</span></li>
-                <li><a href="" class="iconfont pet_nav_kantuya ">&#xe62c;</a><span>阅读</span></li>
-                <li><a href="" class="iconfont pet_nav_mengzhuanti ">&#xe622;</a><span>专题</span></li>
-                <li><a href="" class="iconfont pet_nav_meirong ">&#xe629;</a><span>订阅</span></li>
+                <li><a href="" class="iconfont pet_nav_xinxianshi ">&#xe61e;</a><span>信用卡</span></li>
+                <li><a href="" class="iconfont pet_nav_zhangzhishi ">&#xe607;</a><span>贷款</span></li>
+                <li><a href="" class="iconfont pet_nav_kantuya ">&#xe62c;</a><span>车贷</span></li>
+                <li><a href="" class="iconfont pet_nav_mengzhuanti ">&#xe622;</a><span>房贷</span></li>
+                <li><a href="" class="iconfont pet_nav_meirong ">&#xe629;</a><span>理财</span></li>
                 <li><a href="" class="iconfont pet_nav_yiyuan ">&#xe602;</a><span>专栏</span></li>
                 <li><a href="" class="iconfont pet_nav_dianpu ">&#xe604;</a><span>讨论</span></li>
                 <li><a href="javascript:;" class="iconfont pet_nav_gengduo ">&#xe600;</a><span>更多</span></li>
@@ -124,13 +124,13 @@
                                 </div>
                             </div>
                             <div class=" am-u-sm-8 am-list-main pet_list_one_nr">
-                                <h3 class="am-list-item-hd pet_list_one_bt"><a href="###" class="">十一长假哪也不去，宅在家里看电影！</a></h3>
+                                <h3 class="am-list-item-hd pet_list_one_bt"><a href="{{ url('/mobile/full-content') }}" class="">十一长假哪也不去，宅在家里看电影！</a></h3>
                                 <div class="am-list-item-text pet_list_one_text">每逢长假，总有那么一群人选择远离人山人海，静静地呆在家，坐在电脑电视前。长时间的工作学习让他们感觉很疲惫，对什么都提不起劲，打开电脑却不知道干什么好…</div>
 
                             </div>
                             <div class="am-u-sm-4 am-list-thumb">
-                                <a href="###" class="">
-                                    <img src="{{ url('build/img/q1.png') }}" class="pet_list_one_img" alt=""/>
+                                <a href="{{ url('/mobile/person-list') }}" class="">
+                                    <img src="{{ url('build/img/q1.jpg') }}" class="pet_list_one_img" alt=""/>
                                 </a>
                             </div>
                         </li>
@@ -145,13 +145,13 @@
                                 </div>
                             </div>
                             <div class=" am-u-sm-8 am-list-main pet_list_one_nr">
-                                <h3 class="am-list-item-hd pet_list_one_bt"><a href="###" class="">不是说好做彼此的天使吗？连最后一口汉堡也不给我</a></h3>
+                                <h3 class="am-list-item-hd pet_list_one_bt"><a href="{{ url('/mobile/full-content') }}" class="">不是说好做彼此的天使吗？连最后一口汉堡也不给我</a></h3>
                                 <div class="am-list-item-text pet_list_one_text">国外网友waxiestapple在论坛Reddit贴出爱犬照片，指出“我的狗狗好像瘦了点”“因为我刚刚把最后一口汉堡吃掉”，只见这只哈士奇一脸惨遭背叛的样子，对主人露出相当不可思议的表情。</div>
 
                             </div>
                             <div class="am-u-sm-4 am-list-thumb pet_video_info">
                                 <div class="pet_video_info_tag"><i class="iconfont">&#xe62d;</i>03:50</div>
-                                <a href="###" class="">
+                                <a href="{{ url('/mobile/full-content') }}" class="">
                                     <img src="{{ url('build/img/q4.png') }}" class="pet_list_one_img" alt="我很囧，你保重....晒晒旅行中的那些囧！"/>
                                 </a>
                             </div>
@@ -167,12 +167,12 @@
                                 </div>
                             </div>
                             <div class=" am-u-sm-8 am-list-main pet_list_one_nr">
-                                <h3 class="am-list-item-hd pet_list_one_bt"><a href="###" class="">怦然心动！澳洲大眼宝宝逆天睫毛萌翻全球！</a></h3>
+                                <h3 class="am-list-item-hd pet_list_one_bt"><a href="{{ url('/mobile/full-content') }}" class="">怦然心动！澳洲大眼宝宝逆天睫毛萌翻全球！</a></h3>
                                 <div class="am-list-item-text pet_list_one_text">来自澳大利亚布里斯班的十个月大的萌宝Egypt拥有一双修长的睫毛、清澈的眼眸，可爱的模样让她在社交网站上爆红。</div>
 
                             </div>
                             <div class="am-u-sm-4 am-list-thumb">
-                                <a href="###" class="">
+                                <a href="{{ url('/mobile/full-content') }}" class="">
                                     <img src="{{ url('build/img/q5.jpg') }}" class="pet_list_one_img" alt="我很囧，你保重....晒晒旅行中的那些囧！"/>
                                 </a>
                             </div>
@@ -271,7 +271,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                        </li>
+                            </div>
                         <li class="am-g am-list-item-desced pet_list_one_block">
                             <div class="pet_list_one_info">
                                 <div class="pet_list_one_info_l">
