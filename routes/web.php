@@ -11,9 +11,7 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+// **************************** 微信端 *********************
 
 // 首页
 Route::get('/','Mobile\IndexController@index');
@@ -25,3 +23,10 @@ Route::prefix('mobile')->get('full-content','Mobile\IndexController@FullContent'
 
 // 个人列表
 Route::prefix('mobile')->get('person-list','Mobile\IndexController@Person');
+
+
+// **************************** 后台端 *********************
+
+// 首页
+Route::prefix('admin')->get('/','Admin\IndexController@Index');
+Route::prefix('admin')->get('index','Admin\IndexController@Index');
