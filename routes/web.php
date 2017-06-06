@@ -30,3 +30,9 @@ Route::prefix('mobile')->get('person-list','Mobile\IndexController@Person');
 // 首页
 Route::prefix('admin')->get('/','Admin\IndexController@Index');
 Route::prefix('admin')->get('index','Admin\IndexController@Index');
+
+// 用户列表
+Route::prefix('admin')->get('user-list','Admin\UserController@UserList');
+
+// 合伙关系列表
+Route::prefix('admin')->get('union-list','Admin\UserController@UnionList');
