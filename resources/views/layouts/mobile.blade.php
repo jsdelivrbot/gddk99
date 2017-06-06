@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <title>{{ trans('welcome.mobile') }}</title>
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}"/>
+    @yield('style')
 </head>
 <body style="background:#ececec">
 <div class="pet_mian">

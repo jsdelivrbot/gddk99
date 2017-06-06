@@ -24,6 +24,9 @@ Route::prefix('mobile')->get('full-content','Mobile\IndexController@FullContent'
 // 个人列表
 Route::prefix('mobile')->get('person-list','Mobile\IndexController@Person');
 
+// 推荐贷款，客户列表
+Route::prefix('mobile')->get('client-list','Mobile\ClientController@ClientList');
+
 
 // **************************** 后台端 *********************
 

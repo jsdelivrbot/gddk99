@@ -28,7 +28,7 @@
                 <li><a href="" class="iconfont pet_nav_zhangzhishi ">&#xe607;</a><span>贷款</span></li>
                 <li><a href="" class="iconfont pet_nav_kantuya ">&#xe62c;</a><span>车贷</span></li>
                 <li><a href="" class="iconfont pet_nav_mengzhuanti ">&#xe622;</a><span>房贷</span></li>
-                <li><a href="" class="iconfont pet_nav_meirong ">&#xe629;</a><span>理财</span></li>
+                <li><a href="{{ url('mobile/client-list') }}" class="iconfont pet_nav_meirong ">&#xe629;</a><span>推荐贷款</span></li>
                 <li><a href="" class="iconfont pet_nav_yiyuan ">&#xe602;</a><span>专栏</span></li>
                 <li><a href="" class="iconfont pet_nav_dianpu ">&#xe604;</a><span>讨论</span></li>
                 <li><a href="javascript:;" class="iconfont pet_nav_gengduo ">&#xe600;</a><span>更多</span></li>
@@ -268,7 +268,6 @@
                             </div>
                             <div class=" am-list-main">
                                 <h3 class="am-list-item-hd pet_list_one_bt"><a href="###" class="">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a></h3>
-
 
                                 <div class="am-list-item-text pet_list_two_text">狗狗会天天的跟着我们生活在一起，它们的一切都会影响着主人，尤其是狗狗身上散发的味道，会无时无刻的对主人有影响，如果狗狗身体有异味，主人就会用过于香喷喷的洗漱品帮狗狗洗澡，这样不仅对狗狗身体有伤害，还会容易患上皮肤病，其实，我们知道一些小技巧，就会改善狗狗身上存在的味道。</div>
 
