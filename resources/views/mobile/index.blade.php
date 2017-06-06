@@ -90,8 +90,74 @@
                         </div>
                     </div>
 
-                </div></div>
+                </div>
+            </div>
         </div>
+
+        <div class="pet_comment_list">
+            <div class="pet_comment_list_wap"><div class="pet_comment_list_title">热门顾问</div>
+                <div data-am-widget="tabs" class="am-tabs am-tabs-default pet_comment_list_tab" >
+                    <ul class="am-tabs-nav am-cf pet_comment_list_title_tab">
+                        <li class="am-active"><a href="[data-tab-panel-0]">人气</a></li>
+                        <li class=""><a href="[data-tab-panel-1]">最新</a></li>
+                        <li class=""><a href="[data-tab-panel-2]">最早</a></li>
+                    </ul>
+                    <div class="am-tabs-bd pet_pl_list">
+                        <ul>
+                            <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
+                                <div class="one_a_con div_allinline">
+                                    <div class="subdiv_allinline img_left" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836">
+                                        <img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3803512966,1757656304&fm=58" style="height: 140px;">
+                                    </div>
+                                    <div class="subdiv_allinline right_con">
+                                        <p class="ayi_name">习近平</p>
+                                        <p class="con_a1">咨询人数：361</p>
+                                        <p class="con_a1">从业时间：2年</p>
+                                        <p class="haopinglv">评分: 4.5分</p>
+                                        <p class="ljyy_bt" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836" style="bottom:-15px;">
+                                            <img class="ljyy_im" src="http://www.miayi.net/modules/AuntsList/pic/LiJiYuYue.png">
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
+                                <div class="one_a_con div_allinline">
+                                    <div class="subdiv_allinline img_left" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836">
+                                        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2336393634,1720362053&fm=58" style="height: 140px;">
+                                    </div>
+                                    <div class="subdiv_allinline right_con">
+                                        <p class="ayi_name">李克强</p>
+                                        <p class="con_a1">咨询人数：361</p>
+                                        <p class="con_a1">从业时间：2年</p>
+                                        <p class="haopinglv">评分: 4.5分</p>
+                                        <p class="ljyy_bt" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836" style="bottom:-15px;">
+                                            <img class="ljyy_im" src="http://www.miayi.net/modules/AuntsList/pic/LiJiYuYue.png">
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
+                                <div class="one_a_con div_allinline">
+                                    <div class="subdiv_allinline img_left" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836">
+                                        <img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3579502762,2068146944&fm=58" style="height: 140px;">
+                                    </div>
+                                    <div class="subdiv_allinline right_con">
+                                        <p class="ayi_name">张德江</p>
+                                        <p class="con_a1">咨询人数：361</p>
+                                        <p class="con_a1">从业时间：2年</p>
+                                        <p class="haopinglv">评分: 4.5分</p>
+                                        <p class="ljyy_bt" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836" style="bottom:-15px;">
+                                            <img class="ljyy_im" src="http://www.miayi.net/modules/AuntsList/pic/LiJiYuYue.png">
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="pet_content_main">
             <div data-am-widget="list_news" class="am-list-news am-list-news-default" >
                 <div class="am-list-news-bd">
