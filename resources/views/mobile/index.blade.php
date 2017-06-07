@@ -89,7 +89,7 @@
         </div>
 
         <div class="pet_comment_list">
-            <div class="pet_comment_list_wap"><div class="pet_comment_list_title">热门顾问</div>
+            <div class="pet_comment_list_wap"><div class="pet_comment_list_title">热门贷款顾问</div>
                 <div data-am-widget="tabs" class="am-tabs am-tabs-default pet_comment_list_tab" >
                     <ul class="am-tabs-nav am-cf pet_comment_list_title_tab">
                         <li class="am-active"><a href="[data-tab-panel-0]">人气</a></li>
@@ -153,7 +153,7 @@
         </div>
 
         <div class="pet_comment_list">
-            <div class="pet_comment_list_wap"><div class="pet_comment_list_title">线下门店</div>
+            <div class="pet_comment_list_wap"><div class="pet_comment_list_title">线下贷款门店</div>
                 <div data-am-widget="tabs" class="am-tabs am-tabs-default pet_comment_list_tab" >
                     <ul class="am-tabs-nav am-cf pet_comment_list_title_tab">
                         <li class="am-active"><a href="[data-tab-panel-0]">人气</a></li>
@@ -169,9 +169,20 @@
                                     </div>
                                     <div class="subdiv_allinline right_con">
                                         <p class="ayi_name">虎门-广东贷款网</p>
-                                        <p class="con_a1">咨询人数：361</p>
-                                        <p class="con_a1">从业时间：2年</p>
-                                        <p class="haopinglv">评分: 4.5分</p>
+                                        <p class="con_a1">咨询电话：13800138000</p>
+                                        <p class="con_a1">店面地址：虎门销烟路口188号</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
+                                <div class="one_a_con div_allinline">
+                                    <div class="subdiv_allinline img_left" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836">
+                                        <img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3579502762,2068146944&fm=58" style="height: 140px;">
+                                    </div>
+                                    <div class="subdiv_allinline right_con">
+                                        <p class="ayi_name">虎门-广东贷款网</p>
+                                        <p class="con_a1">咨询电话：13800138000</p>
+                                        <p class="con_a1">店面地址：虎门销烟路口188号</p>
                                     </div>
                                 </div>
                             </li>
@@ -180,6 +191,7 @@
                 </div>
             </div>
         </div>
+        <div style="height: 38px;"></div>
 
     </div>
 @endsection

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateAccessTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('access', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_name')->comment('用户名');
-            $table->string('user_mobile')->unique()->comment('用户手机');
-            $table->string('password');
-            $table->tinyInteger('is_admin')->default(0)->comment('是否是管理员：1是管理员，0是不管理员');
+            $table->string('title')->comment('权限标题');
+            $table->text('urls')->comment('对应的URL，这里存储我们用JOSN存储');
             $table->tinyInteger('status')->default(1)->comment('状态：1有效，0无效');
             $table->timestamps();
         });
@@ -31,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('access');
     }
 }
