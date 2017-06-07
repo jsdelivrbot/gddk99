@@ -18,13 +18,13 @@
 
         <div class="pet_circle_nav">
             <ul class="pet_circle_nav_list">
-                <li><a href="" class="iconfont pet_nav_xinxianshi ">&#xe61e;</a><span>信用卡</span></li>
-                <li><a href="" class="iconfont pet_nav_zhangzhishi ">&#xe607;</a><span>贷款</span></li>
-                <li><a href="" class="iconfont pet_nav_kantuya ">&#xe62c;</a><span>车贷</span></li>
-                <li><a href="" class="iconfont pet_nav_mengzhuanti ">&#xe622;</a><span>房贷</span></li>
+                <li><a href="{{ url('mobile/serve') }}" class="iconfont pet_nav_xinxianshi ">&#xe61e;</a><span>信用卡</span></li>
+                <li><a href="{{ url('mobile/serve') }}" class="iconfont pet_nav_zhangzhishi ">&#xe607;</a><span>贷款</span></li>
+                <li><a href="{{ url('mobile/serve') }}" class="iconfont pet_nav_kantuya ">&#xe62c;</a><span>车贷</span></li>
+                <li><a href="{{ url('mobile/serve') }}" class="iconfont pet_nav_mengzhuanti ">&#xe622;</a><span>房贷</span></li>
                 <li><a href="{{ url('mobile/client-list') }}" class="iconfont pet_nav_meirong ">&#xe629;</a><span>推荐贷款</span></li>
-                <li><a href="" class="iconfont pet_nav_yiyuan ">&#xe602;</a><span>专栏</span></li>
-                <li><a href="" class="iconfont pet_nav_dianpu ">&#xe604;</a><span>讨论</span></li>
+                <li><a href="{{ url('mobile/serve') }}" class="iconfont pet_nav_yiyuan ">&#xe602;</a><span>专栏</span></li>
+                <li><a href="{{ url('mobile/person-list') }}" class="iconfont pet_nav_dianpu ">&#xe604;</a><span>讨论</span></li>
                 <li><a href="javascript:;" class="iconfont pet_nav_gengduo ">&#xe600;</a><span>更多</span></li>
             </ul>
             <div class="pet_more_list"><div class="pet_more_list_block">
@@ -100,15 +100,17 @@
                         <ul>
                             <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
                                 <div class="one_a_con div_allinline">
-                                    <div class="subdiv_allinline img_left" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836">
+                                    <a href="{{ url('mobile/consultant-details') }}">
+                                    <div class="subdiv_allinline img_left">
                                         <img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3803512966,1757656304&fm=58" style="height: 140px;">
                                     </div>
+                                    </a>
                                     <div class="subdiv_allinline right_con">
                                         <p class="ayi_name">习近平</p>
                                         <p class="con_a1">咨询人数：361</p>
                                         <p class="con_a1">从业时间：2年</p>
                                         <p class="haopinglv">评分: 4.5分</p>
-                                        <p class="ljyy_bt" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836" style="bottom:-15px;">
+                                        <p class="ljyy_bt" style="bottom:-15px;">
                                             <img class="ljyy_im" src="http://www.miayi.net/modules/AuntsList/pic/LiJiYuYue.png">
                                         </p>
                                     </div>
@@ -116,9 +118,11 @@
                             </li>
                             <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
                                 <div class="one_a_con div_allinline">
-                                    <div class="subdiv_allinline img_left" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836">
+                                    <a href="{{ url('mobile/consultant-details') }}">
+                                    <div class="subdiv_allinline img_left">
                                         <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2336393634,1720362053&fm=58" style="height: 140px;">
                                     </div>
+                                    </a>
                                     <div class="subdiv_allinline right_con">
                                         <p class="ayi_name">李克强</p>
                                         <p class="con_a1">咨询人数：361</p>
@@ -132,9 +136,11 @@
                             </li>
                             <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
                                 <div class="one_a_con div_allinline">
-                                    <div class="subdiv_allinline img_left" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836">
+                                    <a href="{{ url('mobile/consultant-details') }}">
+                                    <div class="subdiv_allinline img_left">
                                         <img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3579502762,2068146944&fm=58" style="height: 140px;">
                                     </div>
+                                    </a>
                                     <div class="subdiv_allinline right_con">
                                         <p class="ayi_name">张德江</p>
                                         <p class="con_a1">咨询人数：361</p>
@@ -164,9 +170,11 @@
                         <ul>
                             <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
                                 <div class="one_a_con div_allinline">
-                                    <div class="subdiv_allinline img_left" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836">
+                                    <a href="{{ url('mobile/shop-details') }}">
+                                    <div class="subdiv_allinline img_left">
                                         <img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3579502762,2068146944&fm=58" style="height: 140px;">
                                     </div>
+                                    </a>
                                     <div class="subdiv_allinline right_con">
                                         <p class="ayi_name">虎门-广东贷款网</p>
                                         <p class="con_a1">咨询电话：13800138000</p>
@@ -176,9 +184,11 @@
                             </li>
                             <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
                                 <div class="one_a_con div_allinline">
-                                    <div class="subdiv_allinline img_left" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836">
+                                    <a href="{{ url('mobile/shop-details') }}">
+                                    <div class="subdiv_allinline img_left">
                                         <img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3579502762,2068146944&fm=58" style="height: 140px;">
                                     </div>
+                                    </a>
                                     <div class="subdiv_allinline right_con">
                                         <p class="ayi_name">虎门-广东贷款网</p>
                                         <p class="con_a1">咨询电话：13800138000</p>

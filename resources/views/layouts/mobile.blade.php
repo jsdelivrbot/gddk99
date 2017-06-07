@@ -34,6 +34,23 @@
             line-height: 49px;
             color: #fff;
         }
+        .am-modal {
+            width: auto;
+            position: fixed;
+            display: none;
+            z-index: 1110;
+            left: 60%;
+            margin-left: -135px;
+            margin-top: 0;
+            top: 30%;
+            text-align: center;
+            border-radius: 0;
+            opacity: 0;
+            -webkit-transform: translate3d(0,0,0) scale(1.185);
+            transform: translate3d(0,0,0) scale(1.185);
+            -webkit-transition-property: -webkit-transform,opacity;
+            transition-property: transform,opacity;
+        }
     </style>
     @yield('style')
 </head>

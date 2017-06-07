@@ -18,6 +18,12 @@ Route::get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('index','Mobile\IndexController@index');
 
+// 顾客列表详情
+Route::prefix('mobile')->get('consultant-details','Mobile\ConsultantController@Index');
+
+// 门店列表详情
+Route::prefix('mobile')->get('shop-details','Mobile\ConsultantController@ShopDetails');
+
 // 内容页
 Route::prefix('mobile')->get('full-content','Mobile\IndexController@FullContent');
 
@@ -26,6 +32,9 @@ Route::prefix('mobile')->get('person-list','Mobile\IndexController@Person');
 
 // 推荐贷款，客户列表
 Route::prefix('mobile')->get('client-list','Mobile\ClientController@ClientList');
+
+// 网站建设服务页面
+Route::prefix('mobile')->get('serve','Mobile\OtherController@Index');
 
 
 // **************************** 后台端 *********************
