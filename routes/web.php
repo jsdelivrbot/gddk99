@@ -65,3 +65,13 @@ Route::prefix('admin')->get('consultant-del/{id}','Admin\ConsultantController@Co
 
 // 店铺列表
 Route::prefix('admin')->get('shop-list','Admin\ConsultantController@ShopList');
+// 店铺存储
+Route::prefix('admin')->get('shop-store','Admin\ConsultantController@ShopStore');
+// 店铺存储成功
+Route::prefix('admin')->post('shop-store','Admin\ConsultantController@ShopStoreOk');
+// 店铺编辑
+Route::prefix('admin')->get('shop-edit/{id}','Admin\ConsultantController@ShopEdit');
+// 店铺编辑成功
+Route::prefix('admin')->post('shop-edit','Admin\ConsultantController@ShopEditOk');
+// 顾问删除
+Route::prefix('admin')->get('shop-del/{id}','Admin\ConsultantController@ShopDel');

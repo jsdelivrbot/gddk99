@@ -5,7 +5,7 @@
         <div class="tpl-portlet-components">
             <div class="portlet-title">
                 <div class="caption font-green bold">
-                    <span class="am-icon-code"></span> 用户列表
+                    <span class="am-icon-code"></span> 门面列表
                 </div>
                 <div class="tpl-portlet-input tpl-fz-ml">
                     <div class="portlet-input input-small input-inline">
@@ -21,7 +21,7 @@
                     <div class="am-u-sm-12 am-u-md-6">
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
-                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                <a href="{{ url('admin/shop-store') }}" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</a>
                                 <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
                                 <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
                             </div>
@@ -60,70 +60,30 @@
                                     <th class="table-title">头像</th>
                                     <th class="table-title">姓名</th>
                                     <th class="table-title">手机号</th>
-                                    <th class="table-title">性别</th>
-                                    <th class="table-type">级别</th>
                                     <th class="table-date am-hide-sm-only">创建时间</th>
                                     <th class="table-set">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>15</td>
-                                    <td><a href="#"><img src="" alt="" width="50" height="30"></a></td>
-                                    <td>陈小龙</td>
-                                    <td class="am-hide-sm-only">13480731740</td>
-                                    <td class="am-hide-sm-only">男</td>
-                                    <td class="am-hide-sm-only">普通用户</td>
-                                    <td class="am-hide-sm-only">2017年6月6日</td>
-                                    <td>
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 详情</button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                @foreach($consultant as $val)
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>{{ $val['id'] }}</td>
+                                        <td><a href="javascript:void(0)"><img src="{{ url('build/uploads/'.$val['con_pic']) }}" alt="" width="50" height="30"></a></td>
+                                        <td>{{ $val['con_name'] }}</td>
+                                        <td class="am-hide-sm-only">{{ $val['con_tel'] }}</td>
+                                        <td class="am-hide-sm-only">{{ $val['updated_at'] }}</td>
+                                        <td>
+                                            <div class="am-btn-toolbar">
+                                                <div class="am-btn-group am-btn-group-xs">
+                                                    <a href="{{ url('admin/shop-edit',['id'=>$val['id']]) }}" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</a>
+                                                    <a href="#" class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 详情</a>
+                                                    <a href="{{ url('admin/shop-del',['id'=>$val['id']]) }}" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>15</td>
-                                    <td><a href="#"><img src="" alt="" width="50" height="30"></a></td>
-                                    <td>陈小龙</td>
-                                    <td class="am-hide-sm-only">13480731740</td>
-                                    <td class="am-hide-sm-only">男</td>
-                                    <td class="am-hide-sm-only">普通用户</td>
-                                    <td class="am-hide-sm-only">2017年6月6日</td>
-                                    <td>
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 详情</button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>15</td>
-                                    <td><a href="#"><img src="" alt="" width="50" height="30"></a></td>
-                                    <td>陈小龙</td>
-                                    <td class="am-hide-sm-only">13480731740</td>
-                                    <td class="am-hide-sm-only">男</td>
-                                    <td class="am-hide-sm-only">普通用户</td>
-                                    <td class="am-hide-sm-only">2017年6月6日</td>
-                                    <td>
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 详情</button>
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                             <div class="am-cf">
