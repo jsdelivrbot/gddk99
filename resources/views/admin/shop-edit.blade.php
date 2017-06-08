@@ -18,14 +18,14 @@
                         <fieldset>
                             <input type="hidden" name="con_id" value="{{ $consultant['id'] }}">
                         <div class="am-form-group" style="margin-bottom: 0;">
-                            <label for="con_pic" class="am-u-sm-3 am-form-label">上传头像</label>
+                            <label for="con_pic" class="am-u-sm-3 am-form-label">上传门面图片</label>
                             <div class="am-u-sm-9">
                                 <table class="am-table am-table-bordered">
                                     <tr>
                                         <td>
                                             <div class="am-form-group am-form-file" style="margin-bottom: 0;">
                                                 <button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                    <i class="am-icon-cloud-upload"></i> 选择上传头像</button>
+                                                    <i class="am-icon-cloud-upload"></i> 选择上传门面图片</button>
                                                 <input type="file" id="con_pic" name="con_pic" multiple>
                                             </div>
                                         </td>
@@ -48,9 +48,9 @@
                         </div>
 
                         <div class="am-form-group">
-                            <label for="con_name" class="am-u-sm-3 am-form-label">顾问姓名</label>
+                            <label for="con_name" class="am-u-sm-3 am-form-label">店铺名称</label>
                             <div class="am-u-sm-9">
-                                <input type="text" id="con_name" name="con_name" value="{{ $consultant['con_name'] }}" placeholder="输入顾问姓名" required>
+                                <input type="text" id="con_name" name="con_name" value="{{ $consultant['con_name'] }}" placeholder="输入店铺名称" required>
                             </div>
                         </div>
 
@@ -62,7 +62,7 @@
                                         <td>
                                             <div class="am-form-group am-form-file" style="margin-bottom: 0;">
                                                 <button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                    <i class="am-icon-cloud-upload"></i> 选择上传二维码</button>
+                                                    <i class="am-icon-cloud-upload"></i> 选择上传店铺二维码</button>
                                                 <input type="file" id="con_wx_pic" name="con_wx_pic" multiple>
                                             </div>
                                         </td>
@@ -85,23 +85,23 @@
                         </div>
 
                         <div class="am-form-group">
-                            <label for="con_tel" class="am-u-sm-3 am-form-label">顾客电话</label>
+                            <label for="con_tel" class="am-u-sm-3 am-form-label">店铺电话</label>
                             <div class="am-u-sm-9">
-                                <input type="text" id="con_tel" name="con_tel" value="{{ $consultant['con_tel'] }}" placeholder="输入顾客电话" required>
+                                <input type="text" id="con_tel" name="con_tel" value="{{ $consultant['con_tel'] }}" placeholder="输入店铺电话" required>
                             </div>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="con_person" class="am-u-sm-3 am-form-label">顾客咨询人数</label>
+                            <label for="con_person" class="am-u-sm-3 am-form-label">店铺咨询人数</label>
                             <div class="am-u-sm-9">
-                                <input type="text" id="con_person" name="con_person" value="{{ $consultant['con_person'] }}" placeholder="输入顾客咨询人数" required>
+                                <input type="text" id="con_person" name="con_person" value="{{ $consultant['con_person'] }}" placeholder="输入店铺咨询人数" required>
                             </div>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="con_time" class="am-u-sm-3 am-form-label">顾问从业时间</label>
+                            <label for="con_time" class="am-u-sm-3 am-form-label">店铺从业时间</label>
                             <div class="am-u-sm-9">
-                                <input type="text" id="con_time" name="con_time" value="{{ $consultant['con_time'] }}" placeholder="输入顾问从业时间" required>
+                                <input type="text" id="con_time" name="con_time" value="{{ $consultant['con_time'] }}" placeholder="输入店铺从业时间" required>
                             </div>
                         </div>
 
@@ -138,9 +138,9 @@
                         </div>
 
                         <div class="am-form-group">
-                            <label for="con_content" class="am-u-sm-3 am-form-label">个人介绍</label>
+                            <label for="con_content" class="am-u-sm-3 am-form-label">店铺介绍</label>
                             <div class="am-u-sm-9">
-                                <textarea class="" rows="5" id="con_content" name="con_content" placeholder="输入个人介绍" required>{{ $consultant['con_content'] }}</textarea>
+                                <textarea class="" rows="5" id="con_content" name="con_content" placeholder="输入店铺介绍" required>{{ $consultant['con_content'] }}</textarea>
                             </div>
                         </div>
 

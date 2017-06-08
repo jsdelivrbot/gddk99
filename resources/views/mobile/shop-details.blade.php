@@ -4,7 +4,7 @@
     <div class="pet_grzx">
         <div class="pet_grzx_nr">
             <div class="pet_grzx_ico">
-                <img src="{{ url('build/uploads/'.$shop['con_pic']) }}" alt="">
+                <img src="{{ url('build/uploads/'.$shop['con_pic']) }}" alt="" style="width: 200px; height:200px;">
             </div>
             <div class="pet_grzx_name"></div>
             <div class="pet_grzx_num_font"></div>
@@ -38,6 +38,14 @@
         <div class="pet_grzx_nr" style="padding-top: 0px;">
             <div class="pet_grzx_name" style="text-align: left">店铺介绍</div>
             <hr style="margin: 0;padding: 10px;">
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">店铺图片</div>
+                <div class="am-panel-bd">
+                    @foreach(unserialize($shop['con_pic_all']) as $list)
+                        <img src="{{ url('build/uploads/'.$list) }}" alt="" style="width: 100%; margin-top: 6px;">
+                    @endforeach
+                </div>
+            </div>
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">业务区域</div>
                 <div class="am-panel-bd">
