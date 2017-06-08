@@ -89,4 +89,30 @@ class WechatController extends Controller
         return $str;
     }
 
+    // 微信测试号菜单设置，到时注销
+    public function Menu(){
+        $options =Config::get('wechat');
+        $app = new Application($options);
+        $menu = $app->menu;
+        $buttons = [
+            [
+                "type" => "view",
+                "name" => "广东贷款网",
+                "url"  => "http://gddk99.tunnel.qydev.com"
+            ],
+            [
+                "type" => "view",
+                "name" => "贷款申请",
+                "url"  => "http://gddk99.tunnel.qydev.com/mobile/client-list"
+            ],
+            [
+                "type" => "view",
+                "name" => "个人中心",
+                "url"  => "http://gddk99.tunnel.qydev.com/mobile/person-list"
+            ],
+        ];
+        $menu->add($buttons);
+        //$menu->destroy();
+    }
+
 }

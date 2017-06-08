@@ -13,6 +13,16 @@
 
 // **************************** 微信端 *********************
 
+//微信提交Token验证
+Route::any('weixin', 'WechatController@serve');
+//微信登陆
+Route::any('login', 'WechatController@login');
+//微信获取授权
+Route::any('oauth_callback', 'WechatController@oauth_callback');
+
+//微信菜单导航
+Route::any('menu', 'WechatController@Menu');
+
 // 首页
 Route::get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('/','Mobile\IndexController@index');
