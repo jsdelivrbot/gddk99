@@ -1,6 +1,6 @@
 @extends('layouts.mobile')
 @section('content')
-@include('include.footer')
+@include('include.mobile.footer')
     <div class="pet_mian" id="top">
         <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{"directionNav":false}' >
             <ul class="am-slides">

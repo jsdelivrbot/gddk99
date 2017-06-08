@@ -48,3 +48,20 @@ Route::prefix('admin')->get('user-list','Admin\UserController@UserList');
 
 // 合伙关系列表
 Route::prefix('admin')->get('union-list','Admin\UserController@UnionList');
+
+// 顾问列表
+Route::prefix('admin')->get('consultant-list','Admin\ConsultantController@ConsultantList');
+// 顾问存储
+Route::prefix('admin')->get('consultant-store','Admin\ConsultantController@ConsultantStore');
+// 顾问存储成功
+Route::prefix('admin')->post('consultant-store','Admin\ConsultantController@ConsultantStoreOk');
+// 顾问编辑
+Route::prefix('admin')->get('consultant-edit/{id}','Admin\ConsultantController@ConsultantEdit');
+// 顾问编辑成功
+Route::prefix('admin')->post('consultant-edit','Admin\ConsultantController@ConsultantEditOk');
+// 顾问删除
+Route::prefix('admin')->get('consultant-del/{id}','Admin\ConsultantController@ConsultantDel');
+
+
+// 店铺列表
+Route::prefix('admin')->get('shop-list','Admin\ConsultantController@ShopList');

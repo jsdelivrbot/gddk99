@@ -22,6 +22,7 @@ class CreateConsultantsTable extends Migration
             $table->string('con_time')->nullable()->comment('顾问从业时间');
             $table->string('con_pf')->nullable()->comment('顾问评分');
             $table->string('con_tel')->nullable()->comment('顾问电话');
+            $table->string('con_wx_pic')->nullable()->comment('顾问微信号图片');
             $table->longText('con_content')->nullable()->comment('顾问内容介绍');
             $table->longText('con_content_area')->nullable()->comment('顾问内容区域');
             $table->longText('con_content_range')->nullable()->comment('顾问内容范围');

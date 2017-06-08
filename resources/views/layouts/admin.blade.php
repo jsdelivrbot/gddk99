@@ -217,6 +217,18 @@
                     </a>
                     <ul class="tpl-left-nav-sub-menu">
                         <li>
+                            <a href="{{ url('admin/consultant-list') }}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>顾问列表</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('admin/shop-list') }}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>店铺列表</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('admin/user-list') }}">
                                 <i class="am-icon-angle-right"></i>
                                 <span>行业资讯</span>
