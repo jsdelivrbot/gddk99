@@ -4,9 +4,9 @@
     <div class="pet_grzx">
         <div class="pet_grzx_nr">
             <div class="pet_grzx_ico">
-                <img src="{{ url('build/img/bb.jpg') }}" alt="">
+                <img src="{{ url('build/uploads/'.$member[0]['member_avatar']) ? $member[0]['wechat_headimgurl'] : url('build/uploads/'.$member[0]['member_avatar'])}}" alt="">
             </div>
-            <div class="pet_grzx_name">陈占译</div>
+            <div class="pet_grzx_name">{{ $member[0]['member_name'] or '无' }}</div>
 
             <div class="pet_grzx_num_font">
                 <button type="button" class="am-btn am-btn-success am-btn-block"data-am-modal="{target: '#my-alert'}">获取二维码名片</button>
@@ -14,7 +14,7 @@
                 <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
                     <div class="am-modal-dialog">
                         <div class="am-modal-bd">
-                            <img src="{{ url('build/img/bb.jpg') }}" alt="">
+                            <img src="{{ asset('build/uploads/qrcode'.$member[0]['member_id'] .'.png') }}" alt="" style="width: 170px; height:170px;">
                         </div>
                         <div class="am-modal-footer">
                             <span class="am-modal-btn">确定</span>
@@ -24,7 +24,7 @@
             </div>
 
             <div class="pet_grzx_num_font">
-                我坐在水屋下边的平台看着大海，吹着海风，真的是太喜欢了。夜晚有好多小白鲨鱼，好多种鱼。
+                {{ $member[0]['member_content'] or '这个家伙很懒，什么都没有留下' }}
             </div>
             <div class="pet_grzx_num">
                 <span>653<i>喜欢</i></span>

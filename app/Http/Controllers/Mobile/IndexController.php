@@ -18,7 +18,4 @@ class IndexController extends Controller
         return view('mobile.full-content');
     }
 
-    public function Person(){
-        return view('mobile.person-list');
-    }
 }

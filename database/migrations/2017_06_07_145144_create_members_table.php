@@ -17,7 +17,7 @@ class CreateMembersTable extends Migration
             $table->increments('member_id')->comment('会员ID');
             $table->string('member_name')->nullable()->comment('会员名称');
             $table->string('member_avatar')->nullable()->comment('会员头像');
-            $table->string('password')->comment('会员密码');
+            $table->string('password')->nullable()->comment('会员密码');
             $table->string('member_surname')->nullable()->comment('姓名');
             $table->string('member_content')->nullable()->comment('个人介绍');
             $table->string('member_age')->nullable()->comment('年龄');
@@ -36,7 +36,7 @@ class CreateMembersTable extends Migration
             //微信表
             $table->string('wechat_openid')->unique()->comment('微信ID');
             $table->string('wechat_nickname')->nullable()->comment('微信昵称');
-            $table->string('wechat_headimgurl')->nullable()->comment('微信头像');
+            $table->text('wechat_headimgurl')->nullable()->comment('微信头像');
 
         });
     }

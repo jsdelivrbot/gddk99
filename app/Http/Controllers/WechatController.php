@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Member;
 use Illuminate\Http\Request;
 use EasyWeChat\Foundation\Application;
 use Illuminate\Support\Facades\Config;
@@ -46,9 +47,11 @@ class WechatController extends Controller
     //第一步:写登陆授权获取用户信息保存到SESSION中，并且跳转登陆访问
     public function oauth_callback(){
         $oauth = $this->config();
+
         // 获取 OAuth 授权结果用户信息
-        $user = $oauth->user();
-        session(['wechat_user_session' => $user->toArray()]);
+        $member = $oauth->user();
+        session(['wechat_user_session' => $member->toArray()]);
+
         //第三步:采用SESSION获取用户openID查询用户详细信息，并且保存数据库，跳转登陆成功！
         $sess = session('wechat_user_session');
         $openId =$sess['id'];
@@ -56,25 +59,25 @@ class WechatController extends Controller
         $app = new Application($options);
         $userService = $app->user;
         $res = $userService->get($openId)->toArray();
+
         //查询数据当前用户OPENID是否存在，如果存在直接跳转，不存在添加数据跳转
-        $row = User::where('wechat_openid',$res['openid'])->first();
+        $row = Member::where('wechat_openid',$res['openid'])->first();
         if (isset($row)){
             $data_row[] = $row->toArray();
             session(['wechat_user' =>$data_row]);
         }else{
-            //添加User数据
-            $user = new User();
-            $user->wechat_openid = $res['openid'];
-            $user->wechat_nickname = $res['nickname'];
-            $user->user_sex = $res['sex'];
-            //$user->wechat_headimgurl = $this->filterEmoji($res['nickname']);
-            $user->wechat_headimgurl = '永盟投资';
-            $user->user_type = User::USER_TYPE_WECHAT;
-            $user->save();
-            $data_user[] = $user->getQueueableId();
-            session(['wechat_user' =>$data_user]);
+            //添加Member数据
+            $mem = new Member();
+            $mem->wechat_openid = $res['openid'];
+            $mem->wechat_nickname = $this->filterEmoji($res['nickname']);
+            $mem->member_sex = $res['sex'];
+            $mem->wechat_headimgurl =$res['headimgurl'];
+            $mem->member_type = 1;
+            $mem->save();
+            $data_member[] = $mem->getQueueableId();
+            session(['wechat_user' =>$data_member]);
         }
-        return redirect('/index');
+        return redirect('/mobile/index');
     }
 
     // 过滤掉emoji表情

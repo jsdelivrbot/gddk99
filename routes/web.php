@@ -37,8 +37,15 @@ Route::prefix('mobile')->get('shop-details/{id}','Mobile\ConsultantController@Sh
 // 内容页
 Route::prefix('mobile')->get('full-content','Mobile\IndexController@FullContent');
 
-// 个人列表
-Route::prefix('mobile')->get('person-list','Mobile\IndexController@Person');
+// 会员个人列表
+Route::prefix('mobile')->middleware('active.nav')->get('/person-list','Mobile\MemberController@Person');
+
+//会员用户二维码页面
+Route::prefix('mobile')->middleware('active.nav')->get('/member-user-qrcode','MobileMemberController@userQrcode');
+
+//会员用户扫码跳转页面
+Route::prefix('mobile')->middleware('active.nav')->get('/member-user-invite','MobileMemberController@userInvite');
+Route::prefix('mobile')->middleware('active.nav')->post('/member-user-invite','MobileMemberController@userInviteStore');
 
 // 推荐贷款，客户列表
 Route::prefix('mobile')->get('client-list','Mobile\ClientController@ClientList');
@@ -56,8 +63,11 @@ Route::prefix('admin')->get('index','Admin\IndexController@Index');
 // 用户列表
 Route::prefix('admin')->get('user-list','Admin\UserController@UserList');
 
+// 会员列表
+Route::prefix('admin')->get('member-list','Admin\MemberController@MemberList');
+
 // 合伙关系列表
-Route::prefix('admin')->get('union-list','Admin\UserController@UnionList');
+Route::prefix('admin')->get('union-list','Admin\MemberController@UnionList');
 
 // 顾问列表
 Route::prefix('admin')->get('consultant-list','Admin\ConsultantController@ConsultantList');

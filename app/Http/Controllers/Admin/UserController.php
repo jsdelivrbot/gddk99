@@ -11,7 +11,4 @@ class UserController extends Controller
         return view('admin.user-list');
     }
 
-    public function UnionList(){
-        return view('admin.union-list');
-    }
 }

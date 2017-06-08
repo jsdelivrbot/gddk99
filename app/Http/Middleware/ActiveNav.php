@@ -16,7 +16,7 @@ class ActiveNav
     public function handle($request, Closure $next)
     {
         if(!session('wechat_user')){
-            return redirect('wechat-login');
+            return redirect('/mobile/index');
         }
         return $next($request);
     }

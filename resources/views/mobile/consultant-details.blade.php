@@ -13,7 +13,7 @@
                 <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
                     <div class="am-modal-dialog">
                         <div class="am-modal-bd">
-                            <img src="{{ url('build/uploads/'.$consultant['con_wx_pic']) }}" alt="">
+                            <img src="{{ url('build/uploads/'.$consultant['con_wx_pic']) }}" alt="" style="width: 160px; height: 160px;">
                         </div>
                         <div class="am-modal-footer">
                             <span class="am-modal-btn">确定</span>
