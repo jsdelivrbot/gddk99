@@ -98,60 +98,28 @@
                     </ul>
                     <div class="am-tabs-bd pet_pl_list">
                         <ul>
+                            @foreach($consultant as $con_val)
                             <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
                                 <div class="one_a_con div_allinline">
-                                    <a href="{{ url('mobile/consultant-details') }}">
+                                    <a href="{{ url('mobile/consultant-details',['id'=>$con_val]) }}">
                                     <div class="subdiv_allinline img_left">
-                                        <img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3803512966,1757656304&fm=58" style="height: 140px;">
+                                        <img src="{{ url('build/uploads/'.$con_val['con_pic']) }}" style="height: 140px;">
                                     </div>
                                     </a>
                                     <div class="subdiv_allinline right_con">
-                                        <p class="ayi_name">习近平</p>
-                                        <p class="con_a1">咨询人数：361</p>
-                                        <p class="con_a1">从业时间：2年</p>
+                                        <p class="ayi_name">{{ $con_val['con_name'] }}</p>
+                                        <p class="con_a1">咨询人数：{{ $con_val['con_person'] }}</p>
+                                        <p class="con_a1">从业时间：{{ $con_val['con_time'] }}</p>
                                         <p class="haopinglv">评分: 4.5分</p>
+                                        <a href="tel:{{ $con_val['con_tel'] }}">
                                         <p class="ljyy_bt" style="bottom:-15px;">
                                             <img class="ljyy_im" src="http://www.miayi.net/modules/AuntsList/pic/LiJiYuYue.png">
                                         </p>
+                                        </a>
                                     </div>
                                 </div>
                             </li>
-                            <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
-                                <div class="one_a_con div_allinline">
-                                    <a href="{{ url('mobile/consultant-details') }}">
-                                    <div class="subdiv_allinline img_left">
-                                        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2336393634,1720362053&fm=58" style="height: 140px;">
-                                    </div>
-                                    </a>
-                                    <div class="subdiv_allinline right_con">
-                                        <p class="ayi_name">李克强</p>
-                                        <p class="con_a1">咨询人数：361</p>
-                                        <p class="con_a1">从业时间：2年</p>
-                                        <p class="haopinglv">评分: 4.5分</p>
-                                        <p class="ljyy_bt" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836" style="bottom:-15px;">
-                                            <img class="ljyy_im" src="http://www.miayi.net/modules/AuntsList/pic/LiJiYuYue.png">
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
-                                <div class="one_a_con div_allinline">
-                                    <a href="{{ url('mobile/consultant-details') }}">
-                                    <div class="subdiv_allinline img_left">
-                                        <img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3579502762,2068146944&fm=58" style="height: 140px;">
-                                    </div>
-                                    </a>
-                                    <div class="subdiv_allinline right_con">
-                                        <p class="ayi_name">张德江</p>
-                                        <p class="con_a1">咨询人数：361</p>
-                                        <p class="con_a1">从业时间：2年</p>
-                                        <p class="haopinglv">评分: 4.5分</p>
-                                        <p class="ljyy_bt" urlt="http://admin.miayi.net/modules/WX_MAY/?id=201702280857321836" style="bottom:-15px;">
-                                            <img class="ljyy_im" src="http://www.miayi.net/modules/AuntsList/pic/LiJiYuYue.png">
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -168,34 +136,22 @@
                     </ul>
                     <div class="am-tabs-bd pet_pl_list">
                         <ul>
+                            @foreach($shop as $conVal)
                             <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
                                 <div class="one_a_con div_allinline">
-                                    <a href="{{ url('mobile/shop-details') }}">
+                                    <a href="{{ url('mobile/shop-details',['id'=>$conVal['id']]) }}">
                                     <div class="subdiv_allinline img_left">
-                                        <img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3579502762,2068146944&fm=58" style="height: 140px;">
+                                        <img src="{{ url('build/uploads/'.$conVal['con_pic']) }}" style="width:120px; height: 140px;">
                                     </div>
                                     </a>
                                     <div class="subdiv_allinline right_con">
-                                        <p class="ayi_name">虎门-广东贷款网</p>
-                                        <p class="con_a1">咨询电话：13800138000</p>
-                                        <p class="con_a1">店面地址：虎门销烟路口188号</p>
+                                        <p class="ayi_name">{{ $conVal['con_name'] }}</p>
+                                        <p class="con_a1">咨询电话：{{ $conVal['con_tel'] }}</p>
+                                        <p class="con_a1">店面地址：{{ $conVal['con_add'] }}</p>
                                     </div>
                                 </div>
                             </li>
-                            <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
-                                <div class="one_a_con div_allinline">
-                                    <a href="{{ url('mobile/shop-details') }}">
-                                    <div class="subdiv_allinline img_left">
-                                        <img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3579502762,2068146944&fm=58" style="height: 140px;">
-                                    </div>
-                                    </a>
-                                    <div class="subdiv_allinline right_con">
-                                        <p class="ayi_name">虎门-广东贷款网</p>
-                                        <p class="con_a1">咨询电话：13800138000</p>
-                                        <p class="con_a1">店面地址：虎门销烟路口188号</p>
-                                    </div>
-                                </div>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

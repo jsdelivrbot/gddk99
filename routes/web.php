@@ -19,10 +19,10 @@ Route::prefix('mobile')->get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('index','Mobile\IndexController@index');
 
 // 顾客列表详情
-Route::prefix('mobile')->get('consultant-details','Mobile\ConsultantController@Index');
+Route::prefix('mobile')->get('consultant-details/{id}','Mobile\ConsultantController@Index');
 
 // 门店列表详情
-Route::prefix('mobile')->get('shop-details','Mobile\ConsultantController@ShopDetails');
+Route::prefix('mobile')->get('shop-details/{id}','Mobile\ConsultantController@ShopDetails');
 
 // 内容页
 Route::prefix('mobile')->get('full-content','Mobile\IndexController@FullContent');
