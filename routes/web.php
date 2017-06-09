@@ -59,8 +59,8 @@ Route::prefix('mobile')->get('serve','Mobile\OtherController@Index');
 // **************************** 后台端 *********************
 
 // 首页
-Route::prefix('admin')->get('/','Admin\IndexController@Index');
-Route::prefix('admin')->get('index','Admin\IndexController@Index');
+Route::prefix('admin')->middleware('admin.login')->get('/','Admin\IndexController@Index');
+Route::prefix('admin')->middleware('admin.login')->get('index','Admin\IndexController@Index');
 
 // 用户列表
 Route::prefix('admin')->get('user-list','Admin\UserController@UserList');
