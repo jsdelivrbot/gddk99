@@ -6,23 +6,29 @@ use App\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Session;
 
 class MemberController extends Controller
 {
-    public function Person(){
-        $id= session('wechat_user');
+    public function Person(Request $request){
+        $url ='http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+        session(['http_url' => $url]);
+        $id= Session::get('wechat_user');
         $member = Member::find($id);
+        if (!empty($member)){
+            Session::forget('wechat_user_session');
+            Session::forget('wechat_user');
+        }
 
         // 生成二维码
         $qrcode_pictrue = public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png');
         if(!file_exists($qrcode_pictrue)){
-            $url= 'http://gddk99.tunnel.qydev.com/user-invite?member_parent_id='.$member[0]['member_id'];
+            $url='http://'.$request->getHttpHost().'/user-invite?member_parent_id='.$member[0]['member_id'];
             QrCode::encoding('UTF-8')->format('png')->size(300)->generate($url,public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png'));
         }
-
         return view('mobile.person-list',['member' => $member]);
-    }
 
+    }
 
     public function userInvite(Request $request)
     {

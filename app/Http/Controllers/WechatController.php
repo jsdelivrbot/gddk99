@@ -77,6 +77,9 @@ class WechatController extends Controller
             $data_member[] = $mem->getQueueableId();
             session(['wechat_user' =>$data_member]);
         }
+        if (session()->has('http_url')){
+            return redirect(session('http_url'));
+        }
         return redirect('/mobile/index');
     }
 
