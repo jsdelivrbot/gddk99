@@ -6,7 +6,7 @@
             <div class="pet_grzx_ico">
                 <img src="{{ url('build/uploads/'.$consultant['con_pic']) }}" alt="">
             </div>
-            <div class="pet_grzx_name">陈经理</div>
+            <div class="pet_grzx_name">{{ $consultant['con_name'] }}</div>
             <div class="pet_grzx_num_font">
                 <button type="button" class="am-btn am-btn-default am-radius"data-am-modal="{target: '#my-alert'}">点击获取二维码加微信</button>
 
