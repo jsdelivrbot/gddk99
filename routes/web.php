@@ -11,6 +11,11 @@
 |
 */
 
+// **************************** PC端 *********************
+
+Route::get('/','Home\IndexController@index');
+
+
 // **************************** 微信端 *********************
 
 //微信提交Token验证
@@ -24,7 +29,7 @@ Route::any('oauth_callback', 'WechatController@oauth_callback');
 Route::any('menu', 'WechatController@Menu');
 
 // 首页
-Route::get('/','Mobile\IndexController@index');
+//Route::get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('index','Mobile\IndexController@index');
 
