@@ -40,9 +40,6 @@ Route::prefix('mobile')->get('full-content','Mobile\IndexController@FullContent'
 // 会员个人列表
 Route::prefix('mobile')->middleware('active.nav')->get('/person-list','Mobile\MemberController@Person');
 
-//会员用户二维码页面
-Route::prefix('mobile')->middleware('active.nav')->get('/member-user-qrcode','MobileMemberController@userQrcode');
-
 //会员用户扫码跳转页面
 Route::prefix('mobile')->middleware('active.nav')->get('/member-user-invite','MobileMemberController@userInvite');
 Route::prefix('mobile')->middleware('active.nav')->post('/member-user-invite','MobileMemberController@userInviteStore');

@@ -17,7 +17,7 @@ class CreateConsultantsTable extends Migration
             $table->increments('id');
             $table->string('con_name')->nullable()->comment('顾问姓名');
             $table->string('con_pic')->nullable()->comment('顾问照片');
-            $table->text('con_pic_all')->nullable()->comment('多张照片');
+            $table->longText('con_pic_all')->nullable()->comment('多张照片');
             $table->string('con_person')->nullable()->comment('顾问咨询人数');
             $table->string('con_time')->nullable()->comment('顾问从业时间');
             $table->string('con_pf')->nullable()->comment('顾问评分');
