@@ -70,13 +70,13 @@ class ConsultantController extends Controller
 
     public function ConsultantEditOk(Request $request){
         $conId = $request->get('con_id');
-        $conPic = $request->file('con_pic');
         $conName = $request->get('con_name');
-        $conWxPic = $request->file('con_wx_pic');
-        $conTel = $request->get('con_tel');
+        $conPic = $request->file('con_pic');
+        $conPicAll = $request->file('con_pic_all');
         $conPerson = $request->get('con_person');
         $conTime = $request->get('con_time');
-        $conPicAll = $request->file('con_pic_all');
+        $conTel = $request->get('con_tel');
+        $conWxPic = $request->file('con_wx_pic');
         $conContent = $request->get('con_content');
         $conContentArea = $request->get('con_content_area');
         $conContentRange = $request->get('con_content_range');
@@ -84,80 +84,67 @@ class ConsultantController extends Controller
 
         if($request->isMethod('POST'))
         {
-            $file = $conPic;
-            $filewx = $conWxPic;
-            $fileall =$conPicAll;
 
-            // 上传多个图片方法--更新
-            if ($fileall){
-                foreach ($fileall as $file_val){
-                    $ext_all = $file_val->getClientOriginalExtension();
-                    $realPath_all = $file_val->getRealPath();
-                    $filename_all = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext_all;
-                    Storage::disk('uploads')->put($filename_all,file_get_contents($realPath_all));
-                    $filename_all_array[] =$filename_all;
-                }
-                $filename_all_store = serialize($filename_all_array);
+            $pic = new Common();
+            $av_pic = $pic->FileOne($conPic);
+            $wx = $pic->FileOne($conWxPic);
+            $all_pic = $pic->FileAll($conPicAll);
+
+            if(empty($av_pic) && empty($wx) && empty($all_pic)){
+
                 $consultant = Consultant::find($conId);
-
-                foreach (unserialize($consultant['con_pic_all']) as $basicList){
-                    if(!empty($basicList)){
-                        $images = public_path('build/uploads/') . $basicList;
-                        if (file_exists ($images )) {
-                            unlink ($images);
-                        }
-                    }
-                }
-            }else{
-                $consultant = Consultant::find($conId);
-                $filename_all_store = $consultant['con_pic_all'];
-            }
-
-            // 上传单个图片方法
-            if($file)
-            {
-                $ext = $file->getClientOriginalExtension();
-                $realPath = $file->getRealPath();
-                $filename = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;
-                Storage::disk('uploads')->put($filename,file_get_contents($realPath));
-
-                $ext_wx = $filewx->getClientOriginalExtension();
-                $realPath_wx = $filewx->getRealPath();
-                $filename_wx = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext_wx;
-                Storage::disk('uploads')->put($filename_wx,file_get_contents($realPath_wx));
-
-                //实例化，保存数据
-                $consultant = Consultant::find($conId);
-                if(!empty($consultant['con_pic'])){
-                    $images = public_path('build/uploads/') . $consultant['con_pic'];
-                    if (file_exists ($images )) {
-                        unlink ($images);
-                    }
-                }
-                if(!empty($consultant['con_wx_pic'])){
-                    $images = public_path('build/uploads/') . $consultant['con_wx_pic'];
-                    if (file_exists ($images )) {
-                        unlink ($images);
-                    }
-                }
-                $consultant ->con_pic = $filename;
                 $consultant ->con_name = $conName;
-                $consultant ->con_wx_pic = $filename_wx;
-                $consultant ->con_tel = $conTel;
                 $consultant ->con_person = $conPerson;
                 $consultant ->con_time = $conTime;
-                $consultant ->con_pic_all = $filename_all_store;
+                $consultant ->con_tel = $conTel;
                 $consultant ->con_content = $conContent;
                 $consultant ->con_content_area = $conContentArea;
                 $consultant ->con_content_range = $conContentRange;
                 $consultant ->con_add = $conAdd;
                 $consultant ->save();
+
             }else{
+
                 $consultant = Consultant::find($conId);
+
+                if (isset($conPic)){
+                    if(!empty($consultant['con_pic'])){
+                        $images = public_path('build/uploads/') . $consultant['con_pic'];
+                        if (file_exists ($images )) {
+                            unlink ($images);
+                        }
+                    }
+                }
+
+                if (isset($conPicAll)){
+                    if (!$consultant['con_pic_all']==""){
+                        foreach (unserialize($consultant['con_pic_all']) as $basicList){
+                            if(!empty($basicList)){
+                                $images = public_path('build/uploads/') . $basicList;
+                                if (file_exists ($images )) {
+                                    unlink ($images);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (isset($conWxPic)){
+                    if(!empty($consultant['con_wx_pic'])){
+                        $images = public_path('build/uploads/') . $consultant['con_wx_pic'];
+                        if (file_exists ($images )) {
+                            unlink ($images);
+                        }
+                    }
+                }
+
                 $consultant ->con_name = $conName;
-                $consultant ->con_tel = $conTel;
+                $consultant ->con_pic = empty($av_pic)? $consultant['con_pic'] :$av_pic;
+                $consultant ->con_pic_all = empty($all_pic)? $consultant['con_pic_all'] :$all_pic;
                 $consultant ->con_person = $conPerson;
                 $consultant ->con_time = $conTime;
+                $consultant ->con_tel = $conTel;
+                $consultant ->con_wx_pic = empty($wx)? $consultant['con_wx_pic'] :$wx;
                 $consultant ->con_content = $conContent;
                 $consultant ->con_content_area = $conContentArea;
                 $consultant ->con_content_range = $conContentRange;
@@ -170,18 +157,18 @@ class ConsultantController extends Controller
 
     public function ConsultantDel($id){
         $conId =Consultant::find($id);
+        if(!empty($conId['con_pic'])){
+            $images = public_path('build/uploads/') . $conId['con_pic'];
+            if (file_exists ($images )) {
+                unlink ($images);
+            }
+        }
         foreach (unserialize($conId['con_pic_all']) as $basicList){
             if(!empty($basicList)){
                 $images = public_path('build/uploads/') . $basicList;
                 if (file_exists ($images )) {
                     unlink ($images);
                 }
-            }
-        }
-        if(!empty($conId['con_pic'])){
-            $images = public_path('build/uploads/') . $conId['con_pic'];
-            if (file_exists ($images )) {
-                unlink ($images);
             }
         }
         if(!empty($conId['con_wx_pic'])){
@@ -205,7 +192,6 @@ class ConsultantController extends Controller
     }
 
     public function ShopStoreOk(Request $request){
-
 
         $conName = $request->get('con_name');
         $conPic = $request->file('con_pic');
@@ -254,13 +240,13 @@ class ConsultantController extends Controller
 
     public function ShopEditOk(Request $request){
         $conId = $request->get('con_id');
-        $conPic = $request->file('con_pic');
         $conName = $request->get('con_name');
-        $conWxPic = $request->file('con_wx_pic');
-        $conTel = $request->get('con_tel');
+        $conPic = $request->file('con_pic');
+        $conPicAll = $request->file('con_pic_all');
         $conPerson = $request->get('con_person');
         $conTime = $request->get('con_time');
-        $conPicAll = $request->file('con_pic_all');
+        $conTel = $request->get('con_tel');
+        $conWxPic = $request->file('con_wx_pic');
         $conContent = $request->get('con_content');
         $conContentArea = $request->get('con_content_area');
         $conContentRange = $request->get('con_content_range');
@@ -268,80 +254,67 @@ class ConsultantController extends Controller
 
         if($request->isMethod('POST'))
         {
-            $file = $conPic;
-            $filewx = $conWxPic;
-            $fileall =$conPicAll;
 
-            // 上传多个图片方法--更新
-            if ($fileall){
-                foreach ($fileall as $file_val){
-                    $ext_all = $file_val->getClientOriginalExtension();
-                    $realPath_all = $file_val->getRealPath();
-                    $filename_all = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext_all;
-                    Storage::disk('uploads')->put($filename_all,file_get_contents($realPath_all));
-                    $filename_all_array[] =$filename_all;
-                }
-                $filename_all_store = serialize($filename_all_array);
+            $pic = new Common();
+            $av_pic = $pic->FileOne($conPic);
+            $wx = $pic->FileOne($conWxPic);
+            $all_pic = $pic->FileAll($conPicAll);
+
+            if(empty($av_pic) && empty($wx) && empty($all_pic)){
+
                 $consultant = Consultant::find($conId);
-
-                foreach (unserialize($consultant['con_pic_all']) as $basicList){
-                    if(!empty($basicList)){
-                        $images = public_path('build/uploads/') . $basicList;
-                        if (file_exists ($images )) {
-                            unlink ($images);
-                        }
-                    }
-                }
-            }else{
-                $consultant = Consultant::find($conId);
-                $filename_all_store = $consultant['con_pic_all'];
-            }
-
-            // 上传单个图片方法
-            if($file)
-            {
-                $ext = $file->getClientOriginalExtension();
-                $realPath = $file->getRealPath();
-                $filename = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;
-                Storage::disk('uploads')->put($filename,file_get_contents($realPath));
-
-                $ext_wx = $filewx->getClientOriginalExtension();
-                $realPath_wx = $filewx->getRealPath();
-                $filename_wx = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext_wx;
-                Storage::disk('uploads')->put($filename_wx,file_get_contents($realPath_wx));
-
-                //实例化，保存数据
-                $consultant = Consultant::find($conId);
-                if(!empty($consultant['con_pic'])){
-                    $images = public_path('build/uploads/') . $consultant['con_pic'];
-                    if (file_exists ($images )) {
-                        unlink ($images);
-                    }
-                }
-                if(!empty($consultant['con_wx_pic'])){
-                    $images = public_path('build/uploads/') . $consultant['con_wx_pic'];
-                    if (file_exists ($images )) {
-                        unlink ($images);
-                    }
-                }
-                $consultant ->con_pic = $filename;
                 $consultant ->con_name = $conName;
-                $consultant ->con_wx_pic = $filename_wx;
-                $consultant ->con_tel = $conTel;
                 $consultant ->con_person = $conPerson;
                 $consultant ->con_time = $conTime;
-                $consultant ->con_pic_all = $filename_all_store;
+                $consultant ->con_tel = $conTel;
                 $consultant ->con_content = $conContent;
                 $consultant ->con_content_area = $conContentArea;
                 $consultant ->con_content_range = $conContentRange;
                 $consultant ->con_add = $conAdd;
                 $consultant ->save();
+
             }else{
+
                 $consultant = Consultant::find($conId);
+
+                if (isset($conPic)){
+                    if(!empty($consultant['con_pic'])){
+                        $images = public_path('build/uploads/') . $consultant['con_pic'];
+                        if (file_exists ($images )) {
+                            unlink ($images);
+                        }
+                    }
+                }
+
+                if (isset($conPicAll)){
+                    if (!$consultant['con_pic_all']==""){
+                        foreach (unserialize($consultant['con_pic_all']) as $basicList){
+                            if(!empty($basicList)){
+                                $images = public_path('build/uploads/') . $basicList;
+                                if (file_exists ($images )) {
+                                    unlink ($images);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (isset($conWxPic)){
+                    if(!empty($consultant['con_wx_pic'])){
+                        $images = public_path('build/uploads/') . $consultant['con_wx_pic'];
+                        if (file_exists ($images )) {
+                            unlink ($images);
+                        }
+                    }
+                }
+
                 $consultant ->con_name = $conName;
-                $consultant ->con_tel = $conTel;
+                $consultant ->con_pic = empty($av_pic)? $consultant['con_pic'] :$av_pic;
+                $consultant ->con_pic_all = empty($all_pic)? $consultant['con_pic_all'] :$all_pic;
                 $consultant ->con_person = $conPerson;
                 $consultant ->con_time = $conTime;
+                $consultant ->con_tel = $conTel;
+                $consultant ->con_wx_pic = empty($wx)? $consultant['con_wx_pic'] :$wx;
                 $consultant ->con_content = $conContent;
                 $consultant ->con_content_area = $conContentArea;
                 $consultant ->con_content_range = $conContentRange;
@@ -354,18 +327,18 @@ class ConsultantController extends Controller
 
     public function ShopDel($id){
         $conId =Consultant::find($id);
+        if(!empty($conId['con_pic'])){
+            $images = public_path('build/uploads/') . $conId['con_pic'];
+            if (file_exists ($images )) {
+                unlink ($images);
+            }
+        }
         foreach (unserialize($conId['con_pic_all']) as $basicList){
             if(!empty($basicList)){
                 $images = public_path('build/uploads/') . $basicList;
                 if (file_exists ($images )) {
                     unlink ($images);
                 }
-            }
-        }
-        if(!empty($conId['con_pic'])){
-            $images = public_path('build/uploads/') . $conId['con_pic'];
-            if (file_exists ($images )) {
-                unlink ($images);
             }
         }
         if(!empty($conId['con_wx_pic'])){

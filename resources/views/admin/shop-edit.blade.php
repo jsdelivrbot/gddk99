@@ -40,7 +40,9 @@
                                 <table class="am-table am-table-bordered">
                                     <tr>
                                         <td>
-                                            <img src="{{ url('build/uploads/'.$consultant['con_pic']) }}" alt="" width="160" height="140">
+                                            @if(!empty($consultant['con_pic']))
+                                                <img src="{{ url('build/uploads/'.$consultant['con_pic']) }}" alt="" width="160" height="140">
+                                            @endif
                                         </td>
                                     </tr>
                                 </table>
@@ -77,7 +79,9 @@
                                 <table class="am-table am-table-bordered">
                                     <tr>
                                         <td>
-                                            <img src="{{ url('build/uploads/'.$consultant['con_wx_pic']) }}" alt="" width="160" height="140">
+                                            @if(!empty($consultant['con_wx_pic']))
+                                                <img src="{{ url('build/uploads/'.$consultant['con_wx_pic']) }}" alt="" width="160" height="140">
+                                            @endif
                                         </td>
                                     </tr>
                                 </table>
@@ -128,9 +132,11 @@
                                 <table class="am-table am-table-bordered">
                                     <tr>
                                         <td>
+                                            @if(!empty($consultant['con_pic_all']))
                                             @foreach(unserialize($consultant['con_pic_all']) as $list)
                                                 <img src="{{ url('build/uploads/'.$list) }}" alt="" style="width: 147px; height:130px; margin-top: 6px;">
                                             @endforeach
+                                            @endif
                                         </td>
                                     </tr>
                                 </table>
