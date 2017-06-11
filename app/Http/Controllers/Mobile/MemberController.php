@@ -32,17 +32,19 @@ class MemberController extends Controller
     public function MemberUserInvite(Request $request)
     {
         // http://gddk99.tunnel.qydev.com/mobile/member-user-invite?member_parent_id=41
-        dd($request->get('member_parent_id'));
-
-        $user_parent_id = $request->get('user_parent_id');
-        return view('wechat.user-invite',['user_parent_id'=>$user_parent_id]);
+        $member_parent_id = $request->get('member_parent_id');
+        return view('mobile.member-user-invite',['member_parent_id'=>$member_parent_id]);
     }
 
     public function MemberUserInviteStore(Request $request){
-        $user = User::find($request->get('user_id'));
-        $user->user_parent_id = $request->get('user_parent_id');
-        $user->save();
-        return redirect('user-list');
+        $member = Member::find($request->get('member_id'));
+        $member-> member_parent_id = $request->get('member_parent_id');
+
+        if ($member ->save()){
+            return redirect('mobile/person-list')->with('message', '1');
+        }else{
+            return redirect('mobile/person-list')->with('message', '0');
+        }
     }
 
 }

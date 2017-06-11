@@ -50,3 +50,21 @@
     </div>
 
 @endsection
+
+@section('script')
+    @if(Session::has('message'))
+        @if(Session::get('message')==1)
+            <script>
+                layer.open({
+                    type: 1,
+                    title: false,
+                    skin:'layui-layer-demo',
+                    area: ['78%', '18%'],
+                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，关联成功！</div><div class="am-panel-bd">我们一起共赢</div></div>'
+                });
+            </script>
+        @elseif(Session::get('message')==0)
+            <script>layer.msg('关联失败！', {icon: 5}); </script>
+        @endif
+    @endif
+@endsection
