@@ -17,7 +17,7 @@
 
             <div class="am-form-group">
                 <label for="info_sex">姓名</label>
-                <select id="info_sex" name="info_sex" >
+                <select id="info_sex" name="info_sex" required>
                     <option value="">选择性别</option>
                     <option value="1">男</option>
                     <option value="2">女</option>
