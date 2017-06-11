@@ -40,14 +40,7 @@
 
         </fieldset>
     {!! Form::close() !!}
-        <div id="tong">
-            <div class="am-panel am-panel-primary">
-                <div class="am-panel-hd">恭喜，申请成功！</div>
-                <div class="am-panel-bd">
-                    您好！请保持电话畅通，稍后客服人员与你联络。
-                </div>
-            </div>
-        </div>
+
 </div>
 
 @endsection
@@ -60,7 +53,7 @@
                     title: false,
                     skin:'layui-layer-demo',
                     area: ['78%', '18%'],
-                    content: $('#tong')
+                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，申请成功！</div><div class="am-panel-bd">您好！请保持电话畅通，稍后客服人员与你联络。</div></div>'
                 });
             </script>
         @elseif(Session::get('message')==0)
