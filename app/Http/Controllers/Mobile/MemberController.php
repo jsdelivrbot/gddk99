@@ -11,8 +11,7 @@ use Session;
 class MemberController extends Controller
 {
     public function Person(Request $request){
-        $url ='http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
-        session(['http_url' => $url]);
+
         $id= Session::get('wechat_user');
         $member = Member::find($id);
         if (!empty($member)){
@@ -23,20 +22,23 @@ class MemberController extends Controller
         // 生成二维码
         $qrcode_pictrue = public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png');
         if(!file_exists($qrcode_pictrue)){
-            $url='http://'.$request->getHttpHost().'/user-invite?member_parent_id='.$member[0]['member_id'];
+            $url='http://'.$request->getHttpHost().'/mobile/member-user-invite?member_parent_id='.$member[0]['member_id'];
             QrCode::encoding('UTF-8')->format('png')->size(300)->generate($url,public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png'));
         }
         return view('mobile.person-list',['member' => $member]);
 
     }
 
-    public function userInvite(Request $request)
+    public function MemberUserInvite(Request $request)
     {
+        // http://gddk99.tunnel.qydev.com/mobile/member-user-invite?member_parent_id=41
+        dd($request->get('member_parent_id'));
+
         $user_parent_id = $request->get('user_parent_id');
         return view('wechat.user-invite',['user_parent_id'=>$user_parent_id]);
     }
 
-    public function userInviteStore(Request $request){
+    public function MemberUserInviteStore(Request $request){
         $user = User::find($request->get('user_id'));
         $user->user_parent_id = $request->get('user_parent_id');
         $user->save();

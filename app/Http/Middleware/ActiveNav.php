@@ -15,9 +15,10 @@ class ActiveNav
      */
     public function handle($request, Closure $next)
     {
-        if(!session('wechat_user')){
-            return redirect('/login');
+        if(session()->has('wechat_user') && session('wechat_user')){
+            return $next($request);
+        }else{
+           return redirect('/login');
         }
-        return $next($request);
     }
 }

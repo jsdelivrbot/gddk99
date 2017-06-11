@@ -46,8 +46,8 @@ Route::prefix('mobile')->get('full-content','Mobile\IndexController@FullContent'
 Route::prefix('mobile')->middleware('active.nav')->get('/person-list','Mobile\MemberController@Person');
 
 //会员用户扫码跳转页面
-Route::prefix('mobile')->middleware('active.nav')->get('/member-user-invite','MobileMemberController@userInvite');
-Route::prefix('mobile')->middleware('active.nav')->post('/member-user-invite','MobileMemberController@userInviteStore');
+Route::prefix('mobile')->middleware('active.nav')->get('/member-user-invite','Mobile\MemberController@MemberUserInvite');
+Route::prefix('mobile')->middleware('active.nav')->post('/member-user-invite','Mobile\MemberController@MemberUserInviteStore');
 
 // 推荐贷款，客户列表
 Route::prefix('mobile')->get('client-list','Mobile\ClientController@ClientList');
