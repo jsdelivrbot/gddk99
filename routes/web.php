@@ -51,6 +51,7 @@ Route::prefix('mobile')->middleware('active.nav')->post('/member-user-invite','M
 
 // 推荐贷款，客户列表
 Route::prefix('mobile')->get('client-list','Mobile\ClientController@ClientList');
+Route::prefix('mobile')->post('client-list','Mobile\ClientController@ClientListStore');
 
 // 网站建设服务页面
 Route::prefix('mobile')->get('serve','Mobile\OtherController@Index');

@@ -14,7 +14,7 @@ class MemberController extends Controller
 
         $id= Session::get('wechat_user');
         $member = Member::find($id);
-        if (!empty($member)){
+        if (empty($member)){
             Session::forget('wechat_user_session');
             Session::forget('wechat_user');
         }
