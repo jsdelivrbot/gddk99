@@ -60,22 +60,21 @@
                                     <th class="table-title">头像</th>
                                     <th class="table-title">姓名</th>
                                     <th class="table-title">手机号</th>
-                                    <th class="table-title">性别</th>
                                     <th class="table-type">所属上级</th>
                                     <th class="table-date am-hide-sm-only">创建时间</th>
                                     <th class="table-set">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($union_user as $list)
                                 <tr>
                                     <td><input type="checkbox"></td>
-                                    <td>15</td>
-                                    <td><a href="#"><img src="" alt="" width="50" height="30"></a></td>
-                                    <td>陈小龙</td>
-                                    <td class="am-hide-sm-only">13480731740</td>
-                                    <td class="am-hide-sm-only">男</td>
-                                    <td class="am-hide-sm-only">普通用户</td>
-                                    <td class="am-hide-sm-only">2017年6月6日</td>
+                                    <td>{{ $list['member_id'] }}</td>
+                                    <td><a href="#"><img src="{{ $list['member_avatar'] }}" alt="" width="50" height="30"></a></td>
+                                    <td>{{ $list['member_name'] }}</td>
+                                    <td class="am-hide-sm-only">{{ $list['member_mobile'] or '无' }}</td>
+                                    <td class="am-hide-sm-only">{{ $list['member_parent_name'] }}</td>
+                                    <td class="am-hide-sm-only">{{ $list['updated_at'] }}</td>
                                     <td>
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
@@ -84,6 +83,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                             <div class="am-cf">

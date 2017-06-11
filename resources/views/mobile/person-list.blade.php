@@ -6,7 +6,7 @@
             <div class="pet_grzx_ico">
                 <img src="{{ url('build/uploads/'.$member[0]['member_avatar']) ? $member[0]['wechat_headimgurl'] : url('build/uploads/'.$member[0]['member_avatar'])}}" alt="">
             </div>
-            <div class="pet_grzx_name">{{ $member[0]['member_name'] or '无' }}</div>
+            <div class="pet_grzx_name">{{ $member[0]['member_name'] ? $member[0]['member_name']:$member[0]['wechat_nickname'] }}</div>
 
             <div class="pet_grzx_num_font">
                 <button type="button" class="am-btn am-btn-success am-btn-block"data-am-modal="{target: '#my-alert'}">获取二维码名片</button>
