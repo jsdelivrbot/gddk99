@@ -61,5 +61,6 @@
 </body>
 <script src="{{ elixir('js/jquery.js') }}"></script>
 <script src="{{ elixir('js/all.js') }}"></script>
+<script src="{{ asset('build/layer/layer.js') }}"></script>
     @yield('script')
 </html>

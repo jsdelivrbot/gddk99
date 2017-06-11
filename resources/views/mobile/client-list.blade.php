@@ -36,11 +36,35 @@
                 <input type="text" id="info_mobile" name="info_mobile" minlength="3" placeholder="输入联系手机号" required/>
             </div>
 
-            <button class="am-btn am-btn-primary am-btn-block" type="submit">提交申请</button>
+            <button class="am-btn am-btn-primary am-btn-block" type="submit" >提交申请</button>
 
         </fieldset>
     {!! Form::close() !!}
-
+        <div id="tong">
+            <div class="am-panel am-panel-primary">
+                <div class="am-panel-hd">恭喜，申请成功！</div>
+                <div class="am-panel-bd">
+                    您好！请保持电话畅通，稍后客服人员与你联络。
+                </div>
+            </div>
+        </div>
 </div>
 
+@endsection
+@section('script')
+    @if(Session::has('message'))
+        @if(Session::get('message')==1)
+            <script>
+                layer.open({
+                    type: 1,
+                    title: false,
+                    skin:'layui-layer-demo',
+                    area: ['78%', '18%'],
+                    content: $('#tong')
+                });
+            </script>
+        @elseif(Session::get('message')==0)
+            <script>layer.msg('申请失败！', {icon: 5}); </script>
+        @endif
+    @endif
 @endsection

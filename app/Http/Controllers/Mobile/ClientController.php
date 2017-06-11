@@ -26,8 +26,12 @@ class ClientController extends Controller
         $info ->info_quota = $quota;
         $info ->info_mobile = $mobile;
         $info ->member_id = $memeberID? $memeberID :'0';
-        $info ->save();
 
-        return redirect()->back();
+        if ($info ->save()){
+            return redirect('mobile/client-list')->with('message', '1');
+        }else{
+            return redirect('mobile/client-list')->with('message', '0');
+        }
+
     }
 }
