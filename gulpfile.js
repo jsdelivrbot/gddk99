@@ -53,4 +53,7 @@ elixir(mix => {
     mix.copy('resources/assets/adminamazeui/i', 'public/build/admin/i');
     mix.copy('resources/assets/adminamazeui/img', 'public/build/admin/img');
 
+    //拷贝弹层样式
+    mix.copy('resources/assets/layer', 'public/build/layer');
+
 });
