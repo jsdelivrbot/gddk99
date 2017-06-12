@@ -50,9 +50,9 @@ class MemberController extends Controller
 
     public function Poster(){
 
-        $poster = public_path('build/uploads/sc.png');
+        $poster = public_path('build/uploads/sc'.session('wechat_user')[0]['member_id'].'.png');
         if(!file_exists($poster)){
-            (new Common())->Poster(url('build/img/haibao.png'),asset('build/uploads/qrcode'.session('wechat_user')[0]['member_id'] .'.png'),public_path('build/uploads/sc.png'));
+            (new Common())->Poster(url('build/img/haibao.png'),asset('build/uploads/qrcode'.session('wechat_user')[0]['member_id'].'.png'),public_path('build/uploads/sc'.session('wechat_user')[0]['member_id'].'.png'));
         }
 
         return view('mobile.poster-list');

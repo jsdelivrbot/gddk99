@@ -9,9 +9,10 @@
             <div class="pet_grzx_name">{{ $member[0]['member_name'] ? $member[0]['member_name']:$member[0]['wechat_nickname'] }}</div>
 
             <div class="pet_grzx_num_font">
-                <button type="button" class="am-btn am-btn-success am-btn-block"data-am-modal="{target: '#my-alert'}">获取二维码名片</button>
+                <a href="{{ url('/mobile/poster-list') }}" class="am-btn am-btn-success am-btn-block"data-am-modal="{target: '#my-alert'}">获取二维码名片</a>
+                {{--<button type="button" class="am-btn am-btn-success am-btn-block"data-am-modal="{target: '#my-alert'}">获取二维码名片</button>--}}
 
-                <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+                {{--<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
                     <div class="am-modal-dialog">
                         <div class="am-modal-bd">
                             <img src="{{ asset('build/uploads/qrcode'.$member[0]['member_id'] .'.png') }}" alt="" style="width: 170px; height:170px;">
@@ -20,7 +21,7 @@
                             <span class="am-modal-btn">确定</span>
                         </div>
                     </div>
-                </div>
+                </div>--}}
             </div>
 
             <div class="pet_grzx_num_font">
