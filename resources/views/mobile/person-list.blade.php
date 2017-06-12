@@ -44,7 +44,7 @@
                         我的佣金
                     </a>
                 </li>
-                <li><a href="#"><i class="am-icon-pencil am-icon-fw"></i>完善个人信息</a></li>
+                <li><a href="{{ url('/mobile/person-edit') }}"><i class="am-icon-pencil am-icon-fw"></i>完善个人信息</a></li>
             </ul>
 
         </div>

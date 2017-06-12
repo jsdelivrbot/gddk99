@@ -58,4 +58,8 @@ class MemberController extends Controller
         return view('mobile.poster-list');
     }
 
+    public function PersonEdit(){
+        return view('mobile.person-edit');
+    }
+
 }

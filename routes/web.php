@@ -45,6 +45,9 @@ Route::prefix('mobile')->get('full-content','Mobile\IndexController@FullContent'
 // 会员个人列表
 Route::prefix('mobile')->middleware('active.nav')->get('/person-list','Mobile\MemberController@Person');
 
+// 会员个人编辑
+Route::prefix('mobile')->middleware('active.nav')->get('/person-edit','Mobile\MemberController@PersonEdit');
+
 //会员用户扫码跳转页面
 Route::prefix('mobile')->middleware('active.nav')->get('/member-user-invite','Mobile\MemberController@MemberUserInvite');
 Route::prefix('mobile')->middleware('active.nav')->post('/member-user-invite','Mobile\MemberController@MemberUserInviteStore');
