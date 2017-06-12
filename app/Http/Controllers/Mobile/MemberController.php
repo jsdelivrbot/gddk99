@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Session;
+use App\Common\Common;
 
 class MemberController extends Controller
 {
@@ -23,7 +24,7 @@ class MemberController extends Controller
         $qrcode_pictrue = public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png');
         if(!file_exists($qrcode_pictrue)){
             $url='http://'.$request->getHttpHost().'/mobile/member-user-invite?member_parent_id='.$member[0]['member_id'];
-            QrCode::encoding('UTF-8')->format('png')->size(300)->generate($url,public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png'));
+            QrCode::encoding('UTF-8')->format('png')->size(200)->generate($url,public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png'));
         }
         return view('mobile.person-list',['member' => $member]);
 
@@ -45,6 +46,16 @@ class MemberController extends Controller
         }else{
             return redirect('mobile/person-list')->with('message', '0');
         }
+    }
+
+    public function Poster(){
+
+        $poster = public_path('build/uploads/sc.png');
+        if(!file_exists($poster)){
+            (new Common())->Poster(url('build/img/haibao.png'),asset('build/uploads/qrcode'.session('wechat_user')[0]['member_id'] .'.png'),public_path('build/uploads/sc.png'));
+        }
+
+        return view('mobile.poster-list');
     }
 
 }
