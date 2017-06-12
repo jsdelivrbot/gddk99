@@ -75,7 +75,7 @@ Route::prefix('admin')->get('member-list','Admin\MemberController@MemberList');
 // 经纪关系列表
 Route::prefix('admin')->get('union-list','Admin\MemberController@UnionList');
 
-// 经纪关系列表
+// 客户列表
 Route::prefix('admin')->get('client-list','Admin\ClientController@Index');
 
 // 顾问列表

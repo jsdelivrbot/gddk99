@@ -23,7 +23,11 @@ class Info extends Model
 
     public function getInfoSexTextAttribute()
     {
-        return empty($this->info_sex) ? self::sexLabelList()[$this->info_sex] : self::sexLabelList()[$this->info_sex];
+        if ($this->info_sex==""){
+            return '无';
+        }else{
+            return empty($this->info_sex) ? self::sexLabelList()[$this->info_sex] : self::sexLabelList()[$this->info_sex];
+        }
     }
 
 }
