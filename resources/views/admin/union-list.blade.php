@@ -5,7 +5,7 @@
         <div class="tpl-portlet-components">
             <div class="portlet-title">
                 <div class="caption font-green bold">
-                    <span class="am-icon-code"></span> 合伙人关系列表
+                    <span class="am-icon-code"></span> 经纪人关系列表
                 </div>
                 <div class="tpl-portlet-input tpl-fz-ml">
                     <div class="portlet-input input-small input-inline">
@@ -78,7 +78,7 @@
                                     <td>
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 解除合伙人</button>
+                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 解除经纪人</button>
                                             </div>
                                         </div>
                                     </td>

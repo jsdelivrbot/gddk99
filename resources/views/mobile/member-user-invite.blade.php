@@ -6,7 +6,7 @@
             <div class="pet_grzx_name">扫码成功！</div>
 
             <div class="pet_grzx_num_font">
-                即将成为<font color="red">{{ session('wechat_user')[0]['member_name']=="" ? session('wechat_user')[0]['wechat_nickname'] : session('wechat_user')[0]['member_name'] }}</font>下线发展合伙人
+                即将成为<font color="red">{{ session('wechat_user')[0]['member_name']=="" ? session('wechat_user')[0]['wechat_nickname'] : session('wechat_user')[0]['member_name'] }}</font>下线发展经纪人
             </div>
 
             <br>
