@@ -185,7 +185,7 @@
                     </a>
                     <ul class="tpl-left-nav-sub-menu">
                         <li>
-                            <a href="{{ url('admin/user-list') }}">
+                            <a href="{{ url('admin/client-list') }}">
                                 <i class="am-icon-angle-right"></i>
                                 <span>客户列表</span>
                             </a>

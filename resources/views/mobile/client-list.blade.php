@@ -9,14 +9,14 @@
 
     {!! Form::open(['url'=>'/mobile/client-list','class'=>'am-form','data-am-validator']) !!}
         <fieldset>
-            <legend>推荐贷款</legend>
+            <legend>申请贷款</legend>
             <div class="am-form-group">
                 <label for="info_name">客户姓名：</label>
                 <input type="text" id="info_name" name="info_name" minlength="3" placeholder="输入您的姓名" required/>
             </div>
 
             <div class="am-form-group">
-                <label for="info_sex">姓名</label>
+                <label for="info_sex">性别</label>
                 <select id="info_sex" name="info_sex" required>
                     <option value="">选择性别</option>
                     <option value="1">男</option>

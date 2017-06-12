@@ -69,8 +69,11 @@ Route::prefix('admin')->get('user-list','Admin\UserController@UserList');
 // 会员列表
 Route::prefix('admin')->get('member-list','Admin\MemberController@MemberList');
 
-// 合伙关系列表
+// 经纪关系列表
 Route::prefix('admin')->get('union-list','Admin\MemberController@UnionList');
+
+// 经纪关系列表
+Route::prefix('admin')->get('client-list','Admin\ClientController@Index');
 
 // 顾问列表
 Route::prefix('admin')->get('consultant-list','Admin\ConsultantController@ConsultantList');
