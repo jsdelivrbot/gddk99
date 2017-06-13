@@ -36,8 +36,18 @@
                 </div>
 
                 <div class="am-form-group">
-                    <label for="member_mobile">手机：</label>
+                    <label for="member_mobile">手机号：</label>
                     <input type="text" id="member_mobile" name="member_mobile" value="{{ $member_user['member_mobile'] }}" minlength="2" placeholder="输入您的手机" required/>
+                </div>
+
+                <div class="am-form-group">
+                    <label for="member_sms">验证码：</label>
+                    <div class="am-input-group">
+                        <input type="text" id="member_sms" name="member_sms"  minlength="2" placeholder="输入您的手机验证码" required class="am-form-field">
+                        <span class="am-input-group-btn">
+                            <input type="button" id="btn" value="发送验证码" class="am-btn am-btn-default" onclick="settime(this)" />
+                        </span>
+                    </div>
                 </div>
 
                 <div class="am-form-group">
@@ -65,4 +75,24 @@
         <div style="height: 30px;"></div>
     </div>
 
+@endsection
+@section('script')
+    <script type="text/javascript">
+        var countdown=60;
+        function settime(obj) {
+            if (countdown == 0) {
+                obj.removeAttribute("disabled");
+                obj.value="发送验证码";
+                countdown = 60;
+                return;
+            } else {
+                obj.setAttribute("disabled", true);
+                obj.value="重新发送(" + countdown + ")";
+                countdown--;
+            }
+            setTimeout(function() {
+                    settime(obj) }
+                ,1000)
+        }
+    </script>
 @endsection
