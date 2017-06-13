@@ -70,6 +70,18 @@
             <script>layer.msg('信息完善成功！', {icon: 6}); </script>
         @elseif(Session::get('message')==2)
             <script>layer.msg('信息完善失败！', {icon: 5}); </script>
+        @elseif(Session::get('message')==4)
+            <script>
+                layer.open({
+                    type: 1,
+                    title: false,
+                    skin:'layui-layer-demo',
+                    area: ['78%', '18%'],
+                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">呵呵，关联失败！</div><div class="am-panel-bd">自己不能成为自己的经纪人，扫码失败！</div></div>'
+                });
+            </script>
+        @elseif(Session::get('message')==5)
+            <script>layer.msg('扫码错误！', {icon: 5}); </script>
         @endif
     @endif
 @endsection

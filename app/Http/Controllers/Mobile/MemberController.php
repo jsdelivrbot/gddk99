@@ -34,12 +34,40 @@ class MemberController extends Controller
     {
         // http://gddk99.tunnel.qydev.com/mobile/member-user-invite?member_parent_id=41
         $member_parent_id = $request->get('member_parent_id');
-        return view('mobile.member-user-invite',['member_parent_id'=>$member_parent_id]);
+        $sessionID = session('wechat_user')[0]['member_id'];
+
+        // 显示所属上级资料
+        $member = Member::find($member_parent_id);
+        if ($member_parent_id==$sessionID){
+            return redirect('mobile/person-list')->with('message', '4');
+        }elseif(!$member['member_id']==$member_parent_id){
+            return redirect('mobile/person-list')->with('message', '5');
+        }
+
+        //显示当前用户资料
+        $member_user = Member::find($sessionID);
+        $member_sex = (new Member())->Sex();
+
+        return view('mobile.member-user-invite',['member'=>$member,'member_user'=>$member_user,'member_sex'=>$member_sex]);
     }
 
     public function MemberUserInviteStore(Request $request){
-        $member = Member::find($request->get('member_id'));
-        $member-> member_parent_id = $request->get('member_parent_id');
+
+        $member_id =$request->get('member_id');
+        $member_parent_id =$request->get('member_parent_id');
+        $member_surname =$request->get('member_surname');
+        $member_sex =$request->get('member_sex');
+        $member_mobile =$request->get('member_mobile');
+        $member_card =$request->get('member_card');
+        $member_add =$request->get('member_add');
+
+        $member = Member::find($member_id);
+        $member-> member_surname = $member_surname;
+        $member-> member_sex = $member_sex;
+        $member-> member_mobile = $member_mobile;
+        $member-> member_card = $member_card;
+        $member-> member_add = $member_add;
+        $member-> member_parent_id = $member_parent_id;
 
         if ($member ->save()){
             return redirect('mobile/person-list')->with('message', '1');
