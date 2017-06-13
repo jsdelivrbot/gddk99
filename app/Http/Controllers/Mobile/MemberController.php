@@ -159,7 +159,7 @@ class MemberController extends Controller
     }
 
     public function Send(Request $request){
-
+        (new Common())->Send_sms($request->get('mobile'));
     }
 
 }
