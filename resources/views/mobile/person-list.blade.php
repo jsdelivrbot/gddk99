@@ -44,7 +44,7 @@
                         我的佣金
                     </a>
                 </li>
-                <li><a href="{{ url('/mobile/person-edit') }}"><i class="am-icon-pencil am-icon-fw"></i>完善个人信息</a></li>
+                <li><a href="{{ url('/mobile/person-edit',['member_id'=>$member[0]['member_id']]) }}"><i class="am-icon-pencil am-icon-fw"></i>完善个人信息</a></li>
             </ul>
 
         </div>
@@ -66,6 +66,10 @@
             </script>
         @elseif(Session::get('message')==0)
             <script>layer.msg('关联失败！', {icon: 5}); </script>
+        @elseif(Session::get('message')==3)
+            <script>layer.msg('信息完善成功！', {icon: 6}); </script>
+        @elseif(Session::get('message')==2)
+            <script>layer.msg('信息完善失败！', {icon: 5}); </script>
         @endif
     @endif
 @endsection

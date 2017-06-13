@@ -46,7 +46,9 @@ Route::prefix('mobile')->get('full-content','Mobile\IndexController@FullContent'
 Route::prefix('mobile')->middleware('active.nav')->get('/person-list','Mobile\MemberController@Person');
 
 // 会员个人编辑
-Route::prefix('mobile')->middleware('active.nav')->get('/person-edit','Mobile\MemberController@PersonEdit');
+Route::prefix('mobile')->middleware('active.nav')->get('/person-edit/{member_id}','Mobile\MemberController@PersonEdit');
+// 会员个人编辑存储
+Route::prefix('mobile')->middleware('active.nav')->post('/person-edit','Mobile\MemberController@PersonEditStore');
 
 //会员用户扫码跳转页面
 Route::prefix('mobile')->middleware('active.nav')->get('/member-user-invite','Mobile\MemberController@MemberUserInvite');
