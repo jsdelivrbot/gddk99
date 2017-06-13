@@ -38,7 +38,7 @@
                 <div class="am-form-group">
                     <label for="member_mobile">手机号：</label>
                     <div class="am-input-group">
-                        <input type="text" id="member_mobile" name="member_mobile" value="{{ $member_user['member_mobile'] }}"  minlength="2" placeholder="输入您的手机号" required class="am-form-field">
+                        <input type="text" id="member_mobile" name="member_mobile" minlength="2" placeholder="输入您的手机号" required class="am-form-field">
                         <span class="am-input-group-btn">
                             <input type="button" id="btn" value="获取验证码" class="am-btn am-btn-default" onclick="settime(this),Sms()" />
                         </span>
@@ -102,4 +102,9 @@
             $.post("{{url('/mobile/send')}}",{'_token':'{{csrf_token()}}','mobile':member_mobile});
         }
     </script>
+    @if(Session::has('message'))
+        @if(Session::get('message')==2)
+            <script>layer.msg('验证码错误！', {icon: 5}); </script>
+        @endif
+    @endif
 @endsection

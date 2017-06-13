@@ -2,6 +2,7 @@
 namespace App\Common;
 
 use Illuminate\Support\Facades\Storage;
+use Cache;
 
 class Common
 {
@@ -75,6 +76,7 @@ class Common
             exit();
         }
         $result = $jsonarr['result'];
+        Cache::add('sms',$rand,5);
         return $result['count'].' '.$result['accountid'].'<br>';
     }
 

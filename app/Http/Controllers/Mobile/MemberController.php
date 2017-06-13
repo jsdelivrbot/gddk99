@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Session;
 use App\Common\Common;
+use Cache;
 
 class MemberController extends Controller
 {
@@ -60,7 +61,11 @@ class MemberController extends Controller
         $member_mobile =$request->get('member_mobile');
         $member_card =$request->get('member_card');
         $member_add =$request->get('member_add');
-
+        $member_sms =$request->get('member_sms');
+        $cacheSms = Cache::get('sms');
+        if ($member_sms != $cacheSms){
+            return redirect('mobile/member-user-invite?member_parent_id='.$member_parent_id.'')->with('message', '2');
+        }
         $member = Member::find($member_id);
         $member-> member_surname = $member_surname;
         $member-> member_sex = $member_sex;
@@ -70,6 +75,7 @@ class MemberController extends Controller
         $member-> member_parent_id = $member_parent_id;
 
         if ($member ->save()){
+            Cache::forget('sms');
             return redirect('mobile/person-list')->with('message', '1');
         }else{
             return redirect('mobile/person-list')->with('message', '0');
