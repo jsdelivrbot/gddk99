@@ -37,17 +37,17 @@
 
                 <div class="am-form-group">
                     <label for="member_mobile">手机号：</label>
-                    <input type="text" id="member_mobile" name="member_mobile" value="{{ $member_user['member_mobile'] }}" minlength="2" placeholder="输入您的手机" required/>
+                    <div class="am-input-group">
+                        <input type="text" id="member_mobile" name="member_mobile" value="{{ $member_user['member_mobile'] }}"  minlength="2" placeholder="输入您的手机号" required class="am-form-field">
+                        <span class="am-input-group-btn">
+                            <input type="button" id="btn" value="获取验证码" class="am-btn am-btn-default" onclick="settime(this),Sms()" />
+                        </span>
+                    </div>
                 </div>
 
                 <div class="am-form-group">
                     <label for="member_sms">验证码：</label>
-                    <div class="am-input-group">
-                        <input type="text" id="member_sms" name="member_sms"  minlength="2" placeholder="输入您的手机验证码" required class="am-form-field">
-                        <span class="am-input-group-btn">
-                            <input type="button" id="btn" value="发送验证码" class="am-btn am-btn-default" onclick="settime(this),Sms()" />
-                        </span>
-                    </div>
+                    <input type="text" id="member_sms" name="member_sms" minlength="2" placeholder="输入您的手机验证码" required/>
                 </div>
 
                 <div class="am-form-group">
