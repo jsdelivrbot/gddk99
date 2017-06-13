@@ -45,7 +45,7 @@
                     <div class="am-input-group">
                         <input type="text" id="member_sms" name="member_sms"  minlength="2" placeholder="输入您的手机验证码" required class="am-form-field">
                         <span class="am-input-group-btn">
-                            <input type="button" id="btn" value="发送验证码" class="am-btn am-btn-default" onclick="settime(this)" />
+                            <input type="button" id="btn" value="发送验证码" class="am-btn am-btn-default" onclick="settime(this),Sms()" />
                         </span>
                     </div>
                 </div>
@@ -78,6 +78,7 @@
 @endsection
 @section('script')
     <script type="text/javascript">
+        // 秒数JS
         var countdown=60;
         function settime(obj) {
             if (countdown == 0) {
@@ -93,6 +94,12 @@
             setTimeout(function() {
                     settime(obj) }
                 ,1000)
+        }
+
+        //发送请求
+        function Sms() {
+            var member_mobile = $("#member_mobile").val();
+            $.post("{{url('/mobile/send')}}",{'_token':'{{csrf_token()}}','mobile':member_mobile});
         }
     </script>
 @endsection

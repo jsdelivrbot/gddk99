@@ -155,8 +155,10 @@ class MemberController extends Controller
                     return redirect('mobile/person-list')->with('message', '2');
                 }
             }
-
         }
+    }
+
+    public function Send(Request $request){
 
     }
 
