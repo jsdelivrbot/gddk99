@@ -18,11 +18,11 @@
 
         <div class="pet_circle_nav">
             <ul class="pet_circle_nav_list">
-                <li><a href="{{ url('mobile/serve') }}" class="iconfont pet_nav_xinxianshi ">&#xe61e;</a><span>信用贷</span></li>
-                <li><a href="{{ url('mobile/serve') }}" class="iconfont pet_nav_zhangzhishi ">&#xe607;</a><span>企业贷</span></li>
-                <li><a href="{{ url('mobile/serve') }}" class="iconfont pet_nav_kantuya ">&#xe62c;</a><span>车贷</span></li>
-                <li><a href="{{ url('mobile/serve') }}" class="iconfont pet_nav_mengzhuanti ">&#xe622;</a><span>房贷</span></li>
-                <li><a href="{{ url('mobile/serve') }}" class="iconfont pet_nav_yiyuan ">&#xe602;</a><span>工资贷</span></li>
+                <li><a href="{{ url('mobile/plan-details/1') }}" class="iconfont pet_nav_xinxianshi ">&#xe61e;</a><span>信用贷</span></li>
+                <li><a href="{{ url('mobile/plan-details/2') }}" class="iconfont pet_nav_zhangzhishi ">&#xe607;</a><span>企业贷</span></li>
+                <li><a href="{{ url('mobile/plan-details/3') }}" class="iconfont pet_nav_kantuya ">&#xe62c;</a><span>车贷</span></li>
+                <li><a href="{{ url('mobile/plan-details/4') }}" class="iconfont pet_nav_mengzhuanti ">&#xe622;</a><span>房贷</span></li>
+                <li><a href="{{ url('mobile/plan-details/5') }}" class="iconfont pet_nav_yiyuan ">&#xe602;</a><span>工资贷</span></li>
                 <li><a href="{{ url('mobile/client-list') }}" class="iconfont pet_nav_meirong ">&#xe629;</a><span>申请贷款</span></li>
                 <li><a href="{{ url('mobile/person-list') }}" class="iconfont pet_nav_dianpu ">&#xe604;</a><span>我的</span></li>
                 <li><a href="javascript:;" class="iconfont pet_nav_gengduo ">&#xe600;</a><span>更多</span></li>
