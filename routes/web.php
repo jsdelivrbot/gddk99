@@ -61,6 +61,9 @@ Route::prefix('mobile')->middleware('active.nav')->post('/send','Mobile\MemberCo
 Route::prefix('mobile')->get('client-list','Mobile\ClientController@ClientList');
 Route::prefix('mobile')->post('client-list','Mobile\ClientController@ClientListStore');
 
+// 方案详情
+Route::prefix('mobile')->get('plan-details/{id}','Mobile\PlanController@Detail');
+
 // 生成海报页面
 Route::prefix('mobile')->middleware('active.nav')->get('poster-list','Mobile\MemberController@Poster');
 
