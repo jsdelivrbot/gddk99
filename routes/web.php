@@ -112,3 +112,13 @@ Route::prefix('admin')->get('shop-edit/{id}','Admin\ConsultantController@ShopEdi
 Route::prefix('admin')->post('shop-edit','Admin\ConsultantController@ShopEditOk');
 // 顾问删除
 Route::prefix('admin')->get('shop-del/{id}','Admin\ConsultantController@ShopDel');
+
+
+// 方案列表
+Route::prefix('admin')->get('plan-list','Admin\PlanController@Index');
+// 方案添加
+Route::prefix('admin')->get('plan-insert','Admin\PlanController@Insert');
+Route::prefix('admin')->post('plan-insert','Admin\PlanController@InsertStore');
+// 方案更新
+Route::prefix('admin')->get('plan-update/{id}','Admin\PlanController@Update');
+Route::prefix('admin')->post('plan-update','Admin\PlanController@UpdateStore');

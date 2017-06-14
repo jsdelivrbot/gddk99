@@ -201,9 +201,9 @@
                     </a>
                     <ul class="tpl-left-nav-sub-menu">
                         <li>
-                            <a href="{{ url('admin/user-list') }}">
+                            <a href="{{ url('admin/plan-list') }}">
                                 <i class="am-icon-angle-right"></i>
-                                <span>客户列表</span>
+                                <span>方案列表</span>
                             </a>
                         </li>
                     </ul>
@@ -292,5 +292,6 @@
 <script src="{{ url('build/admin/js/amazeui.min.js') }}"></script>
 <script src="{{ url('build/admin/js/iscroll.js') }}"></script>
 <script src="{{ url('build/admin/js/app.js') }}"></script>
+<script src="{{ asset('build/layer/layer.js') }}"></script>
 @yield('script')
 </html>
