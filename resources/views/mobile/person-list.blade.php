@@ -35,13 +35,18 @@
 
             <ul class="am-list am-list-border">
                 <li>
-                    <a href="#"><i class="am-icon-home am-icon-fw"></i>
-                        客户列表
+                    <a href="#"><i class="am-icon-briefcase am-icon-fw"></i>
+                        我的客户
                     </a>
                 </li>
                 <li>
                     <a href="#"> <i class="am-icon-book am-icon-fw"></i>
                         我的佣金
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('/mobile/union-list',['member_id'=>$member[0]['member_id']]) }}"><i class="am-icon-user am-icon-fw"></i>
+                        我的经纪人
                     </a>
                 </li>
                 <li><a href="{{ url('/mobile/person-edit',['member_id'=>$member[0]['member_id']]) }}"><i class="am-icon-pencil am-icon-fw"></i>完善个人信息</a></li>

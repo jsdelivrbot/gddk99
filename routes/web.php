@@ -61,6 +61,9 @@ Route::prefix('mobile')->middleware('active.nav')->post('/send','Mobile\MemberCo
 Route::prefix('mobile')->get('client-list','Mobile\ClientController@ClientList');
 Route::prefix('mobile')->post('client-list','Mobile\ClientController@ClientListStore');
 
+// 我的经纪人列表
+Route::prefix('mobile')->middleware('active.nav')->get('/union-list/{member_id}','Mobile\MemberController@UnionList');
+
 // 方案详情
 Route::prefix('mobile')->get('plan-details/{id}','Mobile\PlanController@Detail');
 
