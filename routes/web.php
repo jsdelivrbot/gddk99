@@ -76,55 +76,62 @@ Route::prefix('mobile')->get('serve','Mobile\OtherController@Index');
 
 // **************************** 后台端 *********************
 
+//登录页
+Route::prefix('admin')->get('/','Admin\IndexController@Login');
+Route::prefix('admin')->get('login','Admin\IndexController@Login');
+Route::prefix('admin')->post('login','Admin\IndexController@LoginSignin');
+
+Route::prefix('admin')->get('/logout', 'Admin\IndexController@logout');
+
 // 首页
 Route::prefix('admin')->middleware('admin.login')->get('/','Admin\IndexController@Index');
 Route::prefix('admin')->middleware('admin.login')->get('index','Admin\IndexController@Index');
 
 // 用户列表
-Route::prefix('admin')->get('user-list','Admin\UserController@UserList');
+Route::prefix('admin')->middleware('admin.login')->get('user-list','Admin\UserController@UserList');
 
 // 会员列表
-Route::prefix('admin')->get('member-list','Admin\MemberController@MemberList');
+Route::prefix('admin')->middleware('admin.login')->get('member-list','Admin\MemberController@MemberList');
 
 // 经纪关系列表
-Route::prefix('admin')->get('union-list','Admin\MemberController@UnionList');
+Route::prefix('admin')->middleware('admin.login')->get('union-list','Admin\MemberController@UnionList');
 
 // 客户列表
-Route::prefix('admin')->get('client-list','Admin\ClientController@Index');
+Route::prefix('admin')->middleware('admin.login')->get('client-list','Admin\ClientController@Index');
 
 // 顾问列表
-Route::prefix('admin')->get('consultant-list','Admin\ConsultantController@ConsultantList');
+Route::prefix('admin')->middleware('admin.login')->get('consultant-list','Admin\ConsultantController@ConsultantList');
 // 顾问存储
-Route::prefix('admin')->get('consultant-store','Admin\ConsultantController@ConsultantStore');
+Route::prefix('admin')->middleware('admin.login')->get('consultant-store','Admin\ConsultantController@ConsultantStore');
 // 顾问存储成功
-Route::prefix('admin')->post('consultant-store','Admin\ConsultantController@ConsultantStoreOk');
+Route::prefix('admin')->middleware('admin.login')->post('consultant-store','Admin\ConsultantController@ConsultantStoreOk');
 // 顾问编辑
-Route::prefix('admin')->get('consultant-edit/{id}','Admin\ConsultantController@ConsultantEdit');
+Route::prefix('admin')->middleware('admin.login')->get('consultant-edit/{id}','Admin\ConsultantController@ConsultantEdit');
 // 顾问编辑成功
-Route::prefix('admin')->post('consultant-edit','Admin\ConsultantController@ConsultantEditOk');
+Route::prefix('admin')->middleware('admin.login')->post('consultant-edit','Admin\ConsultantController@ConsultantEditOk');
 // 顾问删除
-Route::prefix('admin')->get('consultant-del/{id}','Admin\ConsultantController@ConsultantDel');
+Route::prefix('admin')->middleware('admin.login')->get('consultant-del/{id}','Admin\ConsultantController@ConsultantDel');
 
 
 // 店铺列表
-Route::prefix('admin')->get('shop-list','Admin\ConsultantController@ShopList');
+Route::prefix('admin')->middleware('admin.login')->get('shop-list','Admin\ConsultantController@ShopList');
 // 店铺存储
-Route::prefix('admin')->get('shop-store','Admin\ConsultantController@ShopStore');
+Route::prefix('admin')->middleware('admin.login')->get('shop-store','Admin\ConsultantController@ShopStore');
 // 店铺存储成功
-Route::prefix('admin')->post('shop-store','Admin\ConsultantController@ShopStoreOk');
+Route::prefix('admin')->middleware('admin.login')->post('shop-store','Admin\ConsultantController@ShopStoreOk');
 // 店铺编辑
-Route::prefix('admin')->get('shop-edit/{id}','Admin\ConsultantController@ShopEdit');
+Route::prefix('admin')->middleware('admin.login')->get('shop-edit/{id}','Admin\ConsultantController@ShopEdit');
 // 店铺编辑成功
-Route::prefix('admin')->post('shop-edit','Admin\ConsultantController@ShopEditOk');
+Route::prefix('admin')->middleware('admin.login')->post('shop-edit','Admin\ConsultantController@ShopEditOk');
 // 顾问删除
-Route::prefix('admin')->get('shop-del/{id}','Admin\ConsultantController@ShopDel');
+Route::prefix('admin')->middleware('admin.login')->get('shop-del/{id}','Admin\ConsultantController@ShopDel');
 
 
 // 方案列表
-Route::prefix('admin')->get('plan-list','Admin\PlanController@Index');
+Route::prefix('admin')->middleware('admin.login')->get('plan-list','Admin\PlanController@Index');
 // 方案添加
-Route::prefix('admin')->get('plan-insert','Admin\PlanController@Insert');
-Route::prefix('admin')->post('plan-insert','Admin\PlanController@InsertStore');
+Route::prefix('admin')->middleware('admin.login')->get('plan-insert','Admin\PlanController@Insert');
+Route::prefix('admin')->middleware('admin.login')->post('plan-insert','Admin\PlanController@InsertStore');
 // 方案更新
-Route::prefix('admin')->get('plan-update/{id}','Admin\PlanController@Update');
-Route::prefix('admin')->post('plan-update','Admin\PlanController@UpdateStore');
+Route::prefix('admin')->middleware('admin.login')->get('plan-update/{id}','Admin\PlanController@Update');
+Route::prefix('admin')->middleware('admin.login')->post('plan-update','Admin\PlanController@UpdateStore');
