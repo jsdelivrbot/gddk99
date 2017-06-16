@@ -27,7 +27,7 @@
             </div>
 
             <div class="am-form-group">
-                <label for="info_quota">贷款额度(元)：</label>
+                <label for="info_quota">贷款额度(万元)：</label>
                 <input type="text" id="info_quota" name="info_quota" minlength="3" placeholder="输入贷款额度" required/>
             </div>
 

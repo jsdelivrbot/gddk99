@@ -49,6 +49,11 @@
                         我的经纪人
                     </a>
                 </li>
+                <li>
+                    <a href="#"><i class="am-icon-user-plus am-icon-fw"></i>
+                        我的合伙人
+                    </a>
+                </li>
                 <li><a href="{{ url('/mobile/person-edit',['member_id'=>$member[0]['member_id']]) }}"><i class="am-icon-pencil am-icon-fw"></i>完善个人信息</a></li>
             </ul>
 
