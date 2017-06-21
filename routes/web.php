@@ -65,6 +65,13 @@ Route::prefix('mobile')->post('/send','Mobile\MemberController@Send');
 Route::prefix('mobile')->get('client-list','Mobile\ClientController@ClientList');
 Route::prefix('mobile')->post('client-list','Mobile\ClientController@ClientListStore');
 
+// 客户列表，生成海报页面
+Route::prefix('mobile')->middleware('active.nav')->get('client-poster-list','Mobile\ClientController@ClientPoster');
+
+// 客户列表，生成海报列表-邀请
+Route::prefix('mobile')->middleware('active.nav')->get('client-poster-invite','Mobile\ClientController@ClientPosterInvite');
+Route::prefix('mobile')->middleware('active.nav')->post('client-poster-invite','Mobile\ClientController@ClientPosterInviteStore');
+
 // 我的经纪人列表
 Route::prefix('mobile')->middleware('active.nav')->get('/union-list/{member_id}','Mobile\MemberController@UnionList');
 
