@@ -35,4 +35,11 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    // wx--可以删除
+    'weixin' => [
+        'client_id' =>'wx9f3dd1dd7cc72602',
+        'client_secret' => '9b1f2df7431975bd734fbf33c83cb681',
+        'redirect' => 'http://gddk99.tunnel.qydev.com/wx-callback',
+    ],
+
 ];

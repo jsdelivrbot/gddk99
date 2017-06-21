@@ -28,6 +28,10 @@ Route::any('oauth_callback', 'WechatController@oauth_callback');
 //微信菜单导航
 Route::any('menu', 'WechatController@Menu');
 
+// 微信开放平台-- wx--可以删除
+Route::get('wxlogin', 'WeixinController@redirectToProvider');
+Route::get('wx-callback', 'WeixiController@handleProviderCallback');
+
 // 首页
 //Route::get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('/','Mobile\IndexController@index');
