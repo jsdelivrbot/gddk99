@@ -33,7 +33,17 @@
 
             <div class="am-form-group">
                 <label for="info_mobile">手机号：</label>
-                <input type="text" id="info_mobile" name="info_mobile" minlength="3" placeholder="输入联系手机号" required/>
+                <div class="am-input-group">
+                    <input type="text" id="info_mobile" name="info_mobile" minlength="3" placeholder="输入您的手机号" required class="am-form-field">
+                    <span class="am-input-group-btn">
+                            <input type="button" id="btn" value="获取验证码" class="am-btn am-btn-default" onclick="settime(this),Sms()" />
+                        </span>
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <label for="info_sms">验证码：</label>
+                <input type="text" id="info_sms" name="info_sms" minlength="3" placeholder="输入您的手机验证码" required/>
             </div>
 
             <button class="am-btn am-btn-primary am-btn-block" type="submit" >提交申请</button>
@@ -58,6 +68,34 @@
             </script>
         @elseif(Session::get('message')==0)
             <script>layer.msg('申请失败！', {icon: 5}); </script>
+            @elseif(Session::get('message')==2)
+            <script>layer.msg('验证码错误！', {icon: 5}); </script>
         @endif
     @endif
+
+    <script type="text/javascript">
+        // 秒数JS
+        var countdown=60;
+        function settime(obj) {
+            if (countdown == 0) {
+                obj.removeAttribute("disabled");
+                obj.value="发送验证码";
+                countdown = 60;
+                return;
+            } else {
+                obj.setAttribute("disabled", true);
+                obj.value="重新发送(" + countdown + ")";
+                countdown--;
+            }
+            setTimeout(function() {
+                    settime(obj) }
+                ,1000)
+        }
+
+        //发送请求
+        function Sms() {
+            var info_mobile = $("#info_mobile").val();
+            $.post("{{url('/mobile/send')}}",{'_token':'{{csrf_token()}}','mobile':info_mobile});
+        }
+    </script>
 @endsection

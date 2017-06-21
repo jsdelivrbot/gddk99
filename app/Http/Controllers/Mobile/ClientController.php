@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mobile;
 use App\Info;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Cache;
 
 class ClientController extends Controller
 {
@@ -20,6 +21,12 @@ class ClientController extends Controller
         $mobile = $request->get('info_mobile');
         $memeberID = session('wechat_user')[0]['member_id'];
 
+        $info_sms =$request->get('info_sms');
+        $cacheSms = Cache::get('sms');
+        if ($info_sms != $cacheSms){
+            return redirect('mobile/client-list')->with('message', '2');
+        }
+
         $info = new Info();
         $info ->info_name = $name;
         $info ->info_sex = $sex;
@@ -28,6 +35,7 @@ class ClientController extends Controller
         $info ->member_id = $memeberID? $memeberID :'0';
 
         if ($info ->save()){
+            Cache::forget('sms');
             return redirect('mobile/client-list')->with('message', '1');
         }else{
             return redirect('mobile/client-list')->with('message', '0');

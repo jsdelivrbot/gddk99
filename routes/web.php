@@ -55,7 +55,7 @@ Route::prefix('mobile')->middleware('active.nav')->get('/member-user-invite','Mo
 Route::prefix('mobile')->middleware('active.nav')->post('/member-user-invite','Mobile\MemberController@MemberUserInviteStore');
 
 // 发送验证码
-Route::prefix('mobile')->middleware('active.nav')->post('/send','Mobile\MemberController@Send');
+Route::prefix('mobile')->post('/send','Mobile\MemberController@Send');
 
 // 推荐贷款，客户列表
 Route::prefix('mobile')->get('client-list','Mobile\ClientController@ClientList');
