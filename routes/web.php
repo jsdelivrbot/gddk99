@@ -32,6 +32,10 @@ Route::any('menu', 'WechatController@Menu');
 Route::get('wxlogin', 'WeixinController@redirectToProvider');
 Route::get('wx-callback', 'WeixiController@handleProviderCallback');
 
+// 微信开放平台-- 安正超写法
+Route::prefix('mobile')->get('wx-login','Mobile\LoginController@WxLogin');
+Route::prefix('mobile')->get('wx-callback','Mobile\LoginController@WxCallback');
+
 // 首页
 //Route::get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('/','Mobile\IndexController@index');
