@@ -12,7 +12,6 @@
         "overtrue/socialite": "~1.0",
         "overtrue/wechat": "~3.1",
         "simplesoftwareio/simple-qrcode": "1.3.*",
-        "socialiteproviders/weixin": "^4.0",
         "unicodeveloper/laravel-emoji": "1.0.*"
     },
     "require-dev": {

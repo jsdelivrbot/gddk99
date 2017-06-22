@@ -10,21 +10,21 @@ class LoginController extends Controller
 {
 
     protected $config = [
-        'wechat_open' => [
+        'wechat' => [
             'client_id'     => 'wx9f3dd1dd7cc72602',
-            'client_secret' => '9b1f2df7431975bd734fbf33c83cb681',
-            'redirect'      => 'http://www.gddk99.com/',
-        ],
+            'client_secret' => ['b2600888426c904583800ac5a9de4a8f','CWI4y86blVB8OhUQg4BnMF'],
+            'redirect'      => 'http://www.gddk99.com/mobile/wx-callback',
+        ]
     ];
 
     public function WxLogin(){
         $socialite = new SocialiteManager($this->config);
-        return $socialite->driver('wechat_open')->redirect();
+        return $socialite->driver('wechat')->redirect();
     }
 
     public function WxCallback(){
         $socialite = new SocialiteManager($this->config);
-        $user = $socialite->driver('wechat_open')->user();
+        $user = $socialite->driver('wechat')->user();
         dd($user);
     }
 }

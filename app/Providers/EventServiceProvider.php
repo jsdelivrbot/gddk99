@@ -16,10 +16,6 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],
-        // wx--可以删除
-        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-            'SocialiteProviders\Weixin\WeixinExtendSocialite@handle',
-        ],
     ];
 
     /**

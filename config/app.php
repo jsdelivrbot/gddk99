@@ -186,9 +186,6 @@ return [
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Unicodeveloper\Emoji\EmojiServiceProvider::class,
 
-        // wx--可以删除
-        SocialiteProviders\Manager\ServiceProvider::class,
-
     ],
 
     /*
@@ -243,9 +240,6 @@ return [
 
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Emoji' => Unicodeveloper\Emoji\Facades\Emoji::class,
-
-        // wx--可以删除
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 
