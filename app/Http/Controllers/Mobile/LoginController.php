@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mobile;
 
+use App\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Overtrue\Socialite\SocialiteManager;
@@ -57,6 +58,24 @@ class LoginController extends Controller
         $app = new Application($this->options);
         $oauth = $app->oauth;
         $user = $oauth->user();
-        dd($user);
+        
+		$row = Member::where('wechat_openid',$user['original']['openid'])->first();
+        if (isset($row)){
+            $data_row[] = $row->toArray();
+            session(['wechat_user' =>$data_row]);
+        }else{
+            //添加Member数据
+            $mem = new Member();
+            $mem->wechat_openid = $user['original']['openid'];
+            $mem->wechat_nickname = $this->filterEmoji($user['original']['nickname']);
+            $mem->member_sex =$user['original']['sex'];
+            $mem->wechat_headimgurl =$user['original']['headimgurl'];
+            $mem->member_type = 1;
+            $mem->save();
+            $data_member[] = $mem->getQueueableId();
+            session(['wechat_user' =>$data_member]);
+        }
+		
+		return redirect('/mobile/index');
     }
 }
