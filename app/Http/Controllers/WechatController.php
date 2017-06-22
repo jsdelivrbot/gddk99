@@ -66,16 +66,17 @@ class WechatController extends Controller
             $data_row[] = $row->toArray();
             session(['wechat_user' =>$data_row]);
         }else{
+            $us = $member->toArray();
             //添加Member数据
             $mem = new Member();
-            $mem->wechat_openid = $res['openid'];
-            $mem->wechat_nickname = $this->filterEmoji($res['nickname']);
-            $mem->member_sex = $res['sex'];
-            $mem->wechat_headimgurl =$res['headimgurl'];
+            $mem->wechat_openid = $res['openid']?$res['openid']:$us['original']['openid'];
+            $mem->wechat_nickname = $this->filterEmoji($res['nickname'])?$this->filterEmoji($res['nickname']):$this->filterEmoji($us['original']['nickname']);
+            $mem->member_sex = $res['sex']?$res['sex']:$us['original']['sex'];
+            $mem->wechat_headimgurl =$res['headimgurl']?$res['headimgurl']:$us['original']['headimgurl'];
             $mem->member_type = 1;
             $mem->save();
-            $data_member[] = $mem->getQueueableId();
-            session(['wechat_user' =>$data_member]);
+            $rows = Member::find($mem->getQueueableId());
+            session(['wechat_user' =>$rows->toArray()]);
         }
         return redirect('/mobile/person-list');
     }

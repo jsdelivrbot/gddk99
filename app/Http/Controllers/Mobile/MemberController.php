@@ -15,7 +15,9 @@ class MemberController extends Controller
     public function Person(Request $request){
 
         $id= Session::get('wechat_user');
-        $member = Member::find($id);
+        $member_id = $id[0]['member_id'];
+        $members = Member::where('member_id',$member_id)->get();
+        $member = $members->toArray();
         if (empty($member)){
             Session::forget('wechat_user_session');
             Session::forget('wechat_user');

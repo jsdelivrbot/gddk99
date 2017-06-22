@@ -72,10 +72,22 @@ class LoginController extends Controller
             $mem->wechat_headimgurl =$user['original']['headimgurl'];
             $mem->member_type = 1;
             $mem->save();
-            $data_member[] = $mem->getQueueableId();
-            session(['wechat_user' =>$data_member]);
+            $row = Member::find($mem->getQueueableId());
+            session(['wechat_user' =>$row->toArray()]);
         }
 		
 		return redirect('/mobile/index');
+    }
+
+    // 过滤掉emoji表情
+    function filterEmoji($str)
+    {
+        $str = preg_replace_callback(
+            '/./u',
+            function (array $match) {
+                return strlen($match[0]) >= 4 ? '' : $match[0];
+            },
+            $str);
+        return $str;
     }
 }
