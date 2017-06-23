@@ -9,7 +9,7 @@
 
     {!! Form::open(['url'=>'/mobile/client-list','class'=>'am-form','data-am-validator']) !!}
         <fieldset>
-            <legend>申请贷款</legend>
+            <legend>申请贷款 <button type="button" class="am-btn am-btn-primary" style="float: right;" onclick="javascript:window.location='{{ url('mobile/client-poster-list') }}'">索取海报扫码获客</button> </legend>
             <div class="am-form-group">
                 <label for="info_name">客户姓名：</label>
                 <input type="text" id="info_name" name="info_name" minlength="3" placeholder="输入您的姓名" required/>
