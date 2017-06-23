@@ -45,7 +45,10 @@ class WechatController extends Controller
             $or_op = session('wechat_user_session')['original']['openid'];
             $openid= session('wechat_user');
             $wechat_openid = isset($openid[0]['wechat_openid']) ? $openid[0]['wechat_openid'] : $openid['wechat_openid'];
-            if ($or_op==$wechat_openid){
+            $or = empty($or_op) ? 1 : $or_op;
+            $we =empty($wechat_openid) ? 2 : $wechat_openid;
+
+            if ($or==$we){
                 return redirect('/mobile/index');
             }
 
