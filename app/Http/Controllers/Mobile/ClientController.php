@@ -18,11 +18,14 @@ class ClientController extends Controller
 
     public function ClientListStore(Request $request){
 
+        $id= session('wechat_user');
+        $member_id = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
+
         $name = $request->get('info_name');
         $sex = $request->get('info_sex');
         $quota = $request->get('info_quota');
         $mobile = $request->get('info_mobile');
-        $memeberID = session('wechat_user')[0]['member_id'];
+        $memeberID = $member_id;
 
         $info_sms =$request->get('info_sms');
         $cacheSms = Cache::get('sms');
@@ -50,7 +53,10 @@ class ClientController extends Controller
 
         // http://gddk99.tunnel.qydev.com/mobile/client-poster-invite?member_id=1
         // 生成二维码
-        $memberID = session('wechat_user')[0]['member_id'];
+        $id= session('wechat_user');
+        $member_id = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
+
+        $memberID = $member_id;
         $qrcode_pictrue = public_path('build/uploads/poster'.$memberID.'.png');
         if(!file_exists($qrcode_pictrue)){
             $url='http://'.$request->getHttpHost().'/mobile/client-poster-invite?member_id='.$memberID;
@@ -67,8 +73,10 @@ class ClientController extends Controller
     }
 
     public function ClientPosterInvite(Request $request){
+        $id= session('wechat_user');
+        $memberId = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
         $member_id = $request->get('member_id');
-        $sessionID = session('wechat_user')[0]['member_id'];
+        $sessionID = $memberId;
 
         // 显示所属上级资料
         $member = Member::find($member_id);
