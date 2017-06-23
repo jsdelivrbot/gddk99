@@ -64,7 +64,7 @@ class Common
         $appkey = env('JS_APP_KEY');//你的appkey
         $mobile = $phone;//手机号 超过1024请用POST
         $rand=rand(1000,9999);
-        $content = '尊敬的用户您好，您的短信验证码为'.$rand.'，5分钟内有效。请妥善保管，如非本人操作，请忽略。【三能数码科技】';//utf8
+        $content = '尊敬的用户您好，您的短信验证码为'.$rand.'，5分钟内有效。请妥善保管，如非本人操作，请忽略。【永盟投资】';//utf8
 
         $url = "http://api.jisuapi.com/sms/send?appkey=$appkey&mobile=$mobile&content=$content";
         $result = $this->curlOpen($url);
