@@ -122,4 +122,9 @@ class ClientController extends Controller
         }
 
     }
+
+    public function ClientUnionList($member_id){
+        $info = Info::where('info_invite',$member_id)->get();
+        return view('mobile.client-union-list',['info'=>$info]);
+    }
 }

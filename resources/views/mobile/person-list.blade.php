@@ -50,7 +50,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#"><i class="am-icon-user-plus am-icon-fw"></i>
+                    <a href="{{ url('/mobile/client-union-list',['member_id'=>$member[0]['member_id']]) }}"><i class="am-icon-user-plus am-icon-fw"></i>
                         我的合伙人
                     </a>
                 </li>

@@ -72,6 +72,9 @@ Route::prefix('mobile')->middleware('active.nav')->get('client-poster-list','Mob
 Route::prefix('mobile')->middleware('active.nav')->get('client-poster-invite','Mobile\ClientController@ClientPosterInvite');
 Route::prefix('mobile')->middleware('active.nav')->post('client-poster-invite','Mobile\ClientController@ClientPosterInviteStore');
 
+// 我的合伙人列表
+Route::prefix('mobile')->middleware('active.nav')->get('/client-union-list/{member_id}','Mobile\ClientController@ClientUnionList');
+
 // 我的经纪人列表
 Route::prefix('mobile')->middleware('active.nav')->get('/union-list/{member_id}','Mobile\MemberController@UnionList');
 
