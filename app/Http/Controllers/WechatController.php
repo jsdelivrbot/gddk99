@@ -99,11 +99,14 @@ class WechatController extends Controller
 
         $url_person = 'http://'.$request->getHttpHost().'/mobile/person-list';
         $url_client = 'http://'.$request->getHttpHost().'/mobile/client-list';
+        $qycode_client = 'http://'.$request->getHttpHost().'/mobile/client-poster-invite?member_id='.Cache::get('memberID').'';
 
         if ($url_person==Cache::get('person')){
             return redirect('/mobile/person-list');
         }elseif($url_client==Cache::get('client')){
             return redirect('/mobile/client-list');
+        }elseif($qycode_client==Cache::get('qycode_client')){
+            return redirect('/mobile/client-poster-invite?member_id='.Cache::get('memberID').'');
         }
 
         return redirect('/mobile/index');

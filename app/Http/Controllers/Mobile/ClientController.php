@@ -69,7 +69,7 @@ class ClientController extends Controller
             (new Common())->Poster(url('build/img/haibao.png'),asset('build/uploads/poster'.$memberID.'.png'),public_path('build/uploads/sc_poster'.$memberID.'.png'));
         }
 
-        return view('mobile.client-poster-list');
+        return view('mobile.client-poster-list',['member_id'=>$member_id]);
     }
 
     public function ClientPosterInvite(Request $request){
