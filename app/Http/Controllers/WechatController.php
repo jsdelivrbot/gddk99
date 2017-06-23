@@ -67,12 +67,15 @@ class WechatController extends Controller
             session(['wechat_user' =>$data_row]);
         }else{
             $us = $member->toArray();
+            $nicknamea = empty($res['nickname']) ? '1' : $this->filterEmoji($res['nickname']);
+            $nicknameb = $this->filterEmoji($us['original']['nickname']);
+
             //添加Member数据
             $mem = new Member();
-            $mem->wechat_openid = $res['openid']?$res['openid']:$us['original']['openid'];
-            $mem->wechat_nickname = $this->filterEmoji($res['nickname'])?$this->filterEmoji($res['nickname']):$this->filterEmoji($us['original']['nickname']);
-            $mem->member_sex = $res['sex']?$res['sex']:$us['original']['sex'];
-            $mem->wechat_headimgurl =$res['headimgurl']?$res['headimgurl']:$us['original']['headimgurl'];
+            $mem->wechat_openid = isset($res['openid']) ? $res['openid'] : $us['original']['openid'];
+            $mem->wechat_nickname = isset($nicknamea)=='1' ? $nicknameb : $nicknamea;
+            $mem->member_sex = isset($res['sex']) ? $res['sex'] : $us['original']['sex'];
+            $mem->wechat_headimgurl = isset($res['headimgurl']) ? $res['headimgurl'] : $us['original']['headimgurl'];
             $mem->member_type = 1;
             $mem->save();
             $rows = Member::find($mem->getQueueableId());

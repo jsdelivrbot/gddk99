@@ -15,7 +15,7 @@ class MemberController extends Controller
     public function Person(Request $request){
 
         $id= Session::get('wechat_user');
-        $member_id = $id[0]['member_id'];
+        $member_id = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
         $members = Member::where('member_id',$member_id)->get();
         $member = $members->toArray();
         if (empty($member)){
@@ -86,12 +86,15 @@ class MemberController extends Controller
 
     public function Poster(){
 
-        $poster = public_path('build/uploads/sc'.session('wechat_user')[0]['member_id'].'.png');
+        $id= Session::get('wechat_user');
+        $member_id = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
+
+        $poster = public_path('build/uploads/sc'.$member_id.'.png');
         if(!file_exists($poster)){
-            (new Common())->Poster(url('build/img/haibao.png'),asset('build/uploads/qrcode'.session('wechat_user')[0]['member_id'].'.png'),public_path('build/uploads/sc'.session('wechat_user')[0]['member_id'].'.png'));
+            (new Common())->Poster(url('build/img/haibao.png'),asset('build/uploads/qrcode'.$member_id.'.png'),public_path('build/uploads/sc'.$member_id.'.png'));
         }
 
-        return view('mobile.poster-list');
+        return view('mobile.poster-list',['member_id'=>$member_id]);
     }
 
     public function PersonEdit($member_id){
