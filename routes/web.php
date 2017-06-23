@@ -32,10 +32,6 @@ Route::any('menu', 'WechatController@Menu');
 Route::prefix('mobile')->get('wx-login','Mobile\LoginController@WxLogin');
 Route::prefix('mobile')->get('wx-callback','Mobile\LoginController@WxCallback');
 
-//微信网页授权
-Route::prefix('mobile')->any('m-login', 'Mobile\LoginController@MLogin');
-Route::prefix('mobile')->any('m-callback', 'Mobile\LoginController@MCallback');
-
 // 首页
 //Route::get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('/','Mobile\IndexController@index');
