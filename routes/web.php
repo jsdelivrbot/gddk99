@@ -38,13 +38,13 @@ Route::prefix('mobile')->get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('index','Mobile\IndexController@index');
 
 // 顾客列表详情
-Route::prefix('mobile')->get('consultant-details/{id}','Mobile\ConsultantController@Index');
+Route::prefix('mobile')->middleware('active.nav')->get('consultant-details/{id}','Mobile\ConsultantController@Index');
 
 // 门店列表详情
-Route::prefix('mobile')->get('shop-details/{id}','Mobile\ConsultantController@ShopDetails');
+Route::prefix('mobile')->middleware('active.nav')->get('shop-details/{id}','Mobile\ConsultantController@ShopDetails');
 
 // 内容页
-Route::prefix('mobile')->get('full-content','Mobile\IndexController@FullContent');
+Route::prefix('mobile')->middleware('active.nav')->get('full-content','Mobile\IndexController@FullContent');
 
 // 会员个人列表
 Route::prefix('mobile')->middleware('active.nav')->get('/person-list','Mobile\MemberController@Person');
@@ -59,11 +59,11 @@ Route::prefix('mobile')->middleware('active.nav')->get('/member-user-invite','Mo
 Route::prefix('mobile')->middleware('active.nav')->post('/member-user-invite','Mobile\MemberController@MemberUserInviteStore');
 
 // 发送验证码
-Route::prefix('mobile')->post('/send','Mobile\MemberController@Send');
+Route::prefix('mobile')->middleware('active.nav')->post('/send','Mobile\MemberController@Send');
 
 // 推荐贷款，客户列表
-Route::prefix('mobile')->get('client-list','Mobile\ClientController@ClientList');
-Route::prefix('mobile')->post('client-list','Mobile\ClientController@ClientListStore');
+Route::prefix('mobile')->middleware('active.nav')->get('client-list','Mobile\ClientController@ClientList');
+Route::prefix('mobile')->middleware('active.nav')->post('client-list','Mobile\ClientController@ClientListStore');
 
 // 客户列表，生成海报页面
 Route::prefix('mobile')->middleware('active.nav')->get('client-poster-list','Mobile\ClientController@ClientPoster');
@@ -76,13 +76,13 @@ Route::prefix('mobile')->middleware('active.nav')->post('client-poster-invite','
 Route::prefix('mobile')->middleware('active.nav')->get('/union-list/{member_id}','Mobile\MemberController@UnionList');
 
 // 方案详情
-Route::prefix('mobile')->get('plan-details/{id}','Mobile\PlanController@Detail');
+Route::prefix('mobile')->middleware('active.nav')->get('plan-details/{id}','Mobile\PlanController@Detail');
 
 // 生成海报页面
 Route::prefix('mobile')->middleware('active.nav')->get('poster-list','Mobile\MemberController@Poster');
 
 // 网站建设服务页面
-Route::prefix('mobile')->get('serve','Mobile\OtherController@Index');
+Route::prefix('mobile')->middleware('active.nav')->get('serve','Mobile\OtherController@Index');
 
 
 // **************************** 后台端 *********************

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Cache;
 
 class ActiveNav
 {
@@ -18,6 +19,18 @@ class ActiveNav
         if(session()->has('wechat_user') && session('wechat_user')){
             return $next($request);
         }else{
+
+            $url =  'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+            $url_person = 'http://www.gddk99.com/mobile/person-list';
+            $url_client = 'http://www.gddk99.com/mobile/client-list';
+
+            if ($url==$url_person){
+                Cache::add('person',$url_person,1);
+            }elseif($url==$url_client){
+                Cache::add('client',$url_client,1);
+            }
+
            return redirect('/login');
         }
     }

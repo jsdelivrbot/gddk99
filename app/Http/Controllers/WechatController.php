@@ -6,6 +6,7 @@ use App\Member;
 use Illuminate\Http\Request;
 use EasyWeChat\Foundation\Application;
 use Illuminate\Support\Facades\Config;
+use Cache;
 
 class WechatController extends Controller
 {
@@ -81,7 +82,17 @@ class WechatController extends Controller
             $rows = Member::find($mem->getQueueableId());
             session(['wechat_user' =>$rows->toArray()]);
         }
-        return redirect('/mobile/person-list');
+
+        $url_person = 'http://www.gddk99.com/mobile/person-list';
+        $url_client = 'http://www.gddk99.com/mobile/client-list';
+
+        if ($url_person==Cache::get('person')){
+            return redirect('/mobile/person-list');
+        }elseif($url_client==Cache::get('client')){
+            return redirect('/mobile/client-list');
+        }
+
+        return redirect('/mobile/index');
     }
 
     // 过滤掉emoji表情

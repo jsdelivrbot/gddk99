@@ -37,7 +37,9 @@ class MemberController extends Controller
     {
         // http://gddk99.tunnel.qydev.com/mobile/member-user-invite?member_parent_id=41
         $member_parent_id = $request->get('member_parent_id');
-        $sessionID = session('wechat_user')[0]['member_id'];
+
+        $id= Session::get('wechat_user');
+        $sessionID = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
 
         // 显示所属上级资料
         $member = Member::find($member_parent_id);
