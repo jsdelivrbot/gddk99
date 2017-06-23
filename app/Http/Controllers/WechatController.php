@@ -36,11 +36,22 @@ class WechatController extends Controller
 
     //第二步:写访问登陆，并且判断是否未登陆和已经登陆
     public function login(){
+
         $oauth = $this->config();
+
         // 未登录
         if (!session()->has('target_user')) {
+            // 绕过近期授权登陆
+            $or_op = session('wechat_user_session')['original']['openid'];
+            $openid= session('wechat_user');
+            $wechat_openid = isset($openid[0]['wechat_openid']) ? $openid[0]['wechat_openid'] : $openid['wechat_openid'];
+            if ($or_op==$wechat_openid){
+                return redirect('/mobile/index');
+            }
+
             return $oauth->redirect();
         }
+
         // 已经登录过
         session('wechat_user_session');
     }
