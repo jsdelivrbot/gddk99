@@ -60,7 +60,7 @@ class WechatController extends Controller
     }
 
     //第一步:写登陆授权获取用户信息保存到SESSION中，并且跳转登陆访问
-    public function oauth_callback(){
+    public function oauth_callback(Request $request){
         $oauth = $this->config();
 
         // 获取 OAuth 授权结果用户信息
@@ -97,8 +97,8 @@ class WechatController extends Controller
             session(['wechat_user' =>$rows->toArray()]);
         }
 
-        $url_person = 'http://www.gddk99.com/mobile/person-list';
-        $url_client = 'http://www.gddk99.com/mobile/client-list';
+        $url_person = 'http://'.$request->getHttpHost().'/mobile/person-list';
+        $url_client = 'http://'.$request->getHttpHost().'/mobile/client-list';
 
         if ($url_person==Cache::get('person')){
             return redirect('/mobile/person-list');

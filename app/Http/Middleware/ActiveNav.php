@@ -22,8 +22,8 @@ class ActiveNav
 
             $url =  'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
-            $url_person = 'http://www.gddk99.com/mobile/person-list';
-            $url_client = 'http://www.gddk99.com/mobile/client-list';
+            $url_person = 'http://'.$request->getHttpHost().'/mobile/person-list';
+            $url_client = 'http://'.$request->getHttpHost().'/mobile/client-list';
 
             if ($url==$url_person){
                 Cache::add('person',$url_person,1);
