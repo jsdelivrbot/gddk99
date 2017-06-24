@@ -66,7 +66,7 @@ class ClientController extends Controller
         //生成海报
         $poster = public_path('build/uploads/sc_poster'.$memberID.'.png');
         if(!file_exists($poster)){
-            (new Common())->Poster(url('build/img/haibao.png'),asset('build/uploads/poster'.$memberID.'.png'),public_path('build/uploads/sc_poster'.$memberID.'.png'));
+            (new Common())->PosterUnion(url('build/img/poster.png'),asset('build/uploads/poster'.$memberID.'.png'),public_path('build/uploads/sc_poster'.$memberID.'.png'));
         }
 
         return view('mobile.client-poster-list',['member_id'=>$member_id]);
