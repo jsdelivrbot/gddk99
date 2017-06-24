@@ -13,7 +13,7 @@
             <legend>申请贷款</legend>
             <div class="am-form-group">
                 <label for="info_name">客户姓名：</label>
-                <input type="text" id="info_name" name="info_name" minlength="3" placeholder="输入您的姓名" required/>
+                <input type="text" id="info_name" name="info_name" minlength="2" placeholder="输入您的姓名" required/>
                 <input type="hidden" id="info_invite" value="{{ $member['member_id'] }}" name="info_invite"/>
                 <input type="hidden" id="member_id" value="{{ $member_user['member_id'] }}" name="member_id"/>
             </div>

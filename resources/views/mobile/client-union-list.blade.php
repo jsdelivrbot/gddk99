@@ -21,13 +21,13 @@
                 @foreach($info as $key=>$list)
                 <div class="am-panel am-panel-secondary">
                     <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{ $key }}'}">
-                      {{ $list['member_surname'] }} <span style="float: right;">{{ $list['updated_at'] }}</span>
+                      {{ $list['info_name'] }} <span style="float: right;">{{ $list['updated_at'] }}</span>
                     </div>
                     <div id="do-not-say-{{ $key }}" class="am-panel-collapse am-collapse">
                         <div class="am-panel-bd">
                             <button type="button" class="am-btn am-btn-success am-round" style="float: right; margin-top: 10px;">查看详情</button>
-                            <p style="padding: 0; margin: 0;">姓名：{{ $list['member_surname'] }}</p>
-                            <p style="padding: 0; margin: 0;">电话：{{ $list['member_mobile'] }}</p>
+                            <p style="padding: 0; margin: 0;">姓名：{{ $list['info_name'] }}</p>
+                            <p style="padding: 0; margin: 0;">电话：{{ $list['info_mobile'] }}</p>
                         </div>
                     </div>
                 </div>
