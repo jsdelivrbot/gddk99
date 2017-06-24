@@ -42,8 +42,8 @@ class WechatController extends Controller
         // 未登录
         if (!session()->has('target_user')) {
             // 绕过近期授权登陆
-            $or_op = session('wechat_user_session')['original']['openid'];
-            $openid= session('wechat_user');
+            $or_op = empty(session('wechat_user_session')['original']['openid']) ? session('wechat_user') : session('wechat_user_session')['original']['openid'];
+            $openid= empty(session('wechat_user')) ? session('wechat_user_session')['original']['openid'] : session('wechat_user');
             $wechat_openid = isset($openid[0]['wechat_openid']) ? $openid[0]['wechat_openid'] : $openid['wechat_openid'];
             $or = empty($or_op) ? 1 : $or_op;
             $we =empty($wechat_openid) ? 2 : $wechat_openid;
