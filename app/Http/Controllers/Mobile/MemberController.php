@@ -27,7 +27,7 @@ class MemberController extends Controller
         $qrcode_pictrue = public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png');
         if(!file_exists($qrcode_pictrue)){
             $url='http://'.$request->getHttpHost().'/mobile/member-user-invite?member_parent_id='.$member[0]['member_id'];
-            QrCode::encoding('UTF-8')->format('png')->size(200)->generate($url,public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png'));
+            QrCode::encoding('UTF-8')->format('png')->size(200)->margin(1)->generate($url,public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png'));
         }
         return view('mobile.person-list',['member' => $member]);
 
