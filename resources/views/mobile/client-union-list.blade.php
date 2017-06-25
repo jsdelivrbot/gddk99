@@ -14,29 +14,17 @@
     </div>
 
     <div class="pet_content_block pet_hd_con">
-        <div style="height: 30px;"></div>
-        <article data-am-widget="paragraph" class="am-paragraph am-paragraph-default pet_content_article" style="padding-left: 0; padding-right: 0;" >
-            <div class="pet_hd_con_gp_list_nr">
-                @if(!empty($info[0]['member_id']))
-                @foreach($info as $key=>$list)
-                <div class="am-panel am-panel-secondary">
-                    <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{ $key }}'}">
-                      {{ $list['member_surname'] }} <span style="float: right;">{{ $list['updated_at'] }}</span>
-                    </div>
-                    <div id="do-not-say-{{ $key }}" class="am-panel-collapse am-collapse">
-                        <div class="am-panel-bd">
-                            <button type="button" class="am-btn am-btn-success am-round" style="float: right; margin-top: 10px;">查看详情</button>
-                            <p style="padding: 0; margin: 0;">姓名：{{ $list['member_surname'] }}</p>
-                            <p style="padding: 0; margin: 0;">电话：{{ $list['member_mobile'] }}</p>
-                        </div>
+        <div style="height: 50px;"></div>
+
+            <div class="pet_hd_con_gp_list_nr" style="padding: 20px;">
+                <div id="demo-list">
+                    <div id="demo-scroller" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+                        <ul class="am-list widget-list">
+                            <li><a href="/widgets/divider/default/0">default (灰色分隔线)</a></li>
+                        </ul>
                     </div>
                 </div>
-                @endforeach
-                @else
-                    <div class="pet_hd_con_gp_list_nr_title">暂无数据</div>
-                @endif
             </div>
-        </article>
         <div style="height: 5px;"></div>
     </div>
 @endsection

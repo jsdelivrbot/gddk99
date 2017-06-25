@@ -60,13 +60,13 @@ class ClientController extends Controller
         $qrcode_pictrue = public_path('build/uploads/poster'.$memberID.'.png');
         if(!file_exists($qrcode_pictrue)){
             $url='http://'.$request->getHttpHost().'/mobile/client-poster-invite?member_id='.$memberID;
-            QrCode::encoding('UTF-8')->format('png')->size(200)->generate($url,public_path('build/uploads/poster'.$memberID.'.png'));
+            QrCode::encoding('UTF-8')->format('png')->size(200)->margin(1)->generate($url,public_path('build/uploads/poster'.$memberID.'.png'));
         }
 
         //生成海报
         $poster = public_path('build/uploads/sc_poster'.$memberID.'.png');
         if(!file_exists($poster)){
-            (new Common())->Poster(url('build/img/haibao.png'),asset('build/uploads/poster'.$memberID.'.png'),public_path('build/uploads/sc_poster'.$memberID.'.png'));
+            (new Common())->PosterUnion(url('build/img/poster.png'),asset('build/uploads/poster'.$memberID.'.png'),public_path('build/uploads/sc_poster'.$memberID.'.png'));
         }
 
         return view('mobile.client-poster-list',['member_id'=>$member_id]);
