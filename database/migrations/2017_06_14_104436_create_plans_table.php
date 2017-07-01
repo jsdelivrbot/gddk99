@@ -34,6 +34,7 @@ class CreatePlansTable extends Migration
             $table->integer('plan_type_b')->default(0)->comment('方案类型2');
             $table->integer('plan_type_c')->default(0)->comment('方案类型3');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

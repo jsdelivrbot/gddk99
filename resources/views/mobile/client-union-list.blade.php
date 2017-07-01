@@ -1,30 +1,31 @@
 @extends('layouts.mobile')
 @section('content')
+<div class="pet_content_block pet_hd_con">
+    <div data-am-widget="list_news" class="am-list-news am-list-news-default" style="padding: 10px;">
+        <!--列表标题-->
+        <div class="am-list-news-hd am-cf">
+            <!--带更多链接-->
+                <h2>我的合伙人</h2>
+        </div>
 
-    <div class="pet_head">
-        <header data-am-widget="header" class="am-header am-header-default" style="background-color:#f9fafc;">
-            <div class="am-header-left am-header-nav ">
-                <a href="#left-link" class="iconfont">&#xe601;</a>
-            </div>
-            <div class="pet_news_list_tag_name" style="color: black; text-align: left; text-indent: 50px;">我的合伙人</div>
-            <div class="am-header-right am-header-nav">
-                <a href="javascript:;" class="iconfont pet_head_gd_ico">&#xe600;</a>
-            </div>
-        </header>
+        <div class="am-list-news-bd">
+            <ul class="am-list">
+                @if(!empty($info[0]['info_id']))
+                @foreach($info as $list)
+                <li class="am-g am-list-item-dated">
+                    <a href="{{ url('/mobile/client-union-details',['info_id'=>$list['info_id'],'member_id'=>$list['member_id']]) }}" class="am-list-item-hd ">{{ $list['info_name'] }}</a>
+                    <span class="am-list-date">{{ $list['updated_at'] }}</span>
+                </li>
+                @endforeach
+                @else
+                    <li class="am-g am-list-item-dated">
+                        <span style="font-size: 1.3rem;">暂无数据</span>
+                    </li>
+                @endif
+            </ul>
+        </div>
+
     </div>
-
-    <div class="pet_content_block pet_hd_con">
-        <div style="height: 50px;"></div>
-
-            <div class="pet_hd_con_gp_list_nr" style="padding: 20px;">
-                <div id="demo-list">
-                    <div id="demo-scroller" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
-                        <ul class="am-list widget-list">
-                            <li><a href="/widgets/divider/default/0">default (灰色分隔线)</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        <div style="height: 5px;"></div>
-    </div>
+    <div style="height: 5px;"></div>
+</div>
 @endsection

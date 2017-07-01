@@ -9,7 +9,7 @@
 
     {!! Form::open(['url'=>'/mobile/client-list','class'=>'am-form','data-am-validator']) !!}
         <fieldset>
-            <legend>申请贷款 <button type="button" class="am-btn am-btn-primary" style="float: right;" onclick="javascript:window.location='{{ url('mobile/client-poster-list') }}'">索取海报扫码获客</button> </legend>
+            <legend>申请贷款</legend>
             <div class="am-form-group">
                 <label for="info_name">客户姓名：</label>
                 <input type="text" id="info_name" name="info_name" minlength="2" placeholder="输入您的姓名" required/>
@@ -46,7 +46,14 @@
                 <input type="text" id="info_sms" name="info_sms" minlength="3" placeholder="输入您的手机验证码" required/>
             </div>
 
-            <button class="am-btn am-btn-primary am-btn-block" type="submit" >提交申请</button>
+            <div class="am-g am-g-fixed">
+                <div class="am-u-sm-6" style="margin: 0; padding: 0;">
+                    <button type="submit" class="am-btn am-btn-warning am-btn-block">提交申请</button>
+                </div>
+                <div class="am-u-sm-6" style="margin: 0; padding: 0;">
+                    <button type="button" class="am-btn am-btn-default am-btn-block" onclick="javascript:window.location='{{ url('mobile/index') }}'" >返回首页</button>
+                </div>
+            </div>
 
         </fieldset>
     {!! Form::close() !!}

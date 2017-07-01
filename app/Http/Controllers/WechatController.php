@@ -2,152 +2,179 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\Common;
 use App\Member;
 use Illuminate\Http\Request;
 use EasyWeChat\Foundation\Application;
-use Illuminate\Support\Facades\Config;
+use Overtrue\Socialite\SocialiteManager;
 use Cache;
 
 class WechatController extends Controller
 {
+
+    // -----------------------微信公众号--关注公众号-----------------------------
+    protected  $option = [
+        'debug'     => true,
+        'app_id'    => 'wx3f8962decbe79ba4',
+        'secret'    => '18277875d53776b5dcf05676563acce2',
+        'token'     => 'CWI4y86blVB8OhUQg4BnMF',
+        'log' => [
+            'level' => 'debug',
+            'file'  => '/tmp/easywechat.log',
+        ],
+        'oauth' => [
+            'scopes' =>['snsapi_base'],
+            'callback' => '/mobile/oauth_callback',
+        ],
+    ];
+
+    // -----------------------微信公众号网页授权-----------------------------
+    protected  $options = [
+        'debug'     => true,
+        'app_id'    => 'wx3f8962decbe79ba4',
+        'secret'    => '18277875d53776b5dcf05676563acce2',
+        'token'     => 'CWI4y86blVB8OhUQg4BnMF',
+        'log' => [
+            'level' => 'debug',
+            'file'  => '/tmp/easywechat.log',
+        ],
+        'oauth' => [
+            'scopes' =>['snsapi_userinfo'],
+            'callback' => '/mobile/ws-callback',
+        ],
+    ];
+
+    // -----------------------开放平台网页第三方登录-----------------------------
+    protected $config = [
+        'wechat' => [
+            'client_id'     => 'wx9f3dd1dd7cc72602',
+            'client_secret' => 'b2600888426c904583800ac5a9de4a8f',
+            'redirect'      => 'http://www.gddk99.com/mobile/wx-callback',
+        ]
+    ];
+
+    //******************************* 封装方法区域 ***********************************************
+
+    // 封装存储数据方法
+    protected function BackData($result){
+        $member = Member::where('wechat_openid',$result['openid'])->first();
+        $memberId =$member['member_id'];
+        $row = (new Common())->if_empty($memberId);
+        if ($row == 0){
+            $mem = new Member();
+            $mem->wechat_openid = $result['openid'];
+            $mem->wechat_nickname = $result['nickname'];
+            $mem->member_sex = $result['sex'];
+            $mem->wechat_headimgurl = $result['headimgurl'];
+            $mem->is_member = Member::IS_MEMBER;
+            $mem->save();
+            $rows = Member::find($mem->getQueueableId());
+            Cache::add('mobile_user',$rows,Member::FAIL_TIME);
+        }
+        Cache::add('mobile_user',$member,Member::FAIL_TIME);
+
+        return redirect()->action('WechatController@login');
+    }
+
+    // 登录成功进入对应页面方法
+    protected function enter(){
+        return redirect('/mobile/index');
+    }
+
+    // 渠道入口登录判断
+    public function Channel(){
+
+        $scope = Cache::get('scope');
+
+        if ($scope=='snsapi_userinfo'){
+            return redirect()->action('WechatController@WsLogin');
+        }elseif($scope=='snsapi_base'){
+            return redirect()->action('WechatController@login');
+        }elseif($scope=='snsapi_login'){
+            return redirect()->action('WechatController@WxLogin');
+        }
+
+    }
+
+
+    // -----------------------微信公众号--关注公众号-----------------------------
+
     public function serve(){
-        $options =Config::get('wechat');
-        $app = new Application($options);
+        $app = new Application($this->option);
         $server = $app->server;
         $user = $app->user;
         $server->setMessageHandler(function($message) use ($user) {
-            switch ($message->MsgType) {
-                case 'event':
-                    # 事件消息...
-                    return "欢迎关注广东贷款网";
-                    break;
-            }
+            $fromUser = $user->get($message->FromUserName);
+            return "{$fromUser->nickname} 您好！欢迎关注 广东贷款网";
         });
         $server->serve()->send();
     }
 
-    //封装方法
-    public function config(){
-        $options =Config::get('wechat');
-        $app = new Application($options);
-        $oauth = $app->oauth;
-        return $oauth;
-    }
-
-    //第二步:写访问登陆，并且判断是否未登陆和已经登陆
     public function login(){
-
-        $oauth = $this->config();
-
         // 未登录
-        if (!session()->has('target_user')) {
-            // 绕过近期授权登陆
-            $or_op = empty(session('wechat_user_session')['original']['openid']) ? session('wechat_user') : session('wechat_user_session')['original']['openid'];
-            $openid= empty(session('wechat_user')) ? session('wechat_user_session')['original']['openid'] : session('wechat_user');
-            $wechat_openid = isset($openid[0]['wechat_openid']) ? $openid[0]['wechat_openid'] : $openid['wechat_openid'];
-            $or = empty($or_op) ? 1 : $or_op;
-            $we =empty($wechat_openid) ? 2 : $wechat_openid;
-
-            if ($or==$we){
-                return redirect('/mobile/index');
-            }
-
+        $app = new Application($this->option);
+        $oauth = $app->oauth;
+        if (!Cache::has('mobile_user')){
             return $oauth->redirect();
         }
 
-        // 已经登录过
-        session('wechat_user_session');
+        // 已登录
+        return $this->enter();
     }
 
-    //第一步:写登陆授权获取用户信息保存到SESSION中，并且跳转登陆访问
-    public function oauth_callback(Request $request){
-        $oauth = $this->config();
-
-        // 获取 OAuth 授权结果用户信息
-        $member = $oauth->user();
-        session(['wechat_user_session' => $member->toArray()]);
-
-        //第三步:采用SESSION获取用户openID查询用户详细信息，并且保存数据库，跳转登陆成功！
-        $sess = session('wechat_user_session');
-        $openId =$sess['id'];
-        $options =Config::get('wechat');
-        $app = new Application($options);
+    public function oauth_callback(){
+        $app = new Application($this->option);
+        $oauth = $app->oauth;
+        $user = $oauth->user();
+        $token = $user['token']->toArray();
+        $scope =$token['scope'];
+        $openId =$user['id'];
         $userService = $app->user;
-        $res = $userService->get($openId)->toArray();
+        $result = $userService->get($openId)->toArray();
 
-        //查询数据当前用户OPENID是否存在，如果存在直接跳转，不存在添加数据跳转
-        $row = Member::where('wechat_openid',$res['openid'])->first();
-        if (isset($row)){
-            $data_row[] = $row->toArray();
-            session(['wechat_user' =>$data_row]);
-        }else{
-            $us = $member->toArray();
-            $nicknamea = empty($res['nickname']) ? '1' : $this->filterEmoji($res['nickname']);
-            $nicknameb = $this->filterEmoji($us['original']['nickname']);
+        // --------------获取到用户资料，存储数据库------------
 
-            //添加Member数据
-            $mem = new Member();
-            $mem->wechat_openid = isset($res['openid']) ? $res['openid'] : $us['original']['openid'];
-            $mem->wechat_nickname = isset($nicknamea)=='1' ? $nicknameb : $nicknamea;
-            $mem->member_sex = isset($res['sex']) ? $res['sex'] : $us['original']['sex'];
-            $mem->wechat_headimgurl = isset($res['headimgurl']) ? $res['headimgurl'] : $us['original']['headimgurl'];
-            $mem->member_type = 1;
-            $mem->save();
-            $rows = Member::find($mem->getQueueableId());
-            session(['wechat_user' =>$rows->toArray()]);
-        }
-
-        $url_person = 'http://'.$request->getHttpHost().'/mobile/person-list';
-        $url_client = 'http://'.$request->getHttpHost().'/mobile/client-list';
-        $qycode_client = 'http://'.$request->getHttpHost().'/mobile/client-poster-invite?member_id='.Cache::get('memberID').'';
-
-        if ($url_person==Cache::get('person')){
-            return redirect('/mobile/person-list');
-        }elseif($url_client==Cache::get('client')){
-            return redirect('/mobile/client-list');
-        }elseif($qycode_client==Cache::get('qycode_client')){
-            return redirect('/mobile/client-poster-invite?member_id='.Cache::get('memberID').'');
-        }
-
-        return redirect('/mobile/index');
+        Cache::add('scope',$scope,1);
+        return $this->BackData($result);
     }
 
-    // 过滤掉emoji表情
-    function filterEmoji($str)
-    {
-        $str = preg_replace_callback(
-            '/./u',
-            function (array $match) {
-                return strlen($match[0]) >= 4 ? '' : $match[0];
-            },
-            $str);
-        return $str;
+
+    //  -----------------------微信公众号网页授权-----------------------------
+    public function WsLogin(){
+
+        $app = new Application($this->options);
+        $oauth = $app->oauth;
+        return $oauth->redirect();
+
+    }
+    public function WsCallback(){
+
+        $app = new Application($this->options);
+        $oauth = $app->oauth;
+        $user = $oauth->user();
+        $token = $user['token']->toArray();
+        $scope = $token['scope'];
+        $result = $user['original'];
+
+        // --------------获取到用户资料，存储数据库------------
+
+        Cache::add('scope',$scope,1);
+        return $this->BackData($result);
+
     }
 
-    // 微信测试号菜单设置，到时注销
-    public function Menu(){
-        $options =Config::get('wechat');
-        $app = new Application($options);
-        $menu = $app->menu;
-        $buttons = [
-            [
-                "type" => "view",
-                "name" => "广东贷款网",
-                "url"  => "http://gddk99.tunnel.qydev.com"
-            ],
-            [
-                "type" => "view",
-                "name" => "贷款申请",
-                "url"  => "http://gddk99.tunnel.qydev.com/mobile/client-list"
-            ],
-            [
-                "type" => "view",
-                "name" => "个人中心",
-                "url"  => "http://gddk99.tunnel.qydev.com/mobile/person-list"
-            ],
-        ];
-        $menu->add($buttons);
-        //$menu->destroy();
+
+    //  -----------------------微信开放平台网页授权-----------------------------
+
+    public function WxLogin(){
+        $socialite = new SocialiteManager($this->config);
+        return $socialite->driver('wechat')->redirect();
+    }
+
+    public function WxCallback(){
+        $socialite = new SocialiteManager($this->config);
+        $user = $socialite->driver('wechat')->user();
+        dd($user);
     }
 
 }

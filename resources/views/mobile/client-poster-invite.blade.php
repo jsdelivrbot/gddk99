@@ -10,34 +10,35 @@
         {!! Form::open(['url'=>'/mobile/client-poster-invite','class'=>'am-form','data-am-validator']) !!}
         <fieldset>
             <legend style="font-size: 14px;">扫码成功！<font color="red">{{ $member_user['member_surname']?$member_user['member_surname']:$member_user['wechat_nickname'] }}</font> 即将成为 <font color="red">{{ $member['member_surname']?$member['member_surname']:$member['wechat_nickname'] }}</font> 线下发展合伙人</legend>
-            <legend>申请贷款</legend>
+            <legend>绑定合伙人资料</legend>
             <div class="am-form-group">
-                <label for="info_name">客户姓名：</label>
-                <input type="text" id="info_name" name="info_name" minlength="2" placeholder="输入您的姓名" required/>
-                <input type="hidden" id="info_invite" value="{{ $member['member_id'] }}" name="info_invite"/>
-                <input type="hidden" id="member_id" value="{{ $member_user['member_id'] }}" name="member_id"/>
+                <label for="wechat_nickname">昵称：</label>
+                <input type="text" id="wechat_nickname" name="wechat_nickname" value="{{ $member_user['wechat_nickname'] or '' }}" disabled/>
             </div>
 
             <div class="am-form-group">
-                <label for="info_sex">性别</label>
-                <select id="info_sex" name="info_sex" required>
-                    <option value="">选择性别</option>
-                    <option value="1">男</option>
-                    <option value="2">女</option>
-                    <option value="0">保密</option>
+                <label for="member_surname">姓名：</label>
+                <input type="text" id="member_surname" name="member_surname" value="{{ $member_user['member_surname'] }}" minlength="2" placeholder="输入您的姓名" required/>
+                <input type="hidden" id="member_id" value="{{ $member_user['member_id'] }}" name="member_id"/>
+                <input type="hidden" name="member_parent_id" value="{{ $member['member_id'] }}">
+            </div>
+
+            <div class="am-form-group">
+                <label for="member_sex">性别</label>
+                <select id="member_sex" name="member_sex" required>
+                    @foreach($member_sex as $sex)
+                        <option value="{{ $sex['sex_number'] }}" @if($sex['sex_number'] == $member_user['member_sex']) selected @endif>
+                            {{ $sex['sex_name'] }}
+                        </option>
+                    @endforeach
                 </select>
                 <span class="am-form-caret"></span>
             </div>
 
             <div class="am-form-group">
-                <label for="info_quota">贷款额度(万元)：</label>
-                <input type="text" id="info_quota" name="info_quota" minlength="3" placeholder="输入贷款额度" required/>
-            </div>
-
-            <div class="am-form-group">
-                <label for="info_mobile">手机号：</label>
+                <label for="member_mobile">手机号：</label>
                 <div class="am-input-group">
-                    <input type="text" id="info_mobile" name="info_mobile" minlength="3" placeholder="输入您的手机号" required class="am-form-field">
+                    <input type="text" id="member_mobile" name="member_mobile"  value="{{ $member_user['member_mobile'] }}" minlength="3" placeholder="输入您的手机号" required class="am-form-field">
                     <span class="am-input-group-btn">
                             <input type="button" id="btn" value="获取验证码" class="am-btn am-btn-default" onclick="settime(this),Sms()" />
                         </span>
@@ -45,11 +46,18 @@
             </div>
 
             <div class="am-form-group">
-                <label for="info_sms">验证码：</label>
-                <input type="text" id="info_sms" name="info_sms" minlength="3" placeholder="输入您的手机验证码" required/>
+                <label for="member_sms">验证码：</label>
+                <input type="text" id="member_sms" name="member_sms" minlength="3" placeholder="输入您的手机验证码" required/>
             </div>
 
-            <button class="am-btn am-btn-primary am-btn-block" type="submit" >提交申请</button>
+            <div class="am-g am-g-fixed">
+                <div class="am-u-sm-6" style="margin: 0; padding: 0;">
+                    <button type="submit" class="am-btn am-btn-warning am-btn-block">提交绑定</button>
+                </div>
+                <div class="am-u-sm-6" style="margin: 0; padding: 0;">
+                    <button type="button" class="am-btn am-btn-default am-btn-block" onclick="javascript:window.location='{{ url('mobile/index') }}'" >返回首页</button>
+                </div>
+            </div>
 
         </fieldset>
         {!! Form::close() !!}
@@ -59,19 +67,7 @@
 @endsection
 @section('script')
     @if(Session::has('message'))
-        @if(Session::get('message')==1)
-            <script>
-                layer.open({
-                    type: 1,
-                    title: false,
-                    skin:'layui-layer-demo',
-                    area: ['78%', '18%'],
-                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，申请成功！</div><div class="am-panel-bd">您好！请保持电话畅通，稍后客服人员与你联络。</div></div>'
-                });
-            </script>
-        @elseif(Session::get('message')==0)
-            <script>layer.msg('申请失败！', {icon: 5}); </script>
-        @elseif(Session::get('message')==2)
+        @if(Session::get('message')==2)
             <script>layer.msg('验证码错误！', {icon: 5}); </script>
         @endif
     @endif

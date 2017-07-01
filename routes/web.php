@@ -11,29 +11,44 @@
 |
 */
 
-// **************************** PC端 *********************
+// ------------------------------- PC端 -----------------------------------------
 
 Route::get('/','Home\IndexController@index');
 
 
-// **************************** 微信端 *********************
+
+// ------------------------------- 微信登录路由配置 -----------------------------------------
 
 //微信提交Token验证
-Route::any('weixin', 'WechatController@serve');
-//微信登陆
-Route::any('login', 'WechatController@login');
-//微信获取授权
-Route::any('oauth_callback', 'WechatController@oauth_callback');
+Route::prefix('mobile')->any('weixin', 'WechatController@serve');
 
-//微信菜单导航
-Route::any('menu', 'WechatController@Menu');
+//微信登陆
+Route::prefix('mobile')->any('login', 'WechatController@login');
+
+//微信获取授权回调
+Route::prefix('mobile')->any('oauth_callback', 'WechatController@oauth_callback');
+
+// 微信网页授权登录
+Route::prefix('mobile')->any('ws-login', 'WechatController@WsLogin');
+
+//微信网页授权回调
+Route::prefix('mobile')->any('ws-callback', 'WechatController@WsCallback');
 
 // 微信开放平台
-Route::prefix('mobile')->get('wx-login','Mobile\LoginController@WxLogin');
-Route::prefix('mobile')->get('wx-callback','Mobile\LoginController@WxCallback');
+Route::prefix('mobile')->get('wx-login','WechatController@WxLogin');
+
+// 微信开放平台授权回调
+Route::prefix('mobile')->get('wx-callback','WechatController@WxCallback');
+
+//微信菜单导航
+Route::prefix('mobile')->any('menu', 'WechatController@Menu');
+
+//渠道入口登录-------手机端----微信端----所有的登录通通走这个入口
+Route::prefix('mobile')->any('channel', 'WechatController@Channel');
+
+// -------------------------------  微信端  -----------------------------------------
 
 // 首页
-//Route::get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('index','Mobile\IndexController@index');
 
@@ -68,12 +83,22 @@ Route::prefix('mobile')->middleware('active.nav')->post('client-list','Mobile\Cl
 // 客户列表，生成海报页面
 Route::prefix('mobile')->middleware('active.nav')->get('client-poster-list','Mobile\ClientController@ClientPoster');
 
-// 客户列表，生成海报列表-邀请
+// 客户列表，生成海报列表-邀请-合伙人
 Route::prefix('mobile')->middleware('active.nav')->get('client-poster-invite','Mobile\ClientController@ClientPosterInvite');
 Route::prefix('mobile')->middleware('active.nav')->post('client-poster-invite','Mobile\ClientController@ClientPosterInviteStore');
 
+// 客户列表，生成海报列表-邀请-合伙人--推荐客户
+Route::prefix('mobile')->middleware('active.nav')->get('client-poster-invite-apply','Mobile\ClientController@ClientPosterInviteApply');
+Route::prefix('mobile')->middleware('active.nav')->post('client-poster-invite-apply','Mobile\ClientController@ClientPosterInviteApplyStore');
+
 // 我的合伙人列表
+Route::prefix('mobile')->middleware('active.nav')->get('/client-union-show/{member_id}','Mobile\ClientController@ClientUnionShow');
+
+// 我的合伙人--申报客户列表
 Route::prefix('mobile')->middleware('active.nav')->get('/client-union-list/{member_id}','Mobile\ClientController@ClientUnionList');
+
+// 我的合伙人--申报客户列表--详情
+Route::prefix('mobile')->middleware('active.nav')->get('/client-union-details/{info_id}/{member_id}','Mobile\ClientController@ClientUnionDetails');
 
 // 我的经纪人列表
 Route::prefix('mobile')->middleware('active.nav')->get('/union-list/{member_id}','Mobile\MemberController@UnionList');
@@ -88,7 +113,7 @@ Route::prefix('mobile')->middleware('active.nav')->get('poster-list','Mobile\Mem
 Route::prefix('mobile')->middleware('active.nav')->get('serve','Mobile\OtherController@Index');
 
 
-// **************************** 后台端 *********************
+// -------------------------------  后台端 -----------------------------------------
 
 //登录页
 Route::prefix('admin')->get('/','Admin\IndexController@Login');

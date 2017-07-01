@@ -7,10 +7,9 @@
             <div class="pet_hd_con_head"><img src="{{ url('build/img/client-list.jpg') }}" alt=""></div>
         </div>
 
-        {!! Form::open(['url'=>'/mobile/client-poster-invite','class'=>'am-form','data-am-validator']) !!}
+        {!! Form::open(['url'=>'/mobile/client-poster-invite-apply','class'=>'am-form','data-am-validator']) !!}
         <fieldset>
-            <legend style="font-size: 14px;">扫码成功！<font color="red">{{ $member_user['member_surname']?$member_user['member_surname']:$member_user['wechat_nickname'] }}</font> 即将成为 <font color="red">{{ $member['member_surname']?$member['member_surname']:$member['wechat_nickname'] }}</font> 线下发展合伙人</legend>
-            <legend>申请贷款</legend>
+            <legend>推荐客户-申请贷款</legend>
             <div class="am-form-group">
                 <label for="info_name">客户姓名：</label>
                 <input type="text" id="info_name" name="info_name" minlength="2" placeholder="输入您的姓名" required/>
@@ -48,8 +47,15 @@
                 <label for="info_sms">验证码：</label>
                 <input type="text" id="info_sms" name="info_sms" minlength="3" placeholder="输入您的手机验证码" required/>
             </div>
-
-            <button class="am-btn am-btn-primary am-btn-block" type="submit" >提交申请</button>
+            
+            <div class="am-g am-g-fixed">
+                <div class="am-u-sm-6" style="margin: 0; padding: 0;">
+                    <button type="submit" class="am-btn am-btn-warning am-btn-block">提交申请</button>
+                </div>
+                <div class="am-u-sm-6" style="margin: 0; padding: 0;">
+                    <button type="button" class="am-btn am-btn-default am-btn-block" onclick="javascript:window.location='{{ url('mobile/index') }}'" >返回首页</button>
+                </div>
+            </div>
 
         </fieldset>
         {!! Form::close() !!}
@@ -66,13 +72,35 @@
                     title: false,
                     skin:'layui-layer-demo',
                     area: ['78%', '18%'],
-                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，申请成功！</div><div class="am-panel-bd">您好！请保持电话畅通，稍后客服人员与你联络。</div></div>'
+                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，绑定成功！</div><div class="am-panel-bd">您好，我们已经是合伙人了，立即推荐客户享受更多优惠！</div></div>'
                 });
             </script>
         @elseif(Session::get('message')==0)
-            <script>layer.msg('申请失败！', {icon: 5}); </script>
+            <script>layer.msg('绑定失败！', {icon: 5}); </script>
         @elseif(Session::get('message')==2)
             <script>layer.msg('验证码错误！', {icon: 5}); </script>
+        @elseif(Session::get('message')==3)
+            <script>
+                layer.open({
+                    type: 1,
+                    title: false,
+                    skin:'layui-layer-demo',
+                    area: ['78%', '18%'],
+                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">您好，您已经是合伙人身份！</div><div class="am-panel-bd">立即推荐客户享受更多优惠！</div></div>'
+                });
+            </script>
+        @elseif(Session::get('message')==4)
+            <script>
+                layer.open({
+                    type: 1,
+                    title: false,
+                    skin:'layui-layer-demo',
+                    area: ['78%', '18%'],
+                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，申请成功！</div><div class="am-panel-bd">您好！请保持电话畅通，稍后客服人员与你联络。</div></div>'
+                });
+            </script>
+        @elseif(Session::get('message')==5)
+            <script>layer.msg('申请失败！', {icon: 5}); </script>
         @endif
     @endif
 

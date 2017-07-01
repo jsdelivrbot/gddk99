@@ -19,6 +19,7 @@ class CreateAccessTable extends Migration
             $table->text('urls')->comment('对应的URL，这里存储我们用JOSN存储');
             $table->tinyInteger('status')->default(1)->comment('状态：1有效，0无效');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

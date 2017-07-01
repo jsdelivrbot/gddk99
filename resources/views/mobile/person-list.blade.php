@@ -1,4 +1,5 @@
 @extends('layouts.mobile')
+@section('title','个人中心')
 @section('content')
 
     <div class="pet_grzx">
@@ -9,7 +10,7 @@
             <div class="pet_grzx_name">{{ $member[0]['member_name'] ? $member[0]['member_name']:$member[0]['wechat_nickname'] }}</div>
 
             <div class="pet_grzx_num_font">
-                <a href="{{ url('/mobile/poster-list') }}" class="am-btn am-btn-success am-btn-block"data-am-modal="{target: '#my-alert'}">获取二维码名片</a>
+                <a href="{{ url('/mobile/poster-list') }}" class="am-btn am-btn-warning am-btn-block"data-am-modal="{target: '#my-alert'}">个人专属二维码</a>
                 {{--<button type="button" class="am-btn am-btn-success am-btn-block"data-am-modal="{target: '#my-alert'}">获取二维码名片</button>--}}
 
                 {{--<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
@@ -50,7 +51,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/mobile/client-union-list',['member_id'=>$member[0]['member_id']]) }}"><i class="am-icon-user-plus am-icon-fw"></i>
+                    <a href="{{ url('/mobile/client-union-show',['member_id'=>$member[0]['member_id']]) }}"><i class="am-icon-user-plus am-icon-fw"></i>
                         我的合伙人
                     </a>
                 </li>

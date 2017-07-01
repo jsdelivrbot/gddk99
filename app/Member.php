@@ -3,14 +3,22 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Member extends Model
 {
+    use SoftDeletes;
+
     const SEX_SECRET = 0;
     const SEX_MAN = 1;
     const SEX_WOMAN = 2;
 
+    const MEMBER_PUBLIC = 0; // 默认
+    const IS_MEMBER = 1;  // 登录状态
+    const FAIL_TIME = 60;  // 失效时间,60秒
+
     public $primaryKey = 'member_id';
+
 
 
     public static function sexLabelList()
@@ -21,6 +29,7 @@ class Member extends Model
             self::SEX_WOMAN => '女'
         ];
     }
+
     public function getMemberSexTextAttribute()
     {
         return empty($this->member_sex) ? self::sexLabelList()[$this->member_sex] : self::sexLabelList()[$this->member_sex];
@@ -34,4 +43,5 @@ class Member extends Model
         ];
         return $member_sex;
     }
+
 }

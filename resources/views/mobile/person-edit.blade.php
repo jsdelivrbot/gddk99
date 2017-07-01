@@ -83,8 +83,8 @@
                 <input type="text" id="member_add" name="member_add" minlength="3" value="{{ $member['member_add'] }}" placeholder="输入地址" required/>
             </div>
 
-            <button class="am-btn am-btn-primary am-btn-block" type="submit" >提交</button>
-            <a href="{{ url('/mobile/person-list') }}" class="am-btn am-btn-primary am-btn-block" >返回</a>
+            <button class="am-btn am-btn-warning am-btn-block" type="submit" >提交</button>
+            <a href="{{ url('/mobile/person-list') }}" class="am-btn am-btn-warning am-btn-block" >返回</a>
 
         </fieldset>
     {!! Form::close() !!}

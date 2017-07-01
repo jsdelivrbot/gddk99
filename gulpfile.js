@@ -22,6 +22,7 @@ elixir(mix => {
         'resources/assets/amazeui/css/amazeui.min.css',
         'resources/assets/amazeui/css/animate.min.css',
         'resources/assets/amazeui/css/wap.css',
+        'resources/assets/amazeui/css/index.css',
     ], 'public/css/all.css', './');
 
     //拷贝妹子JS
@@ -41,7 +42,8 @@ elixir(mix => {
     //拷贝妹子图片
     mix.copy('resources/assets/amazeui/img', 'public/build/img');
 
-    // *********************** 后端端 ******************
+
+    // *********************** 后端 ******************
 
     //拷贝妹子CSS
     mix.copy('resources/assets/adminamazeui/css', 'public/build/admin/css');

@@ -24,6 +24,7 @@ class CreateInfosTable extends Migration
             $table->integer('member_id')->default('0')->comment('会员ID');
             $table->integer('info_invite')->default('0')->comment('合伙人邀请ID');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

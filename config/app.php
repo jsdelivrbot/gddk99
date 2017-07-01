@@ -186,6 +186,9 @@ return [
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Unicodeveloper\Emoji\EmojiServiceProvider::class,
 
+        Barryvdh\Cors\ServiceProvider::class,
+        Ixudra\Curl\CurlServiceProvider::class,
+
     ],
 
     /*
@@ -240,6 +243,8 @@ return [
 
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Emoji' => Unicodeveloper\Emoji\Facades\Emoji::class,
+
+        'Curl' => Ixudra\Curl\Facades\Curl::class,
 
     ],
 

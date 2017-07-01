@@ -31,12 +31,15 @@ class CreateMembersTable extends Migration
             $table->tinyInteger('member_type')->default('0')->comment('会员类型');
             $table->tinyInteger('member_status')->default('10')->comment('会员状态：10表示正常');
             $table->integer('member_parent_id')->default('0')->comment('会员父级ID');
-            $table->timestamps();
+            $table->tinyInteger('is_member')->default(0)->comment('是否是登录：1是登录，0是没有登录');
 
             //微信表
             $table->string('wechat_openid')->unique()->comment('微信ID');
             $table->string('wechat_nickname')->nullable()->comment('微信昵称');
             $table->text('wechat_headimgurl')->nullable()->comment('微信头像');
+
+            $table->timestamps();
+            $table->softDeletes();
 
         });
     }
