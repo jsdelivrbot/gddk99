@@ -3,24 +3,24 @@
 
     <div class="pet_grzx">
         <div class="pet_grzx_nr">
-            {{--<div class="pet_grzx_ico">
-                <img src="{{ empty(file_exists(url('build/uploads/'.$member['member_avatar'])))? $member['wechat_headimgurl'] :url('build/uploads/'.$member['member_avatar'])}}" alt="">
-            </div>--}}
+            <div class="pet_grzx_ico">
+                <img src="{{ $member_parent['avatar']  }}" alt="">
+            </div>
             <div class="pet_grzx_name">扫码成功！</div>
 
             <div class="pet_grzx_num_font">
-                即将成为<font color="red">{{ empty($member['member_surname'])? $member['wechat_nickname']:$member['member_surname'] }}</font>下线发展经纪人
+                即将成为<font color="red">{{ $member_parent['name'] }}</font>下线发展经纪人
             </div>
 
             <br>
-            {!! Form::open(['url'=>'mobile/member-user-invite','method'=>'POST','class'=>'am-form','data-am-validator']) !!}
+            {!! Form::open(['url'=>'mobile/member/member-user-invite','method'=>'POST','class'=>'am-form','data-am-validator']) !!}
             <fieldset>
                 <legend>申请成为经纪人</legend>
                 <div class="am-form-group">
                     <label for="member_surname">姓名：</label>
                     <input type="text" id="member_surname" name="member_surname" value="{{ $member_user['member_surname'] }}" minlength="2" placeholder="输入您的姓名" required/>
                     <input type="hidden" name="member_id" value="{{ $member_user['member_id'] }}">
-                    <input type="hidden" name="member_parent_id" value="{{ $member['member_id'] }}">
+                    <input type="hidden" name="member_parent_id" value="{{ $member_parent['id'] }}">
                 </div>
 
                 <div class="am-form-group">
@@ -32,7 +32,6 @@
                             </option>
                         @endforeach
                     </select>
-                    <span class="am-form-caret"></span>
                 </div>
 
                 <div class="am-form-group">
@@ -65,7 +64,7 @@
                         <button type="submit" class="am-btn am-btn-primary am-btn-block">确定</button>
                     </div>
                     <div class="am-u-sm-6" style="margin: 0; padding: 0;">
-                        <a href="{{ url('mobile/person-list') }}" class="am-btn am-btn-success am-btn-block">取消</a>
+                        <a href="{{ url('mobile/member/person-list') }}" class="am-btn am-btn-success am-btn-block">取消</a>
                     </div>
                 </div>
 
@@ -99,7 +98,7 @@
         //发送请求
         function Sms() {
             var member_mobile = $("#member_mobile").val();
-            $.post("{{url('/mobile/send')}}",{'_token':'{{csrf_token()}}','mobile':member_mobile});
+            $.post("{{url('/mobile/member/send')}}",{'_token':'{{csrf_token()}}','mobile':member_mobile});
         }
     </script>
     @if(Session::has('message'))

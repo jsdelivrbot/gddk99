@@ -11,7 +11,7 @@ use Cache;
 
 class MemberController extends Controller
 {
-    // 设置存储图片路径
+    // 设置存储图片目录路径
     protected $path = 'build/uploads/qrcode';
 
     // 设置会员管理---个人中心--专属二维码中URL地址
@@ -26,12 +26,12 @@ class MemberController extends Controller
         // 从数据库读取数据
         $member = $member->find($memberUser);
         $memberID = $member['member_id'];
-
+        // 生成二维码
         $Qrcode = $common->QrCode($memberID,$this->path,$this->HttpUrl);
 
         // 组装判断数据，减少前端代码优雅
         $groupData =[
-            'avatar' => $common->If_val($common->picPath($member['member_avatar']),$member['wechat_headimgurl']),
+            'avatar' => $common->If_val($common->picUrlPath($member['member_avatar']),$member['wechat_headimgurl']),
             'name' => $common->If_val($member['member_surname'],$member['wechat_nickname']),
         ];
 
@@ -39,71 +39,83 @@ class MemberController extends Controller
 
     }
 
-    public function MemberUserInvite(Request $request)
-    {
-        // http://gddk99.tunnel.qydev.com/mobile/member-user-invite?member_parent_id=41
-        $member_parent_id = $request->get('member_parent_id');
+    // 会员管理---个人中心--生成海报页面--扫码成为经纪人
+    public function Poster(Common $common){
 
-        $id= Session::get('wechat_user');
-        $sessionID = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
+        // 接收ID参数
+        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
+        // 读取图片
+        $poster = $common->PublicPath('sc',$memberId);
+
+        // 判断图片是否存在，不存在生成图片
+        if(!file_exists($poster)){
+            $common->Poster($common->picUrlPath('haibao.png'),$common->PublicPath('qrcode',$memberId),$common->PublicPath('sc',$memberId));
+        }
+        // 获取图片输出到前端界面
+        $poster_pic = $common->picUrlPath('sc'.$memberId.'.png');
+
+        return view('mobile.member.poster-list',['poster'=>$poster_pic]);
+    }
+
+
+    //会员管理---个人中心--生成海报页面--扫码成为经纪人--扫码跳转页面
+    public function MemberUserInvite(Request $request,Common $common,Member $member)
+    {
+        // http://gddk99.tunnel.qydev.com/mobile/member/member-user-invite?member_parent_id=2
+
+        // 接收ID参数
+        $member_parent_id = $request->get('member_parent_id');
+        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
 
         // 显示所属上级资料
-        $member = Member::find($member_parent_id);
-        if ($member_parent_id==$sessionID){
-            return redirect('mobile/person-list')->with('message', '4');
-        }elseif(!$member['member_id']==$member_parent_id){
-            return redirect('mobile/person-list')->with('message', '5');
-        }
+        $member_parent = $member->find($member_parent_id);
 
-        //显示当前用户资料
-        $member_user = Member::find($sessionID);
-        $member_sex = (new Member())->Sex();
+        // 判断父级ID不能与主见ID相同------调试阶段可以注释
+        /*if ($member_parent_id==$memberId){
+            return redirect('mobile/member/person-list')->with('message', '4');
+        }elseif(!$member_parent['member_id']==$member_parent_id){
+            return redirect('mobile/member/person-list')->with('message', '5');
+        }*/
 
-        return view('mobile.member-user-invite',['member'=>$member,'member_user'=>$member_user,'member_sex'=>$member_sex]);
+        // 显示当前用户资料
+        $member_user = $member->find($memberId);
+        // 性别方法
+        $member_sex = $member->Sex();
+
+        // 组装判断数据，减少前端代码优雅
+        $groupData =[
+            'id'=> $member_parent['member_id'],
+            'avatar' => $common->If_val($common->picUrlPath($member_parent['member_avatar']),$member_parent['wechat_headimgurl']),
+            'name' => $common->If_val($member_parent['member_surname'],$member_parent['wechat_nickname']),
+        ];
+
+        return view('mobile.member.member-user-invite',['member_parent'=>$groupData,'member_user'=>$member_user,'member_sex'=>$member_sex]);
+
     }
 
-    public function MemberUserInviteStore(Request $request){
+    //会员管理---个人中心--生成海报页面--扫码成为经纪人--扫码跳转页面--存储
+    public function MemberUserInviteStore(Request $request,Member $member){
 
-        $member_id =$request->get('member_id');
-        $member_parent_id =$request->get('member_parent_id');
-        $member_surname =$request->get('member_surname');
-        $member_sex =$request->get('member_sex');
-        $member_mobile =$request->get('member_mobile');
-        $member_card =$request->get('member_card');
-        $member_add =$request->get('member_add');
-        $member_sms =$request->get('member_sms');
+        // 接收POST参数
+        $data = $request->except(['_token','member_sms']);
+        // 判断手机验证码是否正确
         $cacheSms = Cache::get('sms');
-        if ($member_sms != $cacheSms){
-            return redirect('mobile/member-user-invite?member_parent_id='.$member_parent_id.'')->with('message', '2');
+        if ($request->get('member_sms') != $cacheSms){
+            return redirect('mobile/member/member-user-invite?member_parent_id='.$data['member_parent_id'].'')->with('message', '2');
         }
-        $member = Member::find($member_id);
-        $member-> member_surname = $member_surname;
-        $member-> member_sex = $member_sex;
-        $member-> member_mobile = $member_mobile;
-        $member-> member_card = $member_card;
-        $member-> member_add = $member_add;
-        $member-> member_parent_id = $member_parent_id;
-
-        if ($member ->save()){
+        // 更新操作，成功与否
+        $result = $member->where('member_id',$data['member_id'])->update(array_merge($data));
+        if ($result){
             Cache::forget('sms');
-            return redirect('mobile/person-list')->with('message', '1');
+            return redirect('mobile/member/person-list')->with('message', '1');
         }else{
-            return redirect('mobile/person-list')->with('message', '0');
-        }
-    }
-
-    public function Poster(){
-
-        $id= Session::get('wechat_user');
-        $member_id = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
-
-        $poster = public_path('build/uploads/sc'.$member_id.'.png');
-        if(!file_exists($poster)){
-            (new Common())->Poster(url('build/img/haibao.png'),asset('build/uploads/qrcode'.$member_id.'.png'),public_path('build/uploads/sc'.$member_id.'.png'));
+            return redirect('mobile/member/person-list')->with('message', '0');
         }
 
-        return view('mobile.poster-list',['member_id'=>$member_id]);
     }
+
+
+
 
     public function PersonEdit($member_id){
         $member = Member::find($member_id);
@@ -177,8 +189,9 @@ class MemberController extends Controller
         }
     }
 
-    public function Send(Request $request){
-        (new Common())->Send_sms($request->get('mobile'));
+    // 会员管理---发送验证码
+    public function Send(Request $request,Common $common){
+        $common->Send_sms($request->get('mobile'));
     }
 
     public function UnionList($member_id){

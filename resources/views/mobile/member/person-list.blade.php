@@ -10,7 +10,7 @@
             <div class="pet_grzx_name">{{ $groupData['name'] }}</div>
 
             <div class="pet_grzx_num_font">
-                <a href="{{ url('/mobile/poster-list') }}" class="am-btn am-btn-warning am-btn-block"data-am-modal="{target: '#my-alert'}">个人专属二维码</a>
+                <a href="{{ url('/mobile/member/poster-list') }}" class="am-btn am-btn-warning am-btn-block">个人专属二维码</a>
             </div>
 
             <div class="pet_grzx_num_font">

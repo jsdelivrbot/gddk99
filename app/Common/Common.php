@@ -13,6 +13,7 @@ class Common
 
     protected $pic_path = 'build/uploads/'; //读取图片路径
 
+
     // 上传多个图片方法
     public function FileAll($val){
         $filename_all_store="";
@@ -41,8 +42,8 @@ class Common
         return $filename;
     }
 
-    //经纪人生成海报方法：png
-    public function Poster($backgrond,$qrcode,$path){
+    // 生成海报方法：png  背景图片，二维码图片，合成图片路径，左右移位，上下移位
+    public function Poster($backgrond,$qrcode,$path,$dst_x='210',$dst_y='440'){
         header('Content-type:image/png');
         $path_1 = $backgrond;
         $path_2 = $qrcode;
@@ -53,7 +54,7 @@ class Common
         imagefill($image_3, 0, 0, $color);
         imageColorTransparent($image_3, $color);
         imagecopyresampled($image_3,$image_1,0,0,0,0,imagesx($image_1),imagesy($image_1),imagesx($image_1),imagesy($image_1));
-        imagecopymerge($image_3,$image_2, 210,440,0,0,imagesx($image_2),imagesy($image_2), 100);
+        imagecopymerge($image_3,$image_2, $dst_x,$dst_y,0,0,imagesx($image_2),imagesy($image_2), 100);
         imagepng($image_3,$path);
         imagedestroy($image_3);
         imagedestroy($image_2);
@@ -168,7 +169,7 @@ class Common
     }
 
     // 公用Model是否存在值，方法函数
-    public function If_val($key,$val){
+    public function If_val($key,$val=null){
         // 如果$key 是空的输出 $val , 如果$key 不是空的输出$key
        return  empty($key) ? $val: $key;
     }
@@ -197,13 +198,18 @@ class Common
         return isset($key) ? $key : $val;
     }
 
-    // 定义读取图片路径
-    public function picPath($val){
+    // 定义读取图片路径  url('build/uploads/'.$member_id.'.png')
+    public function picUrlPath($val){
         if (!empty($val)){
             return url($this->pic_path.$val);
         }else{
             return null;
         }
+    }
+
+    //读取公用目录图片路径  public_path('build/uploads/sc'.$member_id.'.png')
+    public function PublicPath($name,$val){
+        return public_path($this->pic_path.$name.$val.'.png');
     }
 
 }

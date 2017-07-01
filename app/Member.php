@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Common\Common;
 
 class Member extends Model
 {
@@ -20,6 +21,31 @@ class Member extends Model
     public $primaryKey = 'member_id';
 
 
+    protected $fillable = [
+        'member_id',
+        'member_name',
+        'member_avatar',
+        'password',
+        'member_surname',
+        'member_content',
+        'member_age',
+        'member_sex',
+        'member_card',
+        'member_tel',
+        'member_mobile',
+        'member_add',
+        'member_province',
+        'member_city',
+        'member_type',
+        'member_status',
+        'member_parent_id',
+        'is_member',
+        'wechat_openid',
+        'wechat_nickname',
+        'wechat_headimgurl',
+    ];
+
+    protected $hidden = [];
 
     public static function sexLabelList()
     {
@@ -42,6 +68,10 @@ class Member extends Model
             ['sex_id'=>2,'sex_name'=>'女','sex_number'=>self::SEX_WOMAN ],
         ];
         return $member_sex;
+    }
+
+    public function setPasswordAttribute($password){
+        $this->attributes['password'] = \Hash::make($password);
     }
 
 }

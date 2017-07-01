@@ -55,6 +55,15 @@ Route::prefix('mobile')->get('index','Mobile\IndexController@index');
 // 会员管理---个人中心列表显示
 Route::prefix('mobile')->middleware('active.nav')->get('/member/person-list','Mobile\MemberController@Person');
 
+// 会员管理---个人中心--生成海报页面--扫码成为经纪人
+Route::prefix('mobile')->middleware('active.nav')->get('/member/poster-list','Mobile\MemberController@Poster');
+
+//会员管理---个人中心--生成海报页面--扫码成为经纪人--扫码跳转页面
+Route::prefix('mobile')->middleware('active.nav')->get('/member/member-user-invite','Mobile\MemberController@MemberUserInvite');
+Route::prefix('mobile')->middleware('active.nav')->post('/member/member-user-invite','Mobile\MemberController@MemberUserInviteStore');
+
+// 会员管理---发送验证码
+Route::prefix('mobile')->middleware('active.nav')->post('/member/send','Mobile\MemberController@Send');
 
 
 
@@ -75,12 +84,6 @@ Route::prefix('mobile')->middleware('active.nav')->get('/person-edit/{member_id}
 // 会员个人编辑存储
 Route::prefix('mobile')->middleware('active.nav')->post('/person-edit','Mobile\MemberController@PersonEditStore');
 
-//会员用户扫码跳转页面
-Route::prefix('mobile')->middleware('active.nav')->get('/member-user-invite','Mobile\MemberController@MemberUserInvite');
-Route::prefix('mobile')->middleware('active.nav')->post('/member-user-invite','Mobile\MemberController@MemberUserInviteStore');
-
-// 发送验证码
-Route::prefix('mobile')->middleware('active.nav')->post('/send','Mobile\MemberController@Send');
 
 // 推荐贷款，客户列表
 Route::prefix('mobile')->middleware('active.nav')->get('client-list','Mobile\ClientController@ClientList');
@@ -112,8 +115,6 @@ Route::prefix('mobile')->middleware('active.nav')->get('/union-list/{member_id}'
 // 方案详情
 Route::prefix('mobile')->middleware('active.nav')->get('plan-details/{id}','Mobile\PlanController@Detail');
 
-// 生成海报页面
-Route::prefix('mobile')->middleware('active.nav')->get('poster-list','Mobile\MemberController@Poster');
 
 // 网站建设服务页面
 Route::prefix('mobile')->middleware('active.nav')->get('serve','Mobile\OtherController@Index');
