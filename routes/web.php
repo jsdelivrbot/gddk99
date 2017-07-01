@@ -52,6 +52,14 @@ Route::prefix('mobile')->any('channel', 'WechatController@Channel');
 Route::prefix('mobile')->get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('index','Mobile\IndexController@index');
 
+// 会员管理---个人中心列表显示
+Route::prefix('mobile')->middleware('active.nav')->get('/member/person-list','Mobile\MemberController@Person');
+
+
+
+
+
+
 // 顾客列表详情
 Route::prefix('mobile')->middleware('active.nav')->get('consultant-details/{id}','Mobile\ConsultantController@Index');
 
@@ -61,8 +69,6 @@ Route::prefix('mobile')->middleware('active.nav')->get('shop-details/{id}','Mobi
 // 内容页
 Route::prefix('mobile')->middleware('active.nav')->get('full-content','Mobile\IndexController@FullContent');
 
-// 会员个人列表
-Route::prefix('mobile')->middleware('active.nav')->get('/person-list','Mobile\MemberController@Person');
 
 // 会员个人编辑
 Route::prefix('mobile')->middleware('active.nav')->get('/person-edit/{member_id}','Mobile\MemberController@PersonEdit');

@@ -16,8 +16,10 @@ class ActiveNav
      */
     public function handle($request, Closure $next)
     {
+
         if (Cache::has('mobile_user') && Cache::get('mobile_user')){
-            if (Cache::get('mobile_user')['is_mobile']==1){
+
+            if (Cache::get('mobile_user')['is_member']==1){
                 return $next($request);
             }
 
@@ -26,7 +28,6 @@ class ActiveNav
         }else{
             return redirect('/mobile/channel');
         }
-
 
     }
 }

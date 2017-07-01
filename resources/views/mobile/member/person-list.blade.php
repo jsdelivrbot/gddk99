@@ -5,28 +5,16 @@
     <div class="pet_grzx">
         <div class="pet_grzx_nr">
             <div class="pet_grzx_ico">
-                <img src="{{ url('build/uploads/'.$member[0]['member_avatar']) ? $member[0]['wechat_headimgurl'] : url('build/uploads/'.$member[0]['member_avatar'])}}" alt="">
+                <img src="{{ $groupData['avatar']  }}" alt="">
             </div>
-            <div class="pet_grzx_name">{{ $member[0]['member_name'] ? $member[0]['member_name']:$member[0]['wechat_nickname'] }}</div>
+            <div class="pet_grzx_name">{{ $groupData['name'] }}</div>
 
             <div class="pet_grzx_num_font">
                 <a href="{{ url('/mobile/poster-list') }}" class="am-btn am-btn-warning am-btn-block"data-am-modal="{target: '#my-alert'}">个人专属二维码</a>
-                {{--<button type="button" class="am-btn am-btn-success am-btn-block"data-am-modal="{target: '#my-alert'}">获取二维码名片</button>--}}
-
-                {{--<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
-                    <div class="am-modal-dialog">
-                        <div class="am-modal-bd">
-                            <img src="{{ asset('build/uploads/qrcode'.$member[0]['member_id'] .'.png') }}" alt="" style="width: 170px; height:170px;">
-                        </div>
-                        <div class="am-modal-footer">
-                            <span class="am-modal-btn">确定</span>
-                        </div>
-                    </div>
-                </div>--}}
             </div>
 
             <div class="pet_grzx_num_font">
-                {{ $member[0]['member_content'] or '这个家伙很懒，什么都没有留下' }}
+                {{ $member['member_content'] or '这个家伙很懒，什么都没有留下' }}
             </div>
             <div class="pet_grzx_num">
                 <span>653<i>喜欢</i></span>
@@ -46,16 +34,16 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/mobile/union-list',['member_id'=>$member[0]['member_id']]) }}"><i class="am-icon-user am-icon-fw"></i>
+                    <a href="{{ url('/mobile/union-list',['member_id'=>$member['member_id']]) }}"><i class="am-icon-user am-icon-fw"></i>
                         我的经纪人
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/mobile/client-union-show',['member_id'=>$member[0]['member_id']]) }}"><i class="am-icon-user-plus am-icon-fw"></i>
+                    <a href="{{ url('/mobile/client-union-show',['member_id'=>$member['member_id']]) }}"><i class="am-icon-user-plus am-icon-fw"></i>
                         我的合伙人
                     </a>
                 </li>
-                <li><a href="{{ url('/mobile/person-edit',['member_id'=>$member[0]['member_id']]) }}"><i class="am-icon-pencil am-icon-fw"></i>完善个人信息</a></li>
+                <li><a href="{{ url('/mobile/person-edit',['member_id'=>$member['member_id']]) }}"><i class="am-icon-pencil am-icon-fw"></i>完善个人信息</a></li>
             </ul>
 
         </div>

@@ -5,31 +5,37 @@ namespace App\Http\Controllers\Mobile;
 use App\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Session;
 use App\Common\Common;
 use Cache;
 
 class MemberController extends Controller
 {
-    public function Person(Request $request){
+    // 设置存储图片路径
+    protected $path = 'build/uploads/qrcode';
 
-        $id= Session::get('wechat_user');
-        $member_id = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
-        $members = Member::where('member_id',$member_id)->get();
-        $member = $members->toArray();
-        if (empty($member)){
-            Session::forget('wechat_user_session');
-            Session::forget('wechat_user');
-        }
+    // 设置会员管理---个人中心--专属二维码中URL地址
+    protected $HttpUrl = 'mobile/member/member-user-invite?member_parent_id=';
 
-        // 生成二维码
-        $qrcode_pictrue = public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png');
-        if(!file_exists($qrcode_pictrue)){
-            $url='http://'.$request->getHttpHost().'/mobile/member-user-invite?member_parent_id='.$member[0]['member_id'];
-            QrCode::encoding('UTF-8')->format('png')->size(200)->margin(1)->generate($url,public_path('build/uploads/qrcode'.$member[0]['member_id'].'.png'));
-        }
-        return view('mobile.person-list',['member' => $member]);
+
+    // 会员管理---个人中心列表显示
+    public function Person(Request $request,Member $member,Common $common){
+
+        // 接收ID参数
+        $memberUser = $common->If_com(Cache::get('mobile_user')['member_id']);
+        // 从数据库读取数据
+        $member = $member->find($memberUser);
+        $memberID = $member['member_id'];
+
+        $Qrcode = $common->QrCode($memberID,$this->path,$this->HttpUrl);
+
+        // 组装判断数据，减少前端代码优雅
+        $groupData =[
+            'avatar' => $common->If_val($common->picPath($member['member_avatar']),$member['wechat_headimgurl']),
+            'name' => $common->If_val($member['member_surname'],$member['wechat_nickname']),
+        ];
+
+        return view('mobile.member.person-list',['groupData'=>$groupData,'member' => $member,'qrcode'=>$Qrcode]);
 
     }
 

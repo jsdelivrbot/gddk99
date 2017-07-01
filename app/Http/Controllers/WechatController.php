@@ -61,6 +61,7 @@ class WechatController extends Controller
         $memberId =$member['member_id'];
         $row = (new Common())->if_empty($memberId);
         if ($row == 0){
+            Cache::pull('mobile_user');
             $mem = new Member();
             $mem->wechat_openid = $result['openid'];
             $mem->wechat_nickname = $result['nickname'];
@@ -92,6 +93,8 @@ class WechatController extends Controller
             return redirect()->action('WechatController@login');
         }elseif($scope=='snsapi_login'){
             return redirect()->action('WechatController@WxLogin');
+        }else{
+            return redirect()->action('WechatController@WsLogin');
         }
 
     }

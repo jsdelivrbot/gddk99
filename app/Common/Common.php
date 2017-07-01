@@ -2,12 +2,16 @@
 namespace App\Common;
 
 use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Cache;
+use Request;
 
 class Common
 {
 
-    public $upload ="uploads";
+    public $upload ="uploads"; // 定义上传目录
+
+    protected $pic_path = 'build/uploads/'; //读取图片路径
 
     // 上传多个图片方法
     public function FileAll($val){
@@ -158,9 +162,15 @@ class Common
 
     // 公用Model接收判断方法函数
     public function If_com($val,$keyVal=0){
-        $wechatUser = (new Common())->if_isset($val,$keyVal);
-        if ($wechatUser==$keyVal){ Cache::forget('accessToken'); Cache::forget('wechat_user'); }
-        return $wechatUser;
+        $memberUser = (new Common())->if_isset($val,$keyVal);
+        if ($memberUser==$keyVal){ Cache::pull('mobile_user'); Cache::pull('scope'); }
+        return $memberUser;
+    }
+
+    // 公用Model是否存在值，方法函数
+    public function If_val($key,$val){
+        // 如果$key 是空的输出 $val , 如果$key 不是空的输出$key
+       return  empty($key) ? $val: $key;
     }
 
     // 生成二维码方法函数
@@ -185,6 +195,15 @@ class Common
     // 检测是否有值函数
     public function if_isset($key,$val=0){
         return isset($key) ? $key : $val;
+    }
+
+    // 定义读取图片路径
+    public function picPath($val){
+        if (!empty($val)){
+            return url($this->pic_path.$val);
+        }else{
+            return null;
+        }
     }
 
 }
