@@ -71,11 +71,11 @@ class MemberController extends Controller
         $member_parent = $member->find($member_parent_id);
 
         // 判断父级ID不能与主见ID相同------调试阶段可以注释
-        /*if ($member_parent_id==$memberId){
+        if ($member_parent_id==$memberId){
             return redirect('mobile/member/person-list')->with('message', '4');
         }elseif(!$member_parent['member_id']==$member_parent_id){
             return redirect('mobile/member/person-list')->with('message', '5');
-        }*/
+        }
 
         // 显示当前用户资料
         $member_user = $member->find($memberId);
