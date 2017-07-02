@@ -114,14 +114,20 @@ class MemberController extends Controller
 
     }
 
+    // 会员管理---个人中心---完善资料
+    public function PersonEdit($member_id,Member $member,Common $common){
 
+        $user_data = $member->find($member_id);
 
+        // 组装判断数据，减少前端代码优雅
+        $groupData =[
+            'avatar' => $common->If_val($common->picUrlPath($user_data['member_avatar']),$user_data['wechat_headimgurl']),
+            'sex' => $member->Sex()
+        ];
 
-    public function PersonEdit($member_id){
-        $member = Member::find($member_id);
-        $member_sex = (new Member())->Sex();
-        return view('mobile.person-edit',['member'=>$member,'member_sex'=>$member_sex]);
+        return view('mobile.member.person-edit',['member'=>$user_data,'data'=>$groupData]);
     }
+
 
     public function PersonEditStore(Request $request){
         //dd($request->all());

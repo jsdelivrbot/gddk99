@@ -62,6 +62,11 @@ Route::prefix('mobile')->middleware('active.nav')->get('/member/poster-list','Mo
 Route::prefix('mobile')->middleware('active.nav')->get('/member/member-user-invite','Mobile\MemberController@MemberUserInvite');
 Route::prefix('mobile')->middleware('active.nav')->post('/member/member-user-invite','Mobile\MemberController@MemberUserInviteStore');
 
+// 会员管理---个人中心---完善资料
+Route::prefix('mobile')->middleware('active.nav')->get('/member/person-edit/{member_id}','Mobile\MemberController@PersonEdit');
+// 会员管理---个人中心---完善资料--更新
+Route::prefix('mobile')->middleware('active.nav')->post('/member/person-edit','Mobile\MemberController@PersonEditStore');
+
 // 会员管理---发送验证码
 Route::prefix('mobile')->middleware('active.nav')->post('/member/send','Mobile\MemberController@Send');
 
@@ -77,13 +82,6 @@ Route::prefix('mobile')->middleware('active.nav')->get('shop-details/{id}','Mobi
 
 // 内容页
 Route::prefix('mobile')->middleware('active.nav')->get('full-content','Mobile\IndexController@FullContent');
-
-
-// 会员个人编辑
-Route::prefix('mobile')->middleware('active.nav')->get('/person-edit/{member_id}','Mobile\MemberController@PersonEdit');
-// 会员个人编辑存储
-Route::prefix('mobile')->middleware('active.nav')->post('/person-edit','Mobile\MemberController@PersonEditStore');
-
 
 // 推荐贷款，客户列表
 Route::prefix('mobile')->middleware('active.nav')->get('client-list','Mobile\ClientController@ClientList');

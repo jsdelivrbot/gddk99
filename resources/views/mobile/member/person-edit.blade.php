@@ -3,7 +3,7 @@
 
 <div class="pet_mian"  style="background-color: white;">
 
-    {!! Form::open(['url'=>'/mobile/person-edit','files'=>'true','class'=>'am-form','data-am-validator']) !!}
+    {!! Form::open(['url'=>'/mobile/member/person-edit','files'=>'true','class'=>'am-form','data-am-validator']) !!}
         <fieldset>
             <legend>个人信息</legend>
 
@@ -11,7 +11,7 @@
                 <tr>
                     <td align="center">
                         <div class="am-form-group am-form-file" style="width: 80px; height: 80px; margin: 0px; padding: 0px;">
-                            <img class="am-img-thumbnail am-circle" alt="80*80" src="@if($member['member_avatar']=="" && $member['wechat_headimgurl']=="") {{ url('build/uploads/upload.jpg') }} @elseif($member['wechat_headimgurl']) {{ $member['wechat_headimgurl'] }} @else {{ url('build/uploads/'.$member['member_avatar'].'') }} @endif" style="width: 80px; height: 80px;" />
+                            <img class="am-img-thumbnail am-circle" alt="80*80" src="{{ $data['avatar'] }}" style="width: 80px; height: 80px;" />
                             {!! Form::file('member_avatar',['multiple'=>'multiple']) !!}
                         </div>
                     </td>
@@ -44,13 +44,12 @@
             <div class="am-form-group">
                 <label for="member_sex">性别</label>
                 <select id="member_sex" name="member_sex" required>
-                    @foreach($member_sex as $sex)
+                    @foreach($data['sex'] as $sex)
                         <option value="{{ $sex['sex_number'] }}" @if($sex['sex_number'] == $member['member_sex']) selected @endif>
                             {{ $sex['sex_name'] }}
                         </option>
                     @endforeach
                 </select>
-                <span class="am-form-caret"></span>
             </div>
 
             <div class="am-form-group">
@@ -84,7 +83,7 @@
             </div>
 
             <button class="am-btn am-btn-warning am-btn-block" type="submit" >提交</button>
-            <a href="{{ url('/mobile/person-list') }}" class="am-btn am-btn-warning am-btn-block" >返回</a>
+            <a href="{{ url('/mobile/member/person-list') }}" class="am-btn am-btn-warning am-btn-block" >返回</a>
 
         </fieldset>
     {!! Form::close() !!}
