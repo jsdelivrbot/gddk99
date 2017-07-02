@@ -8,10 +8,11 @@ use App\Http\Controllers\Controller;
 
 class IndexController extends Controller
 {
-    public function index(){
-        $consultant = Consultant::where('con_type',1)->paginate(15);
-        $shop = Consultant::where('con_type',2)->paginate(15);
-        return view('mobile.index',['consultant'=>$consultant,'shop'=>$shop]);
+    // 首页--显示
+    public function index(Consultant $consultant){
+        $cons = $consultant->where('con_type',1)->paginate(15);
+        $shop = $consultant->where('con_type',2)->paginate(15);
+        return view('mobile.index',['consultant'=>$cons,'shop'=>$shop]);
     }
 
     public function FullContent(){

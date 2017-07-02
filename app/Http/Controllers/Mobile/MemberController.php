@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Mobile;
 use App\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Session;
 use App\Common\Common;
 use Cache;
 
@@ -47,7 +46,7 @@ class MemberController extends Controller
         // 读取图片
         $poster = $common->PublicPath('sc',$memberId);
 
-        // 判断图片是否存在，不存在生成图片
+        // 判断图片是否存在，不存在生成图片---取反
         if(!file_exists($poster)){
             $common->Poster($common->picUrlPath('haibao.png'),$common->PublicPath('qrcode',$memberId),$common->PublicPath('sc',$memberId));
         }

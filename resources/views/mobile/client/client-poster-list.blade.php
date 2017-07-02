@@ -1,6 +1,6 @@
 @extends('layouts.mobile')
 @section('content')
-    <div><img src="{{ url('build/uploads/sc_poster'.$member_id.'.png') }}" alt="" style="width:100%"></div>
+    <div><img src="{{ $poster }}" alt="" style="width:100%"></div>
 @endsection
 
 @section('script')

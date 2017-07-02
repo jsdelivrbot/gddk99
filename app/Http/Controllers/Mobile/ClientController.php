@@ -12,6 +12,13 @@ use Cache;
 
 class ClientController extends Controller
 {
+    // 设置存储图片目录路径，文件名
+    protected $path = 'build/uploads/poster';
+
+    // 设置客户管理---推客--专属二维码中URL地址
+    protected $HttpUrl = 'mobile/client/client-poster-invite?member_id=';
+
+
     public function ClientList(){
         return view('mobile.client-list');
     }
@@ -49,28 +56,36 @@ class ClientController extends Controller
 
     }
 
-    public function ClientPoster(Request $request){
 
-        // http://gddk99.tunnel.qydev.com/mobile/client-poster-invite?member_id=1
+
+    // 推客----客户海报列表，生成海报页面---显示
+    public function ClientPoster(Request $request,Common $common){
+
+        // http://gddk99.tunnel.qydev.com/mobile/client/client-poster-invite?member_id=1
+
+        // 接收ID参数
+        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
         // 生成二维码
-        $id= session('wechat_user');
-        $member_id = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
-
-        $memberID = $member_id;
-        $qrcode_pictrue = public_path('build/uploads/poster'.$memberID.'.png');
-        if(!file_exists($qrcode_pictrue)){
-            $url='http://'.$request->getHttpHost().'/mobile/client-poster-invite?member_id='.$memberID;
-            QrCode::encoding('UTF-8')->format('png')->size(200)->margin(1)->generate($url,public_path('build/uploads/poster'.$memberID.'.png'));
-        }
-
-        //生成海报
-        $poster = public_path('build/uploads/sc_poster'.$memberID.'.png');
+        $common->QrCode($memberId,$this->path,$this->HttpUrl);
+        // 读取图片，填写图片文件名，图片ID
+        $poster = $common->PublicPath('sc_poster',$memberId);
+        // 判断图片是否存在，不存在生成图片---取反
         if(!file_exists($poster)){
-            (new Common())->PosterUnion(url('build/img/poster.png'),asset('build/uploads/poster'.$memberID.'.png'),public_path('build/uploads/sc_poster'.$memberID.'.png'));
+            // 背景图片，二维码，合成的图片及文件名路径
+            $common->Poster($common->picUrlPath('posterbg.png'),$common->PublicPath('poster',$memberId),$common->PublicPath('sc_poster',$memberId),$dst_x='229',$dst_y='680');
         }
+        // 获取图片输出到前端界面
+        $poster_pic = $common->picUrlPath('sc_poster'.$memberId.'.png');
 
-        return view('mobile.client-poster-list',['member_id'=>$member_id]);
+        return view('mobile.client.client-poster-list',['poster'=>$poster_pic]);
+
     }
+
+
+
+
+
+
 
     public function ClientPosterInvite(Request $request){
         // http://www.gddk99.com/mobile/client-poster-invite?member_id=1;

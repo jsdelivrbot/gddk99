@@ -48,7 +48,8 @@ Route::prefix('mobile')->any('channel', 'WechatController@Channel');
 
 // -------------------------------  微信端  -----------------------------------------
 
-// 首页
+//--------------------------------- 首页管理区 ------------------------------//
+
 Route::prefix('mobile')->get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('index','Mobile\IndexController@index');
 
@@ -78,6 +79,10 @@ Route::prefix('mobile')->middleware('active.nav')->get('/member/union-list/{memb
 
 //--------------------------------- 客户管理区 ------------------------------//
 
+// 推客----客户海报列表，生成海报页面---显示
+Route::prefix('mobile')->middleware('active.nav')->get('/client/client-poster-list','Mobile\ClientController@ClientPoster');
+
+
 
 
 
@@ -95,8 +100,6 @@ Route::prefix('mobile')->middleware('active.nav')->get('full-content','Mobile\In
 Route::prefix('mobile')->middleware('active.nav')->get('client-list','Mobile\ClientController@ClientList');
 Route::prefix('mobile')->middleware('active.nav')->post('client-list','Mobile\ClientController@ClientListStore');
 
-// 客户列表，生成海报页面
-Route::prefix('mobile')->middleware('active.nav')->get('client-poster-list','Mobile\ClientController@ClientPoster');
 
 // 客户列表，生成海报列表-邀请-合伙人
 Route::prefix('mobile')->middleware('active.nav')->get('client-poster-invite','Mobile\ClientController@ClientPosterInvite');
