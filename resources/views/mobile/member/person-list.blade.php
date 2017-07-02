@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/mobile/union-list',['member_id'=>$member['member_id']]) }}"><i class="am-icon-user am-icon-fw"></i>
+                    <a href="{{ url('/mobile/member/union-list',['member_id'=>$member['member_id']]) }}"><i class="am-icon-user am-icon-fw"></i>
                         我的经纪人
                     </a>
                 </li>

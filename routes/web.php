@@ -52,6 +52,8 @@ Route::prefix('mobile')->any('channel', 'WechatController@Channel');
 Route::prefix('mobile')->get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('index','Mobile\IndexController@index');
 
+//--------------------------------- 会员管理区 ------------------------------//
+
 // 会员管理---个人中心列表显示
 Route::prefix('mobile')->middleware('active.nav')->get('/member/person-list','Mobile\MemberController@Person');
 
@@ -69,6 +71,12 @@ Route::prefix('mobile')->middleware('active.nav')->post('/member/person-edit','M
 
 // 会员管理---发送验证码
 Route::prefix('mobile')->middleware('active.nav')->post('/member/send','Mobile\MemberController@Send');
+
+// 我的经纪人列表---显示
+Route::prefix('mobile')->middleware('active.nav')->get('/member/union-list/{member_id}','Mobile\MemberController@UnionList');
+
+
+//--------------------------------- 客户管理区 ------------------------------//
 
 
 
@@ -106,9 +114,6 @@ Route::prefix('mobile')->middleware('active.nav')->get('/client-union-list/{memb
 
 // 我的合伙人--申报客户列表--详情
 Route::prefix('mobile')->middleware('active.nav')->get('/client-union-details/{info_id}/{member_id}','Mobile\ClientController@ClientUnionDetails');
-
-// 我的经纪人列表
-Route::prefix('mobile')->middleware('active.nav')->get('/union-list/{member_id}','Mobile\MemberController@UnionList');
 
 // 方案详情
 Route::prefix('mobile')->middleware('active.nav')->get('plan-details/{id}','Mobile\PlanController@Detail');

@@ -171,9 +171,10 @@ class MemberController extends Controller
         $common->Send_sms($request->get('mobile'));
     }
 
-    public function UnionList($member_id){
-        $union = Member::where('member_parent_id',$member_id)->get();
-        return view('mobile.union-list',['union'=>$union]);
+    // 我的经纪人列表---显示
+    public function UnionList($member_id,Member $member){
+        $union =$member->where('member_parent_id',$member_id)->get();
+        return view('mobile.member.union-list',['union'=>$union]);
     }
 
 }
