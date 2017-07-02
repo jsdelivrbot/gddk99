@@ -19,44 +19,35 @@ class ClientController extends Controller
     protected $HttpUrl = 'mobile/client/client-poster-invite?member_id=';
 
 
+    // 立即申请贷款----客户列表
     public function ClientList(){
-        return view('mobile.client-list');
+        return view('mobile.client.client-list');
     }
 
-    public function ClientListStore(Request $request){
+    // 立即申请贷款----客户列表--存储
+    public function ClientListStore(Request $request,Common $common,Info $info){
 
-        $id= session('wechat_user');
-        $member_id = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
+        // 接收ID参数，组装数据
+        $data =$request->except(['_token']);
+        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $member_id = ['member_id'=> $common->if_empty($memberId)];
 
-        $name = $request->get('info_name');
-        $sex = $request->get('info_sex');
-        $quota = $request->get('info_quota');
-        $mobile = $request->get('info_mobile');
-        $memeberID = $member_id;
-
-        $info_sms =$request->get('info_sms');
+        // 读取缓存验证码
         $cacheSms = Cache::get('sms');
-        if ($info_sms != $cacheSms){
-            return redirect('mobile/client-list')->with('message', '2');
+        if ($data['info_sms'] != $cacheSms){
+            return redirect('mobile/client/client-list')->with('message', '2');
         }
 
-        $info = new Info();
-        $info ->info_name = $name;
-        $info ->info_sex = $sex;
-        $info ->info_quota = $quota;
-        $info ->info_mobile = $mobile;
-        $info ->member_id = $memeberID? $memeberID :'0';
-
-        if ($info ->save()){
-            Cache::forget('sms');
-            return redirect('mobile/client-list')->with('message', '1');
+        // 插入数据
+        $result = $info->create(array_merge(array_except($data,['info_sms']),$member_id));
+        if ($result){
+            Cache::pull('sms');
+            return redirect('mobile/client/client-list')->with('message', '1');
         }else{
-            return redirect('mobile/client-list')->with('message', '0');
+            return redirect('mobile/client/client-list')->with('message', '0');
         }
 
     }
-
-
 
     // 推客----客户海报列表，生成海报页面---显示
     public function ClientPoster(Request $request,Common $common){

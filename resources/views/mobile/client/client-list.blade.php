@@ -7,7 +7,7 @@
         <div class="pet_hd_con_head"><img src="{{ url('build/img/client-list.jpg') }}" alt=""></div>
     </div>
 
-    {!! Form::open(['url'=>'/mobile/client-list','class'=>'am-form','data-am-validator']) !!}
+    {!! Form::open(['url'=>'/mobile/client/client-list','class'=>'am-form','data-am-validator']) !!}
         <fieldset>
             <legend>申请贷款</legend>
             <div class="am-form-group">
@@ -23,7 +23,6 @@
                     <option value="2">女</option>
                     <option value="0">保密</option>
                 </select>
-                <span class="am-form-caret"></span>
             </div>
 
             <div class="am-form-group">
@@ -102,7 +101,7 @@
         //发送请求
         function Sms() {
             var info_mobile = $("#info_mobile").val();
-            $.post("{{url('/mobile/send')}}",{'_token':'{{csrf_token()}}','mobile':info_mobile});
+            $.post("{{url('/mobile/member/send')}}",{'_token':'{{csrf_token()}}','mobile':info_mobile});
         }
     </script>
 @endsection

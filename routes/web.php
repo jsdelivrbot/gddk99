@@ -90,6 +90,10 @@ Route::prefix('mobile')->middleware('active.nav')->post('/client/client-poster-i
 Route::prefix('mobile')->middleware('active.nav')->get('/client/client-poster-invite-apply','Mobile\ClientController@ClientPosterInviteApply');
 Route::prefix('mobile')->middleware('active.nav')->post('/client/client-poster-invite-apply','Mobile\ClientController@ClientPosterInviteApplyStore');
 
+// 立即申请贷款----客户列表
+Route::prefix('mobile')->middleware('active.nav')->get('/client/client-list','Mobile\ClientController@ClientList');
+Route::prefix('mobile')->middleware('active.nav')->post('/client/client-list','Mobile\ClientController@ClientListStore');
+
 
 
 
@@ -103,10 +107,6 @@ Route::prefix('mobile')->middleware('active.nav')->get('shop-details/{id}','Mobi
 
 // 内容页
 Route::prefix('mobile')->middleware('active.nav')->get('full-content','Mobile\IndexController@FullContent');
-
-// 推荐贷款，客户列表
-Route::prefix('mobile')->middleware('active.nav')->get('client-list','Mobile\ClientController@ClientList');
-Route::prefix('mobile')->middleware('active.nav')->post('client-list','Mobile\ClientController@ClientListStore');
 
 
 // 我的合伙人列表
