@@ -37,7 +37,7 @@
             <div class="pet_grzx_map">
                 <div class="am-g am-g-fixed">
                     <div class="am-u-sm-6" style="margin: 0; padding: 0;">
-                        <button type="button" class="am-btn am-btn-primary am-btn-block" onclick="javascript:window.location='{{ url('mobile/client-list') }}'" >贷款申请</button>
+                        <button type="button" class="am-btn am-btn-primary am-btn-block" onclick="javascript:window.location='{{ url('mobile/client/client-list') }}'" >贷款申请</button>
                     </div>
                     <div class="am-u-sm-6" style="margin: 0; padding: 0;">
                         <a href="tel:{{ $consultant['con_tel'] }}" class="am-btn am-btn-success am-btn-block">电话咨询</a>

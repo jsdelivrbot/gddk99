@@ -104,22 +104,24 @@ Route::prefix('mobile')->middleware('active.nav')->get('/client/client-union-lis
 Route::prefix('mobile')->middleware('active.nav')->get('/client/client-union-details/{info_id}/{member_id}','Mobile\ClientController@ClientUnionDetails');
 
 
-
-
-
+//--------------------------------- 顾问管理区 ------------------------------//
 
 // 顾客列表详情
-Route::prefix('mobile')->middleware('active.nav')->get('consultant-details/{id}','Mobile\ConsultantController@Index');
+Route::prefix('mobile')->middleware('active.nav')->get('/consultant/consultant-details/{id}','Mobile\ConsultantController@Index');
+
+
+//--------------------------------- 店面管理区 ------------------------------//
 
 // 门店列表详情
-Route::prefix('mobile')->middleware('active.nav')->get('shop-details/{id}','Mobile\ConsultantController@ShopDetails');
+Route::prefix('mobile')->middleware('active.nav')->get('/shop/shop-details/{id}','Mobile\ConsultantController@ShopDetails');
+
+
 
 // 内容页
 Route::prefix('mobile')->middleware('active.nav')->get('full-content','Mobile\IndexController@FullContent');
 
 // 方案详情
 Route::prefix('mobile')->middleware('active.nav')->get('plan-details/{id}','Mobile\PlanController@Detail');
-
 
 // 网站建设服务页面
 Route::prefix('mobile')->middleware('active.nav')->get('serve','Mobile\OtherController@Index');

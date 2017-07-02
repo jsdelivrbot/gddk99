@@ -8,13 +8,11 @@ use App\Http\Controllers\Controller;
 
 class ConsultantController extends Controller
 {
+
+    // 顾客列表详情
     public function Index($id){
         $consultant = Consultant::find($id);
-       return view('mobile.consultant-details',['consultant'=>$consultant]);
+       return view('mobile.consultant.consultant-details',['consultant'=>$consultant]);
     }
 
-    public function ShopDetails($id){
-        $shop = Consultant::find($id);
-        return view('mobile.shop-details',['shop'=>$shop]);
-    }
 }
