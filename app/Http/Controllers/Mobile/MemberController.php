@@ -128,70 +128,41 @@ class MemberController extends Controller
         return view('mobile.member.person-edit',['member'=>$user_data,'data'=>$groupData]);
     }
 
+    // 会员管理---个人中心---完善资料--存储
+    public function PersonEditStore(Request $request,Common $common,Member $member){
 
-    public function PersonEditStore(Request $request){
-        //dd($request->all());
-        $member_name = $request->get('member_name');
-        $password = $request->get('password');
-        $member_surname = $request->get('member_surname');
-        $member_id = $request->get('member_id');
-        // $wechat_nickname = $request->get('wechat_nickname');
-        $member_sex = $request->get('member_sex');
-        $member_age = $request->get('member_age');
-        $member_mobile = $request->get('member_mobile');
-        $member_tel = $request->get('member_tel');
-        $member_card = $request->get('member_card');
-        $member_content = $request->get('member_content');
-        $member_add = $request->get('member_add');
-        $member_avatar = $request->file('member_avatar');
-
+        // 接收POST参数数据
+        $data =$request->except(['_token']);
+        // 判断POST是否提交变量
         if($request->isMethod('POST')) {
-            $pic = new Common();
-            $av_pic = $pic->FileOne($member_avatar);
-            if (empty($av_pic)) {
-                $member = Member::find($member_id);
-                $member->member_name = empty($member_name) ? null:$member_name;
-                $member->password = empty($password) ? null:$password;
-                $member->member_surname = $member_surname;
-                $member->member_sex = $member_sex;
-                $member->member_age = $member_age;
-                $member->member_mobile = $member_mobile;
-                $member->member_tel = $member_tel;
-                $member->member_card = $member_card;
-                $member->member_content = $member_content;
-                $member->member_add = $member_add;
-                if ($member->save()){
-                    return redirect('mobile/person-list')->with('message', '3');
-                }else{
-                    return redirect('mobile/person-list')->with('message', '2');
-                }
-            } else {
-                $member = Member::find($member_id);
-                if (isset($member_avatar)) {
-                    if (!empty($member['member_avatar'])) {
-                        $images = public_path('build/uploads/') . $member['member_avatar'];
-                        if (file_exists($images)) {
-                            unlink($images);
-                        }
-                    }
-                }
-                $member->member_name = empty($member_name) ? null:$member_name;
-                $member->password = empty($password) ? null:$password;
-                $member ->member_avatar = empty($av_pic)? $member['member_avatar'] :$av_pic;
-                $member->member_surname = $member_surname;
-                $member->member_sex = $member_sex;
-                $member->member_age = $member_age;
-                $member->member_mobile = $member_mobile;
-                $member->member_tel = $member_tel;
-                $member->member_card = $member_card;
-                $member->member_content = $member_content;
-                $member->member_add = $member_add;
-                if ($member->save()){
-                    return redirect('mobile/person-list')->with('message', '3');
-                }else{
-                    return redirect('mobile/person-list')->with('message', '2');
-                }
+            //读取头像并且更新,同时POST头像是否为空
+            $data_ava = $request->file('member_avatar');
+            $avatar = $common->FileOne($data_ava);
+            // 判断头像是否存在
+            if (empty($avatar)){
+                // 更新操作，成功与否---未上传头像
+                $result = $member->where('member_id',$data['member_id'])->update(array_except($data,['member_avatar']));
+                return $this->PersonJump($result);
+            }else{
+                // 已上传头像，并且查询数据库头像是否存在，如果存在，删除替换，不存在忽略
+                $detect = $member->find($data['member_id']);
+                // 1.填写POST数据， 2填写数据库数据，进行匹配是否相同，如果相同删除返回 true
+                $common->DataPic($data['member_avatar'],$detect['member_avatar']);
+                // 判断上传成功的图片文件名是否为空，如果为空 默认数据库图片文件名，不为空则更换
+                $ava = $common->if_empty($avatar,$detect['member_avatar']);
+                // 更新操作，成功与否---已上传头像
+                $result = $member->where('member_id',$data['member_id'])->update(array_merge(array_except($data,['member_avatar']),['member_avatar'=>$ava]));
+                return $this->PersonJump($result);
             }
+        }
+    }
+
+    // 封装--  会员管理---个人中心---完善资料--存储---跳转
+    protected function PersonJump($result){
+        if ($result){
+            return redirect('mobile/member/person-list')->with('message', '3');
+        }else{
+            return redirect('mobile/member/person-list')->with('message', '2');
         }
     }
 

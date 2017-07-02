@@ -212,4 +212,21 @@ class Common
         return public_path($this->pic_path.$name.$val.'.png');
     }
 
+    // 检测本地图片路径是否存在，同时匹配数据库图片是否相同，如果相同删除---限制单张图片上传方法
+    public function DataPic($post,$data){
+        //检测post数据是否有值 接收POST图片数据路径
+        if (isset($post)){
+            // 判断数据库DATA读取的数据是否为空，取反
+            if (!empty($data)){
+                // 读取目录图片
+                $images = public_path($this->pic_path.$data);
+                // 检测目录图片是否存在
+                if (file_exists($images)){
+                    unlink($images);
+                }
+            }
+        }
+        return true;
+    }
+
 }

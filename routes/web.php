@@ -64,7 +64,7 @@ Route::prefix('mobile')->middleware('active.nav')->post('/member/member-user-inv
 
 // 会员管理---个人中心---完善资料
 Route::prefix('mobile')->middleware('active.nav')->get('/member/person-edit/{member_id}','Mobile\MemberController@PersonEdit');
-// 会员管理---个人中心---完善资料--更新
+// 会员管理---个人中心---完善资料--存储
 Route::prefix('mobile')->middleware('active.nav')->post('/member/person-edit','Mobile\MemberController@PersonEditStore');
 
 // 会员管理---发送验证码
