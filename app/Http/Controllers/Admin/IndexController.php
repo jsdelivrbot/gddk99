@@ -24,8 +24,8 @@ class IndexController extends Controller
         if (!Hash::check($password,$user['password'])){
             return redirect('admin/login')->with('message','0');
         }
-        if ($user['is_admin'] == 1){
-           Cache::add('admin_user',$user,60);
+        if ($user['is_admin'] == User::IS_USER){
+           Cache::add('admin_user',$user,User::FAIL_TIME);
             return redirect('admin/index')->with('message','1');
         }else{
             return redirect('admin/login')->with('message','2');
@@ -33,7 +33,7 @@ class IndexController extends Controller
     }
 
     public function logout(){
-        Cache::forget('admin_user');
+        Cache::pull('admin_user');
         return redirect('admin/login')->with('message','3');
     }
 
