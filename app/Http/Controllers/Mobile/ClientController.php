@@ -159,7 +159,6 @@ class ClientController extends Controller
 
         //显示当前用户资料
         $member_user = $member->find($memberId);
-
         // 性别方法
         $member_sex = $member->Sex();
 
@@ -190,35 +189,28 @@ class ClientController extends Controller
         }else{
             return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['info_invite'].'')->with('message', '5');
         }
-
     }
 
-    public function ClientUnionShow($member_id){
-        $member = Member::where('member_parent_id','10'.$member_id)->get();
-        $total = count($member);
-        return view('mobile.client-union-show',['member'=>$member,'total'=>$total]);
-        
-        /*$info = Info::where('info_invite',$member_id)->get()->toArray();
-        $info_all = array_column($info,'member_id');
-        dd($info_all);
-        $num = $info['member_id'];
-        $str = substr($num,2,100);
-        $member = Member::where('member_id',$str)->get();
-        return view('mobile.client-union-show',['member'=>$member,'info'=>$info]);*/
+    // 我的合伙人列表
+    public function ClientUnionShow($member_id,Member $member){
+        $member_union = $member->where('member_parent_id','10'.$member_id)->get();
+        return view('mobile.client.client-union-show',['member'=>$member_union,'total'=>count($member_union)]);
     }
 
-    public function ClientUnionList($member_id){
-        $info = Info::join('members','infos.info_invite','=','members.member_id')->where('info_invite',$member_id)->get();
-        return view('mobile.client-union-list',['info'=>$info]);
+    // 我的合伙人--申报客户列表
+    public function ClientUnionList($member_id,Info $info){
+        $info_data = $info->join('members','infos.info_invite','=','members.member_id')->where('info_invite',$member_id)->get();
+        return view('mobile.client-union-list',['info'=>$info_data]);
     }
 
-    public function ClientUnionDetails($info_id,$member_id){
-        $info = Info::join('members','infos.info_invite','=','members.member_id')->where('info_invite','=',$member_id,'AND','info_id','=',$info_id)->get();
-        $info_member =  Info::where('info_id',$info_id)->first();
+    // 我的合伙人--申报客户列表--详情
+    public function ClientUnionDetails($info_id,$member_id,Member $member,Info $info){
+        $info_data = $info->join('members','infos.info_invite','=','members.member_id')->where('info_invite','=',$member_id,'AND','info_id','=',$info_id)->get();
+        $info_member = $info->where('info_id',$info_id)->first();
         $num = $info_member['member_id'];
         $str = substr($num,2,100);
-        $member = Member::where('member_id',$str)->first();
-        return view('mobile.client-union-details',['info'=>$info,'member'=>$member,'info_member'=>$info_member]);
+        $member_data = $member->where('member_id',$str)->first();
+        return view('mobile.client-union-details',['info'=>$info_data,'member'=>$member_data,'info_member'=>$info_member]);
     }
 
 }

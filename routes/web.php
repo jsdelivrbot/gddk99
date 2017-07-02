@@ -94,6 +94,15 @@ Route::prefix('mobile')->middleware('active.nav')->post('/client/client-poster-i
 Route::prefix('mobile')->middleware('active.nav')->get('/client/client-list','Mobile\ClientController@ClientList');
 Route::prefix('mobile')->middleware('active.nav')->post('/client/client-list','Mobile\ClientController@ClientListStore');
 
+// 我的合伙人列表
+Route::prefix('mobile')->middleware('active.nav')->get('/client/client-union-show/{member_id}','Mobile\ClientController@ClientUnionShow');
+
+// 我的合伙人--申报客户列表
+Route::prefix('mobile')->middleware('active.nav')->get('/client/client-union-list/{member_id}','Mobile\ClientController@ClientUnionList');
+
+// 我的合伙人--申报客户列表--详情
+Route::prefix('mobile')->middleware('active.nav')->get('/client/client-union-details/{info_id}/{member_id}','Mobile\ClientController@ClientUnionDetails');
+
 
 
 
@@ -107,16 +116,6 @@ Route::prefix('mobile')->middleware('active.nav')->get('shop-details/{id}','Mobi
 
 // 内容页
 Route::prefix('mobile')->middleware('active.nav')->get('full-content','Mobile\IndexController@FullContent');
-
-
-// 我的合伙人列表
-Route::prefix('mobile')->middleware('active.nav')->get('/client-union-show/{member_id}','Mobile\ClientController@ClientUnionShow');
-
-// 我的合伙人--申报客户列表
-Route::prefix('mobile')->middleware('active.nav')->get('/client-union-list/{member_id}','Mobile\ClientController@ClientUnionList');
-
-// 我的合伙人--申报客户列表--详情
-Route::prefix('mobile')->middleware('active.nav')->get('/client-union-details/{info_id}/{member_id}','Mobile\ClientController@ClientUnionDetails');
 
 // 方案详情
 Route::prefix('mobile')->middleware('active.nav')->get('plan-details/{id}','Mobile\PlanController@Detail');
