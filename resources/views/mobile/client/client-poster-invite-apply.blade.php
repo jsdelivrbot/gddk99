@@ -7,7 +7,7 @@
             <div class="pet_hd_con_head"><img src="{{ url('build/img/client-list.jpg') }}" alt=""></div>
         </div>
 
-        {!! Form::open(['url'=>'/mobile/client-poster-invite-apply','class'=>'am-form','data-am-validator']) !!}
+        {!! Form::open(['url'=>'/mobile/client/client-poster-invite-apply','class'=>'am-form','data-am-validator']) !!}
         <fieldset>
             <legend>推荐客户-申请贷款</legend>
             <div class="am-form-group">
@@ -126,7 +126,7 @@
         //发送请求
         function Sms() {
             var info_mobile = $("#info_mobile").val();
-            $.post("{{url('/mobile/send')}}",{'_token':'{{csrf_token()}}','mobile':info_mobile});
+            $.post("{{url('/mobile/member/send')}}",{'_token':'{{csrf_token()}}','mobile':info_mobile});
         }
     </script>
 @endsection

@@ -86,6 +86,10 @@ Route::prefix('mobile')->middleware('active.nav')->get('/client/client-poster-li
 Route::prefix('mobile')->middleware('active.nav')->get('/client/client-poster-invite','Mobile\ClientController@ClientPosterInvite');
 Route::prefix('mobile')->middleware('active.nav')->post('/client/client-poster-invite','Mobile\ClientController@ClientPosterInviteStore');
 
+// 推客----客户海报列表---扫码跳转---填写绑定合伙人----推客--邀请合伙人---跳转发展推客
+Route::prefix('mobile')->middleware('active.nav')->get('/client/client-poster-invite-apply','Mobile\ClientController@ClientPosterInviteApply');
+Route::prefix('mobile')->middleware('active.nav')->post('/client/client-poster-invite-apply','Mobile\ClientController@ClientPosterInviteApplyStore');
+
 
 
 
@@ -104,11 +108,6 @@ Route::prefix('mobile')->middleware('active.nav')->get('full-content','Mobile\In
 Route::prefix('mobile')->middleware('active.nav')->get('client-list','Mobile\ClientController@ClientList');
 Route::prefix('mobile')->middleware('active.nav')->post('client-list','Mobile\ClientController@ClientListStore');
 
-
-
-// 客户列表，生成海报列表-邀请-合伙人--推荐客户
-Route::prefix('mobile')->middleware('active.nav')->get('client-poster-invite-apply','Mobile\ClientController@ClientPosterInviteApply');
-Route::prefix('mobile')->middleware('active.nav')->post('client-poster-invite-apply','Mobile\ClientController@ClientPosterInviteApplyStore');
 
 // 我的合伙人列表
 Route::prefix('mobile')->middleware('active.nav')->get('/client-union-show/{member_id}','Mobile\ClientController@ClientUnionShow');

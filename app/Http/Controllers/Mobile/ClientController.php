@@ -149,62 +149,57 @@ class ClientController extends Controller
 
     }
 
+    // 推客----客户海报列表---扫码跳转---填写绑定合伙人----推客--邀请合伙人---跳转发展推客
+    public function ClientPosterInviteApply(Request $request,Common $common,Member $member){
 
+        //http://gddk99.tunnel.qydev.com/mobile/client/client-poster-invite-apply?member_id=5
 
-
-
-
-    public function ClientPosterInviteApply(Request $request){
-        //http://www.gddk99.com/mobile/client-poster-invite-apply?member_id=1
-
-        $id= session('wechat_user');
-        $memberId = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
+        // 接收当前用户参数
         $member_id = $request->get('member_id');
-        $sessionID = $memberId;
+        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
 
         // 显示所属上级资料
-        $member = Member::find($member_id);
-        if ($member_id==$sessionID){
-            return redirect('mobile/client-poster-list')->with('message', '4');
+        $level_user = $member->find($member_id);
+        if ($member_id==$memberId){
+            return redirect('mobile/client/client-poster-list')->with('message', '4');
         }elseif(!$member['member_id']==$member_id){
-            return redirect('mobile/client-poster-list')->with('message', '5');
+            return redirect('mobile/client/client-poster-list')->with('message', '5');
         }
 
         //显示当前用户资料
-        $member_user = Member::find($sessionID);
-        $member_sex = (new Member())->Sex();
+        $member_user = $member->find($memberId);
 
-        return view('mobile.client-poster-invite-apply',['member'=>$member,'member_user'=>$member_user,'member_sex'=>$member_sex]);
+        // 性别方法
+        $member_sex = $member->Sex();
+
+        return view('mobile.client/client-poster-invite-apply',['member'=>$level_user,'member_user'=>$member_user,'member_sex'=>$member_sex]);
+
     }
 
-    public function ClientPosterInviteApplyStore(Request $request){
-            $name = $request->get('info_name');
-            $sex = $request->get('info_sex');
-            $quota = $request->get('info_quota');
-            $mobile = $request->get('info_mobile');
-            $memberID = $request->get('member_id');
-            $invite = $request->get('info_invite');
+    // 推客----客户海报列表---扫码跳转---填写绑定合伙人----推客--邀请合伙人---跳转发展推客--存储
+    public function ClientPosterInviteApplyStore(Request $request,Info $info){
 
-            $info_sms =$request->get('info_sms');
-            $cacheSms = Cache::get('sms');
-            if ($info_sms != $cacheSms){
-                return redirect('mobile/client-poster-invite-apply?member_id='.$invite.'')->with('message', '2');
-            }
+        // 接收POST参数，并且组装数据
+        $data =$request->except(['_token']);
+        $guopData =$request->except(['_token','info_sms','member_id']);
+        $member_id = ['member_id'=>'10'.$data['member_id']];
 
-            $info = new Info();
-            $info ->info_name = $name;
-            $info ->info_sex = $sex;
-            $info ->info_quota = $quota;
-            $info ->info_mobile = $mobile;
-            $info ->member_id = '10'.$memberID;
-            $info ->info_invite = $invite;
+        // 读取缓存验证码
+        $cacheSms = Cache::get('sms');
+        if ($data['info_sms'] != $cacheSms){
+            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['info_invite'].'')->with('message', '2');
+        }
+        // 插入数据
+        $result = $info->create(array_merge($guopData,$member_id));
 
-            if ($info ->save()){
-                Cache::forget('sms');
-                return redirect('mobile/client-poster-invite-apply?member_id='.$invite.'')->with('message', '4');
-            }else{
-                return redirect('mobile/client-poster-invite-apply?member_id='.$invite.'')->with('message', '5');
-            }
+        // 重定向
+        if ($result){
+            Cache::forget('sms');
+            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['info_invite'].'')->with('message', '4');
+        }else{
+            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['info_invite'].'')->with('message', '5');
+        }
+
     }
 
     public function ClientUnionShow($member_id){

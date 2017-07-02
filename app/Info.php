@@ -12,6 +12,20 @@ class Info extends Model
 
     public $primaryKey = 'info_id';
 
+    protected $fillable = [
+      'info_name',
+      'info_sex',
+      'info_mobile',
+      'info_quota',
+      'info_unit',
+      'info_remark',
+      'member_id',
+      'info_invite',
+      'info_invite',
+    ];
+
+    protected $hidden = [];
+
     public static function sexLabelList()
     {
         return [
