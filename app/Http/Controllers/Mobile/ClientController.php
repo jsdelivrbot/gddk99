@@ -81,68 +81,78 @@ class ClientController extends Controller
 
     }
 
+    // 推客----客户海报列表---扫码跳转---填写绑定合伙人----跳转发展推客
+    public function ClientPosterInvite(Request $request,Common $common,Member $member){
 
+        // http://gddk99.tunnel.qydev.com/mobile/client/client-poster-invite?member_id=5
 
-
-
-
-
-    public function ClientPosterInvite(Request $request){
-        // http://www.gddk99.com/mobile/client-poster-invite?member_id=1;
-        $id= session('wechat_user');
-        $memberId = isset($id[0]['member_id']) ? $id[0]['member_id'] : $id['member_id'];
+        // 接收ID参数
         $member_id = $request->get('member_id');
-        $sessionID = $memberId;
+        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
 
         // 显示所属上级资料
-        $member = Member::find($member_id);
-        if ($member_id==$sessionID){
-            return redirect('mobile/client-poster-list')->with('message', '4');
-        }elseif(!$member['member_id']==$member_id){
-            return redirect('mobile/client-poster-list')->with('message', '5');
+        $level = $member->find($member_id);
+
+        // 判断父级ID不能与主见ID相同------调试阶段可以注释
+        if ($member_id==$memberId){
+            return redirect('mobile/client/client-poster-list')->with('message', '4');
+        }elseif(!$level['member_id']==$member_id){
+            return redirect('mobile/client/client-poster-list')->with('message', '5');
         }
 
-        //显示当前用户资料
-        $member_user = Member::find($sessionID);
-        $member_sex = (new Member())->Sex();
+        // 显示当前用户资料
+        $member_user = $member->find($memberId);
+        // 性别方法
+        $member_sex = $member->Sex();
 
-        return view('mobile.client-poster-invite',['member'=>$member,'member_user'=>$member_user,'member_sex'=>$member_sex]);
+        // 组装判断数据，减少前端代码优雅
+        $groupData =[
+            'id'=> $level['member_id'],
+            'avatar' => $common->If_val($common->picUrlPath($level['member_avatar']),$level['wechat_headimgurl']),
+            'level_name' => $common->If_val($level['member_surname'],$level['wechat_nickname']),
+            'user_name' => $common->If_val($member_user['member_surname'],$member_user['wechat_nickname']),
+        ];
+
+        return view('mobile.client.client-poster-invite',['member'=>$groupData,'member_user'=>$member_user,'member_sex'=>$member_sex]);
+
     }
 
-    public function ClientPosterInviteStore(Request $request){
-
-        $member_surname = $request->get('member_surname');
-        $member_id = $request->get('member_id');
-        $member_parent_id = $request->get('member_parent_id');
-        $member_sex = $request->get('member_sex');
-        $member_mobile = $request->get('member_mobile');
-        $member_sms = $request->get('member_sms');
+    // 推客----客户海报列表---扫码跳转---填写绑定合伙人----跳转发展推客--存储
+    public function ClientPosterInviteStore(Request $request,Member $member){
+        // 接收POST参数
+        $data = $request->except(['_token']);
+        // 读取缓存验证码
         $cacheSms = Cache::get('sms');
-
-        if ($member_sms != $cacheSms){
-            return redirect('mobile/client-poster-invite?member_id='.$member_parent_id.'')->with('message', '2');
+        // 判断缓存的验证是否和传递过来的验证码是否相同
+        if ($data['member_sms'] != $cacheSms){
+            return redirect('mobile/client/client-poster-invite?member_id='.$data['member_parent_id'].'')->with('message', '2');
         }
-
-        $member = Member::find($member_id);
-        $str = $member['member_parent_id'];
+        // 读取当前用户数据，推客父级以10开头，截取后位数，是否等等于10，保存数据
+        $user_id = $member->find($data['member_id']);
+        $str = $user_id['member_parent_id'];
         $num = substr($str,0,2);
         if ($num==10){
-            return redirect('mobile/client-poster-invite-apply?member_id='.$member_parent_id.'')->with('message', '3');
+            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['member_parent_id'].'')->with('message', '3');
         }
-        $member->member_surname = $member_surname;
-        $member->member_parent_id = '10'.$member_parent_id;  // 10表示合伙人ID加拼接
-        $member->member_sex = $member_sex;
-        $member->member_mobile = $member_mobile;
-        $member->created_at = date('Y-m-d H:i:s',time());
+        $user_id->member_surname = $data['member_surname'];
+        $user_id->member_parent_id = '10'.$data['member_parent_id'];  // 10表示合伙人ID加拼接
+        $user_id->member_sex = $data['member_sex'];
+        $user_id->member_mobile = $data['member_mobile'];
+        $user_id->created_at = date('Y-m-d H:i:s',time());
 
-        if ($member ->save()){
-            Cache::forget('sms');
-            return redirect('mobile/client-poster-invite-apply?member_id='.$member_parent_id.'')->with('message', '1');
+        if ($user_id ->save()){
+            Cache::pull('sms');
+            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['member_parent_id'].'')->with('message', '1');
         }else{
-            return redirect('mobile/client-poster-invite-apply?member_id='.$member_parent_id.'')->with('message', '0');
+            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['member_parent_id'].'')->with('message', '0');
         }
 
     }
+
+
+
+
+
 
     public function ClientPosterInviteApply(Request $request){
         //http://www.gddk99.com/mobile/client-poster-invite-apply?member_id=1

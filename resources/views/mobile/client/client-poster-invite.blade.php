@@ -7,9 +7,9 @@
             <div class="pet_hd_con_head"><img src="{{ url('build/img/client-list.jpg') }}" alt=""></div>
         </div>
 
-        {!! Form::open(['url'=>'/mobile/client-poster-invite','class'=>'am-form','data-am-validator']) !!}
+        {!! Form::open(['url'=>'/mobile/client/client-poster-invite','class'=>'am-form','data-am-validator']) !!}
         <fieldset>
-            <legend style="font-size: 14px;">扫码成功！<font color="red">{{ $member_user['member_surname']?$member_user['member_surname']:$member_user['wechat_nickname'] }}</font> 即将成为 <font color="red">{{ $member['member_surname']?$member['member_surname']:$member['wechat_nickname'] }}</font> 线下发展合伙人</legend>
+            <legend style="font-size: 14px;">扫码成功！<font color="red">{{ $member['user_name'] }}</font> 即将成为 <font color="red">{{ $member['level_name'] }}</font> 线下发展合伙人</legend>
             <legend>绑定合伙人资料</legend>
             <div class="am-form-group">
                 <label for="wechat_nickname">昵称：</label>
@@ -20,7 +20,7 @@
                 <label for="member_surname">姓名：</label>
                 <input type="text" id="member_surname" name="member_surname" value="{{ $member_user['member_surname'] }}" minlength="2" placeholder="输入您的姓名" required/>
                 <input type="hidden" id="member_id" value="{{ $member_user['member_id'] }}" name="member_id"/>
-                <input type="hidden" name="member_parent_id" value="{{ $member['member_id'] }}">
+                <input type="hidden" name="member_parent_id" value="{{ $member['id'] }}">
             </div>
 
             <div class="am-form-group">
@@ -94,7 +94,7 @@
         //发送请求
         function Sms() {
             var info_mobile = $("#info_mobile").val();
-            $.post("{{url('/mobile/send')}}",{'_token':'{{csrf_token()}}','mobile':info_mobile});
+            $.post("{{url('/mobile/member/send')}}",{'_token':'{{csrf_token()}}','mobile':info_mobile});
         }
     </script>
 @endsection
