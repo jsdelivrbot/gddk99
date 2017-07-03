@@ -102,14 +102,19 @@ class WechatController extends Controller
 
         $scope = Cache::get('scope');
 
-        if ($scope=='snsapi_userinfo'){
-            return redirect()->action('WechatController@WsLogin');
-        }elseif($scope=='snsapi_base'){
-            return redirect()->action('WechatController@login');
-        }elseif($scope=='snsapi_login'){
-            return redirect()->action('WechatController@WxLogin');
-        }else{
-            return redirect()->action('WechatController@WsLogin');
+        switch ($scope)
+        {
+            case 'snsapi_userinfo':
+                return redirect()->action('WechatController@WsLogin');
+                break;
+            case 'snsapi_base':
+                return redirect()->action('WechatController@login');
+                break;
+            case 'snsapi_login':
+                return redirect()->action('WechatController@WxLogin');
+                break;
+            default:
+                return redirect()->action('WechatController@WsLogin');
         }
 
     }
