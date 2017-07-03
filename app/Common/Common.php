@@ -211,4 +211,28 @@ class Common
         return true;
     }
 
+    // 检测本地图片路径是否存在，同时匹配数据库图片是否相同，如果相同删除---限制多张JSON数据图片上传方法
+    public function DataPicAllJson($postAll,$dataAll){
+        //检测post数据是否有值 接收POST图片数据路径
+        if (isset($postAll)){
+            // 判断数据库DATA读取的数据是否等等于空，取反
+            if (!$dataAll==""){
+                // 循环JSON数据转换数组
+                foreach (unserialize($dataAll) as $list){
+                    // 读取数组，是否为空，取反
+                    if (!empty($list)){
+                        // 读取目录所有图片
+                        $images = public_path($this->pic_path.$list);
+                        // 检测目录图片是否存在
+                        if (file_exists ($images )) {
+                            unlink ($images);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
 }
