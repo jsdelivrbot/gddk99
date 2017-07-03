@@ -11,16 +11,18 @@ use Redirect;
 
 class ConsultantController extends Controller
 {
-    // 顾客
+    // 顾问列表
     public function ConsultantList(){
         $consultant = Consultant::where('con_type',1)->paginate(15);
         return view('admin.consultant-list',['consultant' => $consultant]);
     }
 
+    // 顾问列表--存储
     public function ConsultantStore(){
         return view('admin.consultant-store');
     }
 
+    // 顾问列表--存储--成功
     public function ConsultantStoreOk(Request $request,Common $common,Consultant $consultant){
 
         // 接收参数
@@ -45,11 +47,13 @@ class ConsultantController extends Controller
 
     }
 
+    // 顾问列表--存储---更新
     public function ConsultantEdit($id){
         $consultant = Consultant::find($id);
         return view('admin.consultant-edit',['consultant'=>$consultant]);
     }
 
+    // 顾问列表--存储---更新---成功
     public function ConsultantEditOk(Request $request,Common $common,Consultant $consultant){
 
         // 接收参数
@@ -117,6 +121,7 @@ class ConsultantController extends Controller
         }
 
     }
+
 
     public function ConsultantDel($id){
         $conId =Consultant::find($id);
