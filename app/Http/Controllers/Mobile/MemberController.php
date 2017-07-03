@@ -176,4 +176,11 @@ class MemberController extends Controller
         return view('mobile.member.union-list',['union'=>$union]);
     }
 
+    // 退出
+    public function Logout(){
+        Cache::pull('mobile_user');
+        Cache::pull('scope');
+        return redirect('mobile/index');
+    }
+
 }

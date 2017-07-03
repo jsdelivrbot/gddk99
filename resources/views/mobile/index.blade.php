@@ -127,7 +127,7 @@
         </div>
 
         <div class="pet_comment_list">
-            <div class="pet_comment_list_wap"><div class="pet_comment_list_title">线下贷款门店</div>
+            <div class="pet_comment_list_wap"><div class="pet_comment_list_title">O2O线下门店</div>
                 <div data-am-widget="tabs" class="am-tabs am-tabs-default pet_comment_list_tab" >
                     <ul class="am-tabs-nav am-cf pet_comment_list_title_tab">
                         <li class="am-active"><a href="[data-tab-panel-0]">人气</a></li>

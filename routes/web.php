@@ -50,8 +50,12 @@ Route::prefix('mobile')->any('channel', 'WechatController@Channel');
 
 //--------------------------------- 首页管理区 ------------------------------//
 
+// 首页
 Route::prefix('mobile')->get('/','Mobile\IndexController@index');
 Route::prefix('mobile')->get('index','Mobile\IndexController@index');
+
+// 退出
+Route::prefix('mobile')->middleware('active.nav')->get('logout','Mobile\MemberController@Logout');
 
 //--------------------------------- 会员管理区 ------------------------------//
 

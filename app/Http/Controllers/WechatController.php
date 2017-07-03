@@ -79,7 +79,22 @@ class WechatController extends Controller
 
     // 登录成功进入对应页面方法
     protected function enter(){
+
+        // 线上地址
+        // $str = "http://www.gddk99.com/mobile/client/client-poster-invite?member_id=5";
+        //echo substr($str,21);  输出结果：/mobile/client/client-poster-invite?member_id=5
+
+        // 本地测试地址
+        // $str = "http://gddk99.tunnel.qydev.com/mobile/client/client-poster-invite?member_id=5";
+        //echo substr($str,30);  输出结果：/mobile/client/client-poster-invite?member_id=5
+
+        if (Cache::get('url')){
+            $str = Cache::get('url');
+            $res = substr($str,30);
+            return redirect($res);
+        }
         return redirect('/mobile/index');
+
     }
 
     // 渠道入口登录判断
