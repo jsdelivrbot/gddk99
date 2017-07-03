@@ -123,28 +123,14 @@ class ConsultantController extends Controller
     }
 
 
-    public function ConsultantDel($id){
-        $conId =Consultant::find($id);
-        if(!empty($conId['con_pic'])){
-            $images = public_path('build/uploads/') . $conId['con_pic'];
-            if (file_exists ($images )) {
-                unlink ($images);
-            }
-        }
-        foreach (unserialize($conId['con_pic_all']) as $basicList){
-            if(!empty($basicList)){
-                $images = public_path('build/uploads/') . $basicList;
-                if (file_exists ($images )) {
-                    unlink ($images);
-                }
-            }
-        }
-        if(!empty($conId['con_wx_pic'])){
-            $images = public_path('build/uploads/') . $conId['con_wx_pic'];
-            if (file_exists ($images )) {
-                unlink ($images);
-            }
-        }
+    // 顾问列表--删除---成功
+    public function ConsultantDel($id,Consultant $consultant,Common $common){
+        $conId = $consultant->find($id);
+
+        $common->DataPicDel($conId['con_pic']);
+        $common->DataPicDelAll($conId['con_pic_all']);
+        $common->DataPicDel($conId['con_wx_pic']);
+
         $conId->delete();
         return Redirect::back();
     }

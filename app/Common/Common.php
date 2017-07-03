@@ -233,6 +233,26 @@ class Common
         }
     }
 
+    // 删除单张图片----读取数据库图片字段
+    public function DataPicDel($val){
+        if(!empty($val)){
+            $images = public_path($this->pic_path.$val);
+            if (file_exists ($images )) {
+                unlink ($images);
+            }
+        }
+    }
 
+    // 删除多张图片----读取数据图片字段
+    public function DataPicDelAll($val){
+        foreach (unserialize($val) as $List){
+            if(!empty($List)){
+                $images = public_path($this->pic_path.$List);
+                if (file_exists ($images )) {
+                    unlink ($images);
+                }
+            }
+        }
+    }
 
 }
