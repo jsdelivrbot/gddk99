@@ -30,7 +30,7 @@
 
             <div class="am-form-group">
                 <label for="info_quota">贷款额度(万元)：</label>
-                <input type="text" id="info_quota" name="info_quota" minlength="3" placeholder="输入贷款额度" required/>
+                <input type="text" id="info_quota" name="info_quota" minlength="1" placeholder="输入贷款额度" required/>
             </div>
 
             <div class="am-form-group">
@@ -72,7 +72,7 @@
                     title: false,
                     skin:'layui-layer-demo',
                     area: ['78%', '18%'],
-                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，绑定成功！</div><div class="am-panel-bd">您好，我们已经是合伙人了，立即推荐客户享受更多优惠！</div></div>'
+                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，资料完善成功！</div><div class="am-panel-bd">您好，我们已经成为合伙人名下推客，立即推荐客户享受更多优惠！</div></div>'
                 });
             </script>
         @elseif(Session::get('message')==0)

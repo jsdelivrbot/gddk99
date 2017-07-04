@@ -9,8 +9,8 @@
 
         {!! Form::open(['url'=>'/mobile/client/client-poster-invite','class'=>'am-form','data-am-validator']) !!}
         <fieldset>
-            <legend style="font-size: 14px;">扫码成功！<font color="red">{{ $member['user_name'] }}</font> 即将成为 <font color="red">{{ $member['level_name'] }}</font> 线下发展合伙人</legend>
-            <legend>绑定合伙人资料</legend>
+            <legend style="font-size: 14px;">扫码成功！<font color="red">{{ $member['user_name'] }}</font> 即将成为 <font color="red">{{ $member['level_name'] }}</font> 名下发展合伙人</legend>
+            <legend>完善推客资料</legend>
             <div class="am-form-group">
                 <label for="wechat_nickname">昵称：</label>
                 <input type="text" id="wechat_nickname" name="wechat_nickname" value="{{ $member_user['wechat_nickname'] or '' }}" disabled/>
@@ -52,7 +52,7 @@
 
             <div class="am-g am-g-fixed">
                 <div class="am-u-sm-6" style="margin: 0; padding: 0;">
-                    <button type="submit" class="am-btn am-btn-warning am-btn-block">提交绑定</button>
+                    <button type="submit" class="am-btn am-btn-warning am-btn-block">立即提交</button>
                 </div>
                 <div class="am-u-sm-6" style="margin: 0; padding: 0;">
                     <button type="button" class="am-btn am-btn-default am-btn-block" onclick="javascript:window.location='{{ url('mobile/index') }}'" >返回首页</button>
