@@ -117,7 +117,7 @@ Route::prefix('mobile')->middleware('active.nav')->get('/consultant/consultant-d
 //--------------------------------- 店面管理区 ------------------------------//
 
 // 门店列表详情
-Route::prefix('mobile')->middleware('active.nav')->get('/shop/shop-details/{id}','Mobile\ConsultantController@ShopDetails');
+Route::prefix('mobile')->middleware('active.nav')->get('/shop/shop-details/{id}','Mobile\ShopController@ShopDetails');
 
 
 

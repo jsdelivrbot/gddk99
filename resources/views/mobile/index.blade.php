@@ -139,7 +139,7 @@
                             @foreach($shop as $conVal)
                             <li class="One_ayi" style="background-color: white; margin: 0; padding: 0;">
                                 <div class="one_a_con div_allinline">
-                                    <a href="{{ url('mobile/shop-details',['id'=>$conVal['id']]) }}">
+                                    <a href="{{ url('mobile/shop/shop-details',['id'=>$conVal['id']]) }}">
                                     <div class="subdiv_allinline img_left">
                                         <img src="{{ url('build/uploads/'.$conVal['con_pic']) }}" style="width:120px; height: 140px;">
                                     </div>

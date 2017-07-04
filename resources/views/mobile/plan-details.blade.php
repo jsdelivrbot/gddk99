@@ -1,6 +1,6 @@
 @extends('layouts.mobile')
 @section('content')
-
+    @include('include.mobile.footer')
     <div class="pet_head">
         <header data-am-widget="header" class="am-header am-header-default" style="background-color:#f9fafc;">
             <div class="am-header-left am-header-nav ">
