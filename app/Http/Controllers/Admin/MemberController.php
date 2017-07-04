@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class MemberController extends Controller
 {
+    //  会员列表
     public function MemberList(){
         $member = Member::paginate(15);
         return view('admin.member-list',['member' =>$member ]);

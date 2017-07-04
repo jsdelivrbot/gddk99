@@ -133,22 +133,32 @@ Route::prefix('mobile')->middleware('active.nav')->get('serve','Mobile\OtherCont
 
 // -------------------------------  后台端 -----------------------------------------
 
-//登录页
+// 登录页
 Route::prefix('admin')->get('/','Admin\IndexController@Login');
 Route::prefix('admin')->get('login','Admin\IndexController@Login');
 Route::prefix('admin')->post('login','Admin\IndexController@LoginSignin');
 
+// 登出
 Route::prefix('admin')->get('/logout', 'Admin\IndexController@logout');
 
 // 首页
 Route::prefix('admin')->middleware('admin.login')->get('/','Admin\IndexController@Index');
 Route::prefix('admin')->middleware('admin.login')->get('index','Admin\IndexController@Index');
 
-// 用户列表
-Route::prefix('admin')->middleware('admin.login')->get('user-list','Admin\UserController@UserList');
+
+
+//--------------------------------- 会员管理区 ------------------------------//
 
 // 会员列表
 Route::prefix('admin')->middleware('admin.login')->get('member-list','Admin\MemberController@MemberList');
+
+
+
+
+
+// 用户列表
+Route::prefix('admin')->middleware('admin.login')->get('user-list','Admin\UserController@UserList');
+
 
 // 经纪关系列表
 Route::prefix('admin')->middleware('admin.login')->get('union-list','Admin\MemberController@UnionList');
