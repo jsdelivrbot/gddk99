@@ -50,6 +50,9 @@
             -webkit-transition-property: -webkit-transform,opacity;
             transition-property: transform,opacity;
         }
+        .pet_content_article {
+            padding: 0px 8px 0;
+        }
     </style>
     @yield('style')
 </head>

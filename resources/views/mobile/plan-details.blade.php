@@ -1,20 +1,7 @@
 @extends('layouts.mobile')
 @section('content')
-    @include('include.mobile.footer')
-    <div class="pet_head">
-        <header data-am-widget="header" class="am-header am-header-default" style="background-color:#f9fafc;">
-            <div class="am-header-left am-header-nav ">
-                <a href="#left-link" class="iconfont">&#xe601;</a>
-            </div>
-            <div class="pet_news_list_tag_name" style="color: black; text-align: left; text-indent: 50px;">{{ $plan['plan_title'] }}</div>
-            <div class="am-header-right am-header-nav">
-                <a href="javascript:;" class="iconfont pet_head_gd_ico">&#xe600;</a>
-            </div>
-        </header>
-    </div>
 
     <div class="pet_content_block pet_hd_con">
-        <div style="height: 30px;"></div>
         <article data-am-widget="paragraph" class="am-paragraph am-paragraph-default pet_content_article" data-am-paragraph="{ tableScrollable: true, pureview: true }">
             <div class="pet_hd_con_gp_list_nr">
                 <div class="pet_hd_con_gp_list_nr_title">{{ $plan['plan_title'] }}</div>
@@ -48,5 +35,19 @@
             </div>
         </article>
         <div style="height: 50px;"></div>
+    </div>
+
+    <div data-am-widget="gotop" class="am-gotop am-gotop-fixed">
+        <div class="am-g am-g-fixed">
+            <div class="am-u-sm-4" style="margin: 0; padding: 0;">
+                <button type="button" class="am-btn am-btn-warning am-btn-block" onclick="javascript:window.location='{{ url('mobile/client/client-list') }}'" >立即申请</button>
+            </div>
+            <div class="am-u-sm-4" style="margin: 0; padding: 0;">
+                <button type="button" class="am-btn am-btn-primary am-btn-block" onclick="javascript:window.location='{{ url('mobile/client/client-list') }}'" >立即申请</button>
+            </div>
+            <div class="am-u-sm-4" style="margin: 0; padding: 0;">
+                <button type="button" class="am-btn am-btn-success am-btn-block" onclick="javascript:window.location='tel:13903032418'">点击拨打</button>
+            </div>
+        </div>
     </div>
 @endsection
