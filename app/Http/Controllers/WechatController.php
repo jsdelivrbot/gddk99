@@ -200,4 +200,31 @@ class WechatController extends Controller
         dd($user);
     }
 
+
+    //  -----------------------微信测试号菜单设置，到时可以注销-----------------------------
+
+    public function Menu(Request $request){
+        $app = new Application($this->option);
+        $menu = $app->menu;
+        $buttons = [
+            [
+                "type" => "view",
+                "name" => "官网首页",
+                "url"  => $request->getHttpHost()
+            ],
+            [
+                "type" => "view",
+                "name" => "立即申请",
+                "url"  => $request->getHttpHost()."/mobile/client/client-list"
+            ],
+            [
+                "type" => "view",
+                "name" => "个人中心",
+                "url"  =>  $request->getHttpHost()."/mobile/member/person-list"
+            ],
+        ];
+        $menu->add($buttons);
+        //$menu->destroy();
+    }
+
 }

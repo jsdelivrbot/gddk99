@@ -93,8 +93,8 @@
 
         //发送请求
         function Sms() {
-            var info_mobile = $("#info_mobile").val();
-            $.post("{{url('/mobile/member/send')}}",{'_token':'{{csrf_token()}}','mobile':info_mobile});
+            var member_mobile = $("#member_mobile").val();
+            $.post("{{url('/mobile/member/send')}}",{'_token':'{{csrf_token()}}','mobile':member_mobile});
         }
     </script>
 @endsection
