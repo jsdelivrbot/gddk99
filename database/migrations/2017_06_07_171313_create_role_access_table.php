@@ -18,7 +18,6 @@ class CreateRoleAccessTable extends Migration
             $table->integer('role_id')->default(0)->comment('对应角色表ID');
             $table->integer('access_id')->default(0)->comment('对应权限表ID');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

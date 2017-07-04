@@ -67,6 +67,7 @@ class WechatController extends Controller
             $mem->wechat_nickname = $result['nickname'];
             $mem->member_sex = $result['sex'];
             $mem->wechat_headimgurl = $result['headimgurl'];
+            $mem->member_type = Member::MEMBER_TYPE_ONE;
             $mem->is_member = Member::IS_MEMBER;
             $mem->save();
             $rows = Member::find($mem->getQueueableId());

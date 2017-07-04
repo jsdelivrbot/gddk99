@@ -58,6 +58,7 @@
                                     <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
                                     <th class="table-id">ID</th>
                                     <th class="table-title">头像</th>
+                                    <th class="table-title">昵称</th>
                                     <th class="table-title">姓名</th>
                                     <th class="table-title">手机号</th>
                                     <th class="table-title">性别</th>
@@ -72,6 +73,7 @@
                                     <td><input type="checkbox"></td>
                                     <td>{{ $mem_val['member_id'] }}</td>
                                     <td><a href="#"><img src="{{ $mem_val['member_avatar'] ? $mem_val['member_avatar'] : $mem_val['wechat_headimgurl'] }}" alt="" width="50" height="30"></a></td>
+                                    <td>{{ $mem_val['wechat_nickname'] or '无' }}</td>
                                     <td>{{ $mem_val['member_name'] or '无' }}</td>
                                     <td class="am-hide-sm-only">{{ $mem_val['member_mobile'] or '无' }}</td>
                                     <td class="am-hide-sm-only">{{ $mem_val['member_sex_text'] or '无' }}</td>

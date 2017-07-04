@@ -3,11 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Member extends Model
 {
-    use SoftDeletes;
 
     const SEX_SECRET = 0;
     const SEX_MAN = 1;
@@ -16,6 +14,8 @@ class Member extends Model
     const MEMBER_PUBLIC = 0; // 默认
     const IS_MEMBER = 1;  // 登录状态
     const FAIL_TIME = 60;  // 失效时间,60秒
+
+    const MEMBER_TYPE_ONE = 1; // 会员类型 默认1
 
     public $primaryKey = 'member_id';
 
@@ -31,6 +31,8 @@ class Member extends Model
         'member_sex',
         'member_card',
         'member_tel',
+        'member_bank_card',
+        'member_card_type',
         'member_mobile',
         'member_add',
         'member_province',
@@ -71,6 +73,17 @@ class Member extends Model
 
     public function setPasswordAttribute($password){
         $this->attributes['password'] = \Hash::make($password);
+    }
+
+    public function cardType(){
+        return   $cardType =[
+            ['id'=>1, 'name'=>'中国工商银行'],
+            ['id'=>2, 'name'=>'中国银行'],
+            ['id'=>3, 'name'=>'中国农业银行'],
+            ['id'=>4, 'name'=>'汇丰银行'],
+            ['id'=>5, 'name'=>'东莞农村商业银行'],
+            ['id'=>6, 'name'=>'支付宝'],
+        ];
     }
 
 }

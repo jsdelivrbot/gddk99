@@ -62,9 +62,26 @@
                 <input type="text" id="member_mobile" name="member_mobile" minlength="3" value="{{ $member['member_mobile'] }}" placeholder="输入联系手机号" required/>
             </div>
 
-            <div class="am-form-group">
+            {{--<div class="am-form-group">
                 <label for="member_tel">电话：</label>
                 <input type="text" id="member_tel" name="member_tel" minlength="3" value="{{ $member['member_tel'] }}" placeholder="输入联系电话" required/>
+            </div>--}}
+
+            <div class="am-form-group">
+                <label for="member_bank_card">银行卡号：</label>
+                <input type="text" id="member_bank_card" name="member_bank_card" minlength="3" value="{{ $member['member_bank_card'] }}" placeholder="输入银行卡号" required/>
+            </div>
+
+            <div class="am-form-group">
+                <label for="member_card_type">卡号类型</label>
+                <select id="member_card_type" name="member_card_type" required>
+                    <option value="">请选择卡号类型</option>
+                    @foreach($data['card'] as $card)
+                        <option value="{{ $card['id'] }}" @if($card['id'] == $member['member_card_type']) selected @endif>
+                            {{ $card['name'] }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="am-form-group">
@@ -72,10 +89,10 @@
                 <input type="text" id="member_card" name="member_card" minlength="3" value="{{ $member['member_card'] }}" placeholder="输入身份证号码" required/>
             </div>
 
-            <div class="am-form-group">
+            {{--<div class="am-form-group">
                 <label for="member_content">个人介绍：</label>
                 <textarea id="member_content" name="member_content" minlength="10" maxlength="100">{{ $member['member_content'] }}</textarea>
-            </div>
+            </div>--}}
 
             <div class="am-form-group">
                 <label for="member_add">地址：</label>

@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('is_admin')->default(0)->comment('是否是管理员：1是管理员，0是不管理员');
             $table->tinyInteger('status')->default(1)->comment('状态：1有效，0无效');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

@@ -24,6 +24,8 @@ class CreateMembersTable extends Migration
             $table->integer('member_sex')->default('0')->comment('性别');
             $table->string('member_card')->nullable()->comment('身份证');
             $table->string('member_tel')->nullable()->comment('电话');
+            $table->string('member_bank_card')->nullable()->comment('银行卡号');
+            $table->tinyInteger('member_card_type')->default('0')->comment('卡号类型');
             $table->string('member_mobile')->nullable()->comment('手机');
             $table->string('member_add')->nullable()->comment('地址');
             $table->string('member_province')->nullable()->comment('省');
@@ -39,7 +41,6 @@ class CreateMembersTable extends Migration
             $table->text('wechat_headimgurl')->nullable()->comment('微信头像');
 
             $table->timestamps();
-            $table->softDeletes();
 
         });
     }

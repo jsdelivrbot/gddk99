@@ -18,7 +18,6 @@ class CreateUserRolesTable extends Migration
             $table->integer('uid')->default(0)->comment('对应users表ID');
             $table->integer('role_id')->default(0)->comment('对应roles表ID');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

@@ -121,7 +121,8 @@ class MemberController extends Controller
         // 组装判断数据，减少前端代码优雅
         $groupData =[
             'avatar' => $common->If_val($common->picUrlPath($user_data['member_avatar']),$user_data['wechat_headimgurl']),
-            'sex' => $member->Sex()
+            'sex' => $member->Sex(),
+            'card' => $member->cardType()
         ];
 
         return view('mobile.member.person-edit',['member'=>$user_data,'data'=>$groupData]);

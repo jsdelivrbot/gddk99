@@ -29,7 +29,6 @@ class CreateConsultantsTable extends Migration
             $table->longText('con_add')->nullable()->comment('顾问地址');
             $table->tinyInteger('con_type')->default('0')->comment('顾问类型：0表示无,1表示顾问列表，2表示店面列表');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

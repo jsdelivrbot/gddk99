@@ -18,7 +18,6 @@ class CreateRolesTable extends Migration
                 $table->string('name')->comment('角色名称');
                 $table->tinyInteger('status')->default(1)->comment('状态：1有效，0无效');
                 $table->timestamps();
-                $table->softDeletes();
         });
     }
 
