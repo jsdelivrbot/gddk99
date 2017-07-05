@@ -89,6 +89,10 @@ class WechatController extends Controller
         // $str = "http://gddk99.tunnel.qydev.com/mobile/client/client-poster-invite?member_id=5";
         //echo substr($str,30);  输出结果：/mobile/client/client-poster-invite?member_id=5
 
+        // 本地测试地址
+        // $str = "http://snsm.natapp1.cc";
+        //echo substr($str,22);  输出结果：/mobile/client/client-poster-invite?member_id=5
+
         if (Cache::get('url')){
             $str = Cache::get('url');
             $res = substr($str,30);
