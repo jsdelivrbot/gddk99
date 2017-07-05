@@ -14,7 +14,7 @@
             </div>
 
             <div class="pet_grzx_num_font">
-                {{ $member['member_content'] or '这个家伙很懒，什么都没有留下' }}
+               您当前是：{{ $groupData['type'] }}
             </div>
             <div class="pet_grzx_num">
                 <span>653<i>喜欢</i></span>

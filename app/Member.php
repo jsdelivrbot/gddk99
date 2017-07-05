@@ -15,7 +15,8 @@ class Member extends Model
     const IS_MEMBER = 1;  // 登录状态
     const FAIL_TIME = 60;  // 失效时间,60秒
 
-    const MEMBER_TYPE_ONE = 1; // 会员类型 默认1
+    const MEMBER_TYPE_ONE = 1; // 会员类型 (普通会员 默认 1)
+    const MEMBER_TYPE_TWO = 2; // 会员类型 (VIP会员)
 
     public $primaryKey = 'member_id';
 
@@ -84,6 +85,32 @@ class Member extends Model
             ['id'=>5, 'name'=>'东莞农村商业银行'],
             ['id'=>6, 'name'=>'支付宝'],
         ];
+    }
+
+    public function memberType($memberType){
+        switch ($memberType)
+        {
+            case '1':
+                return "普通用户";
+                break;
+            case '2':
+                return "VIP用户";
+                break;
+            case '3':
+                return '合伙人用户';
+                break;
+            case '4':
+                return '加盟商用户';
+                break;
+            case '5':
+                return '运营商用户';
+                break;
+            case '6':
+                return '总部用户';
+                break;
+            default:
+                return "普通用户";
+        }
     }
 
 }

@@ -59,6 +59,9 @@ Route::prefix('mobile')->middleware('active.nav')->get('logout','Mobile\MemberCo
 
 //--------------------------------- 会员管理区 ------------------------------//
 
+// 会员管理---普通会员--个人中心列表显示
+Route::prefix('mobile')->middleware('active.nav')->get('/member/ordinary-person-list','Mobile\MemberController@OrdinaryPerson');
+
 // 会员管理---个人中心列表显示
 Route::prefix('mobile')->middleware('active.nav')->get('/member/person-list','Mobile\MemberController@Person');
 

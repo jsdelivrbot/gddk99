@@ -17,13 +17,37 @@ class MemberController extends Controller
     protected $HttpUrl = 'mobile/member/member-user-invite?member_parent_id=';
 
 
-    // 会员管理---个人中心列表显示
+    // 会员管理---普通会员---个人中心列表显示
+    public function OrdinaryPerson(Request $request,Member $member,Common $common){
+        // 接收ID参数
+        $memberUser = $common->If_com(Cache::get('mobile_user')['member_id']);
+        // 从数据库读取数据
+        $members = $member->where(['member_id'=>$memberUser,'member_type'=>Member::MEMBER_TYPE_ONE])->first();
+        // 会员级别判定
+        if (!$members['member_type']==Member::MEMBER_TYPE_ONE){
+            return redirect('/mobile/member/person-list');
+        }
+        // 组装判断数据，减少前端代码优雅
+        $groupData =[
+            'avatar' => $common->If_val($common->picUrlPath($members['member_avatar']),$members['wechat_headimgurl']),
+            'name' => $common->If_val($members['member_surname'],$members['wechat_nickname']),
+            'type' => $member->memberType($members['member_type']),
+        ];
+
+        return view('mobile.member.ordinary-person-list',['groupData'=>$groupData,'member' =>$members]);
+    }
+
+    // 会员管理---VIP会员---个人中心列表显示
     public function Person(Request $request,Member $member,Common $common){
 
         // 接收ID参数
         $memberUser = $common->If_com(Cache::get('mobile_user')['member_id']);
         // 从数据库读取数据
-        $member = $member->find($memberUser);
+        $member = $member->where(['member_id'=>$memberUser,'member_type'=>Member::MEMBER_TYPE_TWO])->first();
+        // 会员级别判定
+        if (!$member['member_type']==Member::MEMBER_TYPE_TWO){
+            return redirect('/mobile/member/ordinary-person-list');
+        }
         $memberID = $member['member_id'];
         // 生成二维码
         $Qrcode = $common->QrCode($memberID,$this->path,$this->HttpUrl);
@@ -32,9 +56,10 @@ class MemberController extends Controller
         $groupData =[
             'avatar' => $common->If_val($common->picUrlPath($member['member_avatar']),$member['wechat_headimgurl']),
             'name' => $common->If_val($member['member_surname'],$member['wechat_nickname']),
+            'type' => $member->memberType($member['member_type']),
         ];
 
-        return view('mobile.member.person-list',['groupData'=>$groupData,'member' => $member,'qrcode'=>$Qrcode]);
+        return view('mobile.member.person-list',['groupData'=>$groupData,'member' =>$member,'qrcode'=>$Qrcode]);
 
     }
 
