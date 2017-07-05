@@ -1,6 +1,5 @@
 @extends('layouts.mobile')
 @section('content')
-
     <div class="pet_grzx">
         <div class="pet_grzx_nr">
             <div class="pet_grzx_ico">

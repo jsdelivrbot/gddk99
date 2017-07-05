@@ -99,8 +99,14 @@
                 <input type="text" id="member_add" name="member_add" minlength="3" value="{{ $member['member_add'] }}" placeholder="输入地址" required/>
             </div>
 
-            <button class="am-btn am-btn-warning am-btn-block" type="submit" >提交</button>
-            <a href="{{ url('/mobile/member/person-list') }}" class="am-btn am-btn-warning am-btn-block" >返回</a>
+            <div class="am-g am-g-fixed">
+                <div class="am-u-sm-6" style="margin: 0; padding: 0;">
+                    <button class="am-btn am-btn-warning am-btn-block" type="submit" >提交</button>
+                </div>
+                <div class="am-u-sm-6" style="margin: 0; padding: 0;">
+                    <button type="button" class="am-btn am-btn-default am-btn-block" onclick="javascript:window.location='{{ url('mobile/member/person-list') }}'" >返回</button>
+                </div>
+            </div>
 
         </fieldset>
     {!! Form::close() !!}

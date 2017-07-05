@@ -45,10 +45,10 @@
                 </li>
                 <li><a href="{{ url('/mobile/member/person-edit',['member_id'=>$member['member_id']]) }}"><i class="am-icon-pencil am-icon-fw"></i>完善个人信息</a></li>
             </ul>
-
         </div>
     </div>
 
+    @include('include.mobile.guide')
 @endsection
 
 @section('script')
