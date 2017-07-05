@@ -34,6 +34,7 @@ class CreateMembersTable extends Migration
             $table->tinyInteger('member_status')->default('10')->comment('会员状态：10表示正常');
             $table->integer('member_parent_id')->default('0')->comment('会员父级ID');
             $table->tinyInteger('is_member')->default(0)->comment('是否是登录：1是登录，0是没有登录');
+            $table->tinyInteger('member_check')->default(0)->comment('审核：1通过，0未通过');
 
             //微信表
             $table->string('wechat_openid')->unique()->comment('微信ID');

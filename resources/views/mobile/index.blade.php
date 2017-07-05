@@ -24,7 +24,7 @@
                 <li><a href="{{ url('mobile/plan-details/4') }}" class="iconfont pet_nav_mengzhuanti ">&#xe622;</a><span>房贷</span></li>
                 <li><a href="{{ url('mobile/plan-details/5') }}" class="iconfont pet_nav_yiyuan ">&#xe602;</a><span>工资贷</span></li>
                 <li><a href="{{ url('mobile/client/client-poster-list') }}" class="iconfont pet_nav_meirong ">&#xe629;</a><span>推客</span></li>
-                <li><a href="{{ url('mobile/member/person-list') }}" class="iconfont pet_nav_dianpu ">&#xe604;</a><span>我的</span></li>
+                <li><a href="{{ url('mobile/member/person-level') }}" class="iconfont pet_nav_dianpu ">&#xe604;</a><span>我的</span></li>
                 <li><a href="javascript:;" class="iconfont pet_nav_gengduo ">&#xe600;</a><span>更多</span></li>
             </ul>
             <div class="pet_more_list"><div class="pet_more_list_block">

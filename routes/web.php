@@ -62,8 +62,14 @@ Route::prefix('mobile')->middleware('active.nav')->get('logout','Mobile\MemberCo
 // 会员管理---普通会员--个人中心列表显示
 Route::prefix('mobile')->middleware('active.nav')->get('/member/ordinary-person-list','Mobile\MemberController@OrdinaryPerson');
 
-// 会员管理---个人中心列表显示
+// 会员管理----VIP会员--个人中心列表显示
 Route::prefix('mobile')->middleware('active.nav')->get('/member/person-list','Mobile\MemberController@Person');
+
+// 会员管理---合伙人---个人中心列表显示
+Route::prefix('mobile')->middleware('active.nav')->get('/member/union-person-list','Mobile\MemberController@unionPerson');
+
+// 会员管理---级别判定进入相应页面---个人中心列表显示
+Route::prefix('mobile')->middleware('active.nav')->get('/member/person-level','Mobile\MemberController@Level');
 
 // 会员管理---个人中心--生成海报页面--扫码成为经纪人
 Route::prefix('mobile')->middleware('active.nav')->get('/member/poster-list','Mobile\MemberController@Poster');

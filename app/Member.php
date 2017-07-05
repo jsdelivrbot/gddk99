@@ -17,6 +17,7 @@ class Member extends Model
 
     const MEMBER_TYPE_ONE = 1; // 会员类型 (普通会员 默认 1)
     const MEMBER_TYPE_TWO = 2; // 会员类型 (VIP会员)
+    const MEMBER_TYPE_THREE = 3; // 合伙人类型 (合伙人会员)
 
     public $primaryKey = 'member_id';
 

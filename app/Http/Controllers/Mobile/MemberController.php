@@ -17,16 +17,38 @@ class MemberController extends Controller
     protected $HttpUrl = 'mobile/member/member-user-invite?member_parent_id=';
 
 
+    // 会员管理---级别判定进入相应页面---个人中心列表显示
+    public function Level(Common $common,Member $member){
+        // 接收ID参数
+        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $members =$member->where('member_id',$memberId)->first();;
+        switch ($members['member_type'])
+        {
+            case '1':
+                return redirect()->action('Mobile\MemberController@OrdinaryPerson');
+                break;
+            case '2':
+                return redirect()->action('Mobile\MemberController@Person');
+                break;
+            case '3':
+                return redirect()->action('Mobile\MemberController@unionPerson');
+                break;
+            default:
+                return redirect('/mobile/channel');
+        }
+    }
+
     // 会员管理---普通会员---个人中心列表显示
     public function OrdinaryPerson(Request $request,Member $member,Common $common){
         // 接收ID参数
         $memberUser = $common->If_com(Cache::get('mobile_user')['member_id']);
         // 从数据库读取数据
         $members = $member->where(['member_id'=>$memberUser,'member_type'=>Member::MEMBER_TYPE_ONE])->first();
-        // 会员级别判定
+
         if (!$members['member_type']==Member::MEMBER_TYPE_ONE){
-            return redirect('/mobile/member/person-list');
+            return redirect('/mobile/member/person-level');
         }
+
         // 组装判断数据，减少前端代码优雅
         $groupData =[
             'avatar' => $common->If_val($common->picUrlPath($members['member_avatar']),$members['wechat_headimgurl']),
@@ -44,11 +66,11 @@ class MemberController extends Controller
         $memberUser = $common->If_com(Cache::get('mobile_user')['member_id']);
         // 从数据库读取数据
         $member = $member->where(['member_id'=>$memberUser,'member_type'=>Member::MEMBER_TYPE_TWO])->first();
-        // 会员级别判定
-        if (!$member['member_type']==Member::MEMBER_TYPE_TWO){
-            return redirect('/mobile/member/ordinary-person-list');
-        }
         $memberID = $member['member_id'];
+        if (!$member['member_type']==Member::MEMBER_TYPE_TWO){
+            return redirect('/mobile/member/person-level');
+        }
+
         // 生成二维码
         $Qrcode = $common->QrCode($memberID,$this->path,$this->HttpUrl);
 
@@ -60,6 +82,32 @@ class MemberController extends Controller
         ];
 
         return view('mobile.member.person-list',['groupData'=>$groupData,'member' =>$member,'qrcode'=>$Qrcode]);
+
+    }
+
+    // 会员管理---合伙人会员---个人中心列表显示
+    public function unionPerson(Request $request,Member $member,Common $common){
+
+        // 接收ID参数
+        $memberUser = $common->If_com(Cache::get('mobile_user')['member_id']);
+        // 从数据库读取数据
+        $member = $member->where(['member_id'=>$memberUser,'member_type'=>Member::MEMBER_TYPE_THREE])->first();
+        $memberID = $member['member_id'];
+        if (!$member['member_type']==Member::MEMBER_TYPE_THREE){
+            return redirect('/mobile/member/person-level');
+        }
+
+        // 生成二维码
+        $Qrcode = $common->QrCode($memberID,$this->path,$this->HttpUrl);
+
+        // 组装判断数据，减少前端代码优雅
+        $groupData =[
+            'avatar' => $common->If_val($common->picUrlPath($member['member_avatar']),$member['wechat_headimgurl']),
+            'name' => $common->If_val($member['member_surname'],$member['wechat_nickname']),
+            'type' => $member->memberType($member['member_type']),
+        ];
+
+        return view('mobile.member.union-person-list',['groupData'=>$groupData,'member' =>$member,'qrcode'=>$Qrcode]);
 
     }
 
