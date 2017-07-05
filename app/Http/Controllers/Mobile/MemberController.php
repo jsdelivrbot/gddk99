@@ -111,11 +111,18 @@ class MemberController extends Controller
 
     }
 
-    // 会员管理---个人中心--生成海报页面--扫码成为经纪人
-    public function Poster(Common $common){
+    // 会员管理---个人中心--生成海报页面--扫码成为经纪人---改成推客
+    public function Poster(Common $common,Member $member){
 
         // 接收ID参数
         $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
+
+        // 查询当前用户，判断当前用户资料是否完善
+        $members = $member->where('member_id',$memberId)->first();
+        if ($members['member_mobile']==""){
+            return redirect('/mobile/member/person-edit/'.$memberId.'')->with('message','1');
+        }
+
         // 读取图片
         $poster = $common->PublicPath('sc',$memberId);
 
@@ -130,7 +137,7 @@ class MemberController extends Controller
     }
 
 
-    //会员管理---个人中心--生成海报页面--扫码成为经纪人--扫码跳转页面
+    //会员管理---个人中心--生成海报页面--扫码成为经纪人--扫码跳转页面---改成推客
     public function MemberUserInvite(Request $request,Common $common,Member $member)
     {
         // http://gddk99.tunnel.qydev.com/mobile/member/member-user-invite?member_parent_id=2
@@ -165,7 +172,7 @@ class MemberController extends Controller
 
     }
 
-    //会员管理---个人中心--生成海报页面--扫码成为经纪人--扫码跳转页面--存储
+    //会员管理---个人中心--生成海报页面--扫码成为经纪人--扫码跳转页面--存储---改成推客
     public function MemberUserInviteStore(Request $request,Member $member){
 
         // 接收POST参数

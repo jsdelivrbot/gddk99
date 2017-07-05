@@ -114,3 +114,20 @@
 </div>
 
 @endsection
+
+@section('script')
+    @if(Session::has('message'))
+        @if(Session::get('message')==1)
+            <script>
+                layer.open({
+                    type: 1,
+                    title: false,
+                    skin:'layui-layer-demo',
+                    area: ['78%', '18%'],
+                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">您好，你的资料未完善！</div><div class="am-panel-bd">请完善个人信息。</div></div>'
+                });
+            </script>
+        @endif
+    @endif
+
+@endsection
