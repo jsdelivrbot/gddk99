@@ -31,10 +31,25 @@
                         我的佣金
                     </a>
                 </li>
+                <li>
+                    <a href="#"> <i class="am-icon-user-plus am-icon-fw"></i>
+                        申请成为推客
+                    </a>
+                </li>
                 <li><a href="{{ url('/mobile/member/person-edit',['member_id'=>$member['member_id']]) }}"><i class="am-icon-pencil am-icon-fw"></i>完善个人信息</a></li>
             </ul>
         </div>
     </div>
 
     @include('include.mobile.guide')
+@endsection
+
+@section('script')
+    @if(Session::has('message'))
+        @if(Session::get('message')==3)
+            <script>layer.msg('信息完善成功！', {icon: 6}); </script>
+        @elseif(Session::get('message')==2)
+            <script>layer.msg('信息完善失败！', {icon: 5}); </script>
+        @endif
+    @endif
 @endsection
