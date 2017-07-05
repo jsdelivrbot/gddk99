@@ -257,4 +257,11 @@ class MemberController extends Controller
         return redirect('mobile/index');
     }
 
+    // 我的合伙人设置功能
+    public function memberCheck(Request $request,Member $member){
+        $data=$request->except(['_token']);
+        $member->where('member_id',$data['member_id'])->update($data);
+        return redirect()->back();
+    }
+
 }

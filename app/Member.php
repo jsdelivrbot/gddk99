@@ -41,6 +41,7 @@ class Member extends Model
         'member_city',
         'member_type',
         'member_status',
+        'member_check',
         'member_parent_id',
         'is_member',
         'wechat_openid',
