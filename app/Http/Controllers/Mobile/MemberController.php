@@ -258,6 +258,12 @@ class MemberController extends Controller
         return view('mobile.member.union-list',['union'=>$union,'total'=>$total]);
     }
 
+    // 我的合伙人设置功能---是否审核状态---详细资料
+    public function unionListDetails($member_id,Member $member){
+        $union = $member->where('member_id',$member_id)->first();
+        return view('mobile.member.union-list-details',['union'=>$union]);
+    }
+
     // 退出
     public function Logout(){
         Cache::pull('mobile_user');

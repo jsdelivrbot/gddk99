@@ -95,6 +95,9 @@ Route::prefix('mobile')->middleware('active.nav')->post('/member/member-check','
 // 我的合伙人设置功能---是否审核状态
 Route::prefix('mobile')->middleware('active.nav')->post('/member/member-check-status','Mobile\MemberController@memberCheckStatus');
 
+// 我的合伙人设置功能---是否审核状态---详细资料
+Route::prefix('mobile')->middleware('active.nav')->get('/member/union-list-details/{member_id}','Mobile\MemberController@unionListDetails');
+
 
 //--------------------------------- 客户管理区 ------------------------------//
 

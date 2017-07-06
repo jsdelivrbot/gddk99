@@ -13,9 +13,11 @@
 
                         @foreach($union as $list)
                         <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_hd_list">
+                            <a href="{{ url('/mobile/member/union-list-details',['member_id'=>$list['member_id']]) }}" class="pet_hd_block">
                             <div class="pet_hd_block_title">{{ $list['member_surname'] }}</div>
                             <div class="pet_hd_block_map">手机号码：{{ $list['member_mobile'] }}</div>
                             <div class="pet_hd_block_map">申请时间：{{ $list['created_at'] }} </div>
+                            </a>
                             @if($list['member_status']==20)
                                 <input type="hidden" id="member_status" name="member_status" value="{{ \App\Member::MEMBER_STATUS_THREE }}">
                                 <input type="hidden" id="member_type" name="member_type" value="{{ \App\Member::MEMBER_TYPE_TWO }}">
@@ -23,7 +25,7 @@
                                 <input type="hidden" id="cancel_status" name="cancel_status" value="{{ \App\Member::MEMBER_STATUS_ONE }}">
                                 <input type="hidden" id="cancel_member_parent_id" name="cancel_member_parent_id" value="{{ \App\Member::MEMBER_PUBLIC }}">
                             @elseif($list['member_status']==30)
-                                <div class="pet_hd_block_tag"><span class="hd_tag_js">已审核</span></div>
+                                <div class="pet_hd_block_tag"><span class="hd_tag_js">已审核</span> <span style="background-color:#429842">查看客户</span></div>
                             @endif
                         </li>
                         @endforeach
