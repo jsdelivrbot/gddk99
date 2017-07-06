@@ -10,7 +10,7 @@
             <div data-am-widget="list_news" class="am-list-news am-list-news-default am-no-layout">
                 <div class="am-list-news-bd">
                     <ul class="am-list">
-
+                        @if(!empty($total))
                         @foreach($union as $list)
                         <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_hd_list">
                             <a href="{{ url('/mobile/member/union-list-details',['member_id'=>$list['member_id']]) }}" class="pet_hd_block">
@@ -29,6 +29,11 @@
                             @endif
                         </li>
                         @endforeach
+                            @else
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_hd_list">
+                                <div class="pet_hd_block_map">没有推客数据哦</div>
+                            </li>
+                        @endif
 
                     </ul>
                 </div>
