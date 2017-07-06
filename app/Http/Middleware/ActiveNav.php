@@ -17,9 +17,9 @@ class ActiveNav
     public function handle($request, Closure $next)
     {
 
-        if (Cache::has('mobile_user') && Cache::get('mobile_user')){
+        if(session()->has('mobile_user') && session('mobile_user')){
 
-            if (Cache::get('mobile_user')['is_member']==1){
+            if (session('mobile_user')['is_member']==1){
                 return $next($request);
             }
 

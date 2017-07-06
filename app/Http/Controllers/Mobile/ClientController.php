@@ -29,7 +29,7 @@ class ClientController extends Controller
 
         // 接收ID参数，组装数据
         $data =$request->except(['_token']);
-        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
         $member_id = ['member_id'=> $common->if_empty($memberId)];
 
         // 读取缓存验证码
@@ -55,7 +55,7 @@ class ClientController extends Controller
         // http://gddk99.tunnel.qydev.com/mobile/client/client-poster-invite?member_id=1
 
         // 接收ID参数
-        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
         // 生成二维码
         $common->QrCode($memberId,$this->path,$this->HttpUrl);
         // 读取图片，填写图片文件名，图片ID
@@ -79,7 +79,7 @@ class ClientController extends Controller
 
         // 接收ID参数
         $member_id = $request->get('member_id');
-        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
 
         // 显示所属上级资料
         $level = $member->find($member_id);
@@ -178,7 +178,7 @@ class ClientController extends Controller
 
         // 接收当前用户参数
         $member_id = $request->get('member_id');
-        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
 
         // 显示所属上级资料
         $level_user = $member->find($member_id);

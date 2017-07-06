@@ -20,7 +20,7 @@ class MemberController extends Controller
     // 会员管理---级别判定进入相应页面---个人中心列表显示
     public function Level(Common $common,Member $member){
         // 接收ID参数
-        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
         $members =$member->where('member_id',$memberId)->first();;
         switch ($members['member_type'])
         {
@@ -41,7 +41,7 @@ class MemberController extends Controller
     // 会员管理---普通会员---个人中心列表显示
     public function OrdinaryPerson(Request $request,Member $member,Common $common){
         // 接收ID参数
-        $memberUser = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $memberUser = $common->If_com(session('mobile_user')['member_id']);
         // 从数据库读取数据
         $members = $member->where(['member_id'=>$memberUser,'member_type'=>Member::MEMBER_TYPE_ONE])->first();
 
@@ -63,7 +63,7 @@ class MemberController extends Controller
     public function Person(Request $request,Member $member,Common $common){
 
         // 接收ID参数
-        $memberUser = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $memberUser = $common->If_com(session('mobile_user')['member_id']);
         // 从数据库读取数据
         $member = $member->where(['member_id'=>$memberUser,'member_type'=>Member::MEMBER_TYPE_TWO])->first();
         $memberID = $member['member_id'];
@@ -89,7 +89,8 @@ class MemberController extends Controller
     public function unionPerson(Request $request,Member $member,Common $common){
 
         // 接收ID参数
-        $memberUser = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $memberUser = $common->If_com(session('mobile_user')['member_id']);
+
         // 从数据库读取数据
         $member = $member->where(['member_id'=>$memberUser,'member_type'=>Member::MEMBER_TYPE_THREE])->first();
         $memberID = $member['member_id'];
@@ -115,7 +116,7 @@ class MemberController extends Controller
     public function Poster(Common $common,Member $member){
 
         // 接收ID参数
-        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
 
         // 查询当前用户，判断当前用户资料是否完善
         $members = $member->where('member_id',$memberId)->first();
@@ -144,7 +145,7 @@ class MemberController extends Controller
 
         // 接收ID参数
         $member_parent_id = $request->get('member_parent_id');
-        $memberId = $common->If_com(Cache::get('mobile_user')['member_id']);
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
 
         // 显示所属上级资料
         $member_parent = $member->find($member_parent_id);
@@ -266,7 +267,7 @@ class MemberController extends Controller
 
     // 退出
     public function Logout(){
-        Cache::pull('mobile_user');
+        session()->forget('mobile_user');
         Cache::pull('scope');
         return redirect('mobile/index');
     }

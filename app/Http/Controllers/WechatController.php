@@ -61,7 +61,7 @@ class WechatController extends Controller
         $memberId =$member['member_id'];
         $row = (new Common())->if_empty($memberId);
         if ($row == 0){
-            Cache::pull('mobile_user');
+            session()->forget('mobile_user');
             $mem = new Member();
             $mem->wechat_openid = $result['openid'];
             $mem->wechat_nickname = $result['nickname'];
@@ -71,9 +71,9 @@ class WechatController extends Controller
             $mem->is_member = Member::IS_MEMBER;
             $mem->save();
             $rows = Member::find($mem->getQueueableId());
-            Cache::add('mobile_user',$rows,Member::FAIL_TIME);
+            session(['mobile_user'=>$rows]);
         }
-        Cache::add('mobile_user',$member,Member::FAIL_TIME);
+        session(['mobile_user'=>$member]);
 
         return redirect()->action('WechatController@login');
     }
@@ -142,7 +142,7 @@ class WechatController extends Controller
         // 未登录
         $app = new Application($this->option);
         $oauth = $app->oauth;
-        if (!Cache::has('mobile_user')){
+        if (!session()->has('mobile_user')){
             return $oauth->redirect();
         }
 
