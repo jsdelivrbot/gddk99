@@ -110,6 +110,7 @@ class ClientController extends Controller
 
     // 推客----客户海报列表---扫码跳转---填写绑定合伙人----跳转发展推客--存储
     public function ClientPosterInviteStore(Request $request,Member $member){
+
         // 接收POST参数
         $data = $request->except(['_token']);
         // 读取缓存验证码
@@ -118,24 +119,54 @@ class ClientController extends Controller
         if ($data['member_sms'] != $cacheSms){
             return redirect('mobile/client/client-poster-invite?member_id='.$data['member_parent_id'].'')->with('message', '2');
         }
+
+        //读取父级用户数据
+        $member_parent_id = $member->find($data['member_parent_id']);
+
         // 读取当前用户数据，推客父级以10开头，截取后位数，是否等等于10，保存数据
         $user_id = $member->find($data['member_id']);
         $str = $user_id['member_parent_id'];
         $num = substr($str,0,2);
+
+        // 是否等等于10，如果是跳转，你已经是推客身份了，不是则改变，保存数据
         if ($num==10){
             return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['member_parent_id'].'')->with('message', '3');
         }
-        $user_id->member_surname = $data['member_surname'];
-        $user_id->member_parent_id = '10'.$data['member_parent_id'];  // 10表示合伙人ID加拼接
-        $user_id->member_sex = $data['member_sex'];
-        $user_id->member_mobile = $data['member_mobile'];
-        $user_id->created_at = date('Y-m-d H:i:s',time());
 
-        if ($user_id ->save()){
-            Cache::pull('sms');
-            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['member_parent_id'].'')->with('message', '1');
-        }else{
-            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['member_parent_id'].'')->with('message', '0');
+        // 需要审核,0未审核，1已审核
+        if ($member_parent_id['member_check']==Member::MEMBER_CHECK_ONE){
+
+            $user_id->member_surname = $data['member_surname'];
+            $user_id->member_parent_id = '10'.$data['member_parent_id'];  // 10表示合伙人ID加拼接
+            $user_id->member_sex = $data['member_sex'];
+            $user_id->member_mobile = $data['member_mobile'];
+            $user_id->member_status = Member::MEMBER_STATUS_TWO;
+            $user_id->created_at = date('Y-m-d H:i:s',time());
+
+            if ($user_id ->save()){
+                Cache::pull('sms');
+                return redirect('mobile/member/ordinary-person-list')->with('message', 'ordinary1');
+            }else{
+                return redirect('mobile/member/ordinary-person-list')->with('message', 'ordinary0');
+            }
+
+        }elseif($member_parent_id['member_check']==Member::MEMBER_CHECK_TWO){
+
+            $user_id->member_surname = $data['member_surname'];
+            $user_id->member_parent_id = '10'.$data['member_parent_id'];  // 10表示合伙人ID加拼接
+            $user_id->member_sex = $data['member_sex'];
+            $user_id->member_mobile = $data['member_mobile'];
+            $user_id->member_type = Member::MEMBER_TYPE_TWO;
+            $user_id->member_status = Member::MEMBER_STATUS_THREE;
+            $user_id->created_at = date('Y-m-d H:i:s',time());
+
+            if ($user_id ->save()){
+                Cache::pull('sms');
+                return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['member_parent_id'].'')->with('message', '1');
+            }else{
+                return redirect('mobile/client/client-poster-invite?member_id='.$data['member_id'].'')->with('message', '0');
+            }
+
         }
 
     }

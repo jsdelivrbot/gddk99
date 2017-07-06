@@ -13,6 +13,12 @@
                 您当前是：{{ $groupData['type'] }}
             </div>
 
+            @if($member['member_status']==20)
+                <div class="pet_grzx_num_font">
+                    <font color="red">正在审核推客身份，请耐心等待...</font>
+                </div>
+            @endif
+
             <div class="pet_grzx_num">
                 <span>653<i>喜欢</i></span>
                 <span>236<i>关注</i></span>
@@ -50,6 +56,10 @@
             <script>layer.msg('信息完善成功！', {icon: 6}); </script>
         @elseif(Session::get('message')==2)
             <script>layer.msg('信息完善失败！', {icon: 5}); </script>
+        @elseif(Session::get('message')=='ordinary1')
+            <script>layer.msg('审核提交成功！', {icon: 6}); </script>
+        @elseif(Session::get('message')=='ordinary0')
+            <script>layer.msg('审核提交失败！', {icon: 5}); </script>
         @endif
     @endif
 @endsection

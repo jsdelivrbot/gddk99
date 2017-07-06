@@ -75,8 +75,6 @@
                     content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，资料完善成功！</div><div class="am-panel-bd">您好，我们已经成为合伙人名下推客，立即推荐客户享受更多优惠！</div></div>'
                 });
             </script>
-        @elseif(Session::get('message')==0)
-            <script>layer.msg('绑定失败！', {icon: 5}); </script>
         @elseif(Session::get('message')==2)
             <script>layer.msg('验证码错误！', {icon: 5}); </script>
         @elseif(Session::get('message')==3)
@@ -86,7 +84,7 @@
                     title: false,
                     skin:'layui-layer-demo',
                     area: ['78%', '18%'],
-                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">您好，您已经是合伙人身份！</div><div class="am-panel-bd">立即推荐客户享受更多优惠！</div></div>'
+                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">您好，您已经是推客身份！</div><div class="am-panel-bd">立即推荐客户享受更多优惠！</div></div>'
                 });
             </script>
         @elseif(Session::get('message')==4)

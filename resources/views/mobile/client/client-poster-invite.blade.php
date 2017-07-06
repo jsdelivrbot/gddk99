@@ -69,6 +69,8 @@
     @if(Session::has('message'))
         @if(Session::get('message')==2)
             <script>layer.msg('验证码错误！', {icon: 5}); </script>
+        @elseif(Session::get('message')==0)
+            <script>layer.msg('提交失败！', {icon: 5}); </script>
         @endif
     @endif
 

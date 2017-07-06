@@ -19,6 +19,13 @@ class Member extends Model
     const MEMBER_TYPE_TWO = 2; // 会员类型 (VIP会员)
     const MEMBER_TYPE_THREE = 3; // 合伙人类型 (合伙人会员)
 
+    const MEMBER_STATUS_ONE = 10; // 会员状态 默认
+    const MEMBER_STATUS_TWO = 20; // 会员状态 需要审核
+    const MEMBER_STATUS_THREE = 30; // 会员状态 无需审核
+
+    const MEMBER_CHECK_ONE = 0; // 会员审核 默认
+    const MEMBER_CHECK_TWO = 1; // 会员审核
+
     public $primaryKey = 'member_id';
 
 
