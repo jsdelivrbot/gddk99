@@ -28,13 +28,12 @@
                         <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                             <span class="widget-name">开启扫码自动审核功能
                                 <span style="float: right;">
-                                    <input type="hidden" id="member_id" name="member_id" value="{{ $member['member_id'] }}">
                                     @if($member['member_check']==0)
                                         <input type="hidden" id="member_check" name="member_check" value="1">
-                                        <button type="button" class="am-btn am-btn-default am-round" onclick="Check(this)" >未开启</button>
+                                        <button type="button" class="am-btn am-btn-default am-round" onclick="Check(this,{{ $member['member_id'] }})" >未开启</button>
                                     @else
                                         <input type="hidden" id="member_check" name="member_check" value="0">
-                                        <button type="button" class="am-btn am-btn-success am-round" onclick="Check(this)" >已开启</button>
+                                        <button type="button" class="am-btn am-btn-success am-round" onclick="Check(this,{{ $member['member_id'] }})" >已开启</button>
                                     @endif
                                 </span>
                             </span>
@@ -105,10 +104,9 @@
     @endif
     <script type="text/javascript">
         //发送请求
-        function Check() {
+        function Check(obj,id) {
             var member_check = $("#member_check").val();
-            var member_id = $("#member_id").val();
-            $.post("{{url('/mobile/member/member-check')}}",{'_token':'{{csrf_token()}}','member_check':member_check,'member_id':member_id},function(){
+            $.post("{{url('/mobile/member/member-check')}}",{'_token':'{{csrf_token()}}','member_check':member_check,'member_id':id},function(){
               location.href = location.href;
             });
         }

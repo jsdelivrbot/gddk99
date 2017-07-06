@@ -1,42 +1,56 @@
 @extends('layouts.mobile')
 @section('content')
 
-    <div class="pet_head">
-        <header data-am-widget="header" class="am-header am-header-default" style="background-color:#f9fafc;">
-            <div class="am-header-left am-header-nav ">
-                <a href="#left-link" class="iconfont">&#xe601;</a>
-            </div>
-            <div class="pet_news_list_tag_name" style="color: black; text-align: left; text-indent: 50px;">我的经纪人</div>
-            <div class="am-header-right am-header-nav">
-                <a href="javascript:;" class="iconfont pet_head_gd_ico">&#xe600;</a>
-            </div>
-        </header>
+    <div class="am-list-news-hd am-cf" style="padding-left: 10px;">
+        <h2>我的推客列表 <font color="red">{{ $total or '0' }}</font> 位</h2>
     </div>
 
-    <div class="pet_content_block pet_hd_con">
-        <div style="height: 30px;"></div>
-        <article data-am-widget="paragraph" class="am-paragraph am-paragraph-default pet_content_article" style="padding-left: 0; padding-right: 0;" >
-            <div class="pet_hd_con_gp_list_nr">
-                @if(!empty($union[0]['member_id']))
-                @foreach($union as $key=>$list)
-                <div class="am-panel am-panel-secondary">
-                    <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{ $key }}'}">
-                      {{ $list['member_surname'] }} <span style="float: right;">{{ $list['updated_at'] }}</span>
-                    </div>
-                    <div id="do-not-say-{{ $key }}" class="am-panel-collapse am-collapse">
-                        <div class="am-panel-bd">
-                            <button type="button" class="am-btn am-btn-success am-round" style="float: right; margin-top: 10px;">查看详情</button>
-                            <p style="padding: 0; margin: 0;">姓名：{{ $list['member_surname'] }}</p>
-                            <p style="padding: 0; margin: 0;">电话：{{ $list['member_mobile'] }}</p>
-                        </div>
-                    </div>
+    <div class="pet_article_like" style="margin-top: 0;">
+        <div class="pet_content_main pet_article_like_delete">
+            <div data-am-widget="list_news" class="am-list-news am-list-news-default am-no-layout">
+                <div class="am-list-news-bd">
+                    <ul class="am-list">
+
+                        @foreach($union as $list)
+                        <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_hd_list">
+                            <div class="pet_hd_block_title">{{ $list['member_surname'] }}</div>
+                            <div class="pet_hd_block_map">手机号码：{{ $list['member_mobile'] }}</div>
+                            <div class="pet_hd_block_map">申请时间：{{ $list['created_at'] }} </div>
+                            @if($list['member_status']==20)
+                                <input type="hidden" id="member_status" name="member_status" value="{{ \App\Member::MEMBER_STATUS_THREE }}">
+                                <input type="hidden" id="member_type" name="member_type" value="{{ \App\Member::MEMBER_TYPE_TWO }}">
+                                <div class="pet_hd_block_tag"><span onclick="Check(this,{{ $list['member_id'] }})">未审核</span> <span class="hd_tag_jh" onclick="cancelCheck(this,{{ $list['member_id'] }})">取消审核</span></div>
+                                <input type="hidden" id="cancel_status" name="cancel_status" value="{{ \App\Member::MEMBER_STATUS_ONE }}">
+                                <input type="hidden" id="cancel_member_parent_id" name="cancel_member_parent_id" value="{{ \App\Member::MEMBER_PUBLIC }}">
+                            @elseif($list['member_status']==30)
+                                <div class="pet_hd_block_tag"><span class="hd_tag_js">已审核</span></div>
+                            @endif
+                        </li>
+                        @endforeach
+
+                    </ul>
                 </div>
-                @endforeach
-                @else
-                    <div class="pet_hd_con_gp_list_nr_title">暂无数据</div>
-                @endif
             </div>
-        </article>
-        <div style="height: 5px;"></div>
+        </div>
     </div>
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        function Check(obj,id) {
+            var member_status = $("#member_status").val();
+            var member_type = $("#member_type").val();
+            var member_id = $("#member_id").val();
+            $.post("{{url('/mobile/member/member-check-status')}}",{'_token':'{{csrf_token()}}','member_status':member_status,'member_type':member_type,'member_id':id},function(){
+                location.href = location.href;
+            });
+        }
+        function cancelCheck(obj,id) {
+            var member_status = $("#cancel_status").val();
+            var member_parent_id = $("#cancel_member_parent_id").val();
+            $.post("{{url('/mobile/member/member-check-status')}}",{'_token':'{{csrf_token()}}','member_status':member_status,'member_parent_id':member_parent_id,'member_id':id},function(){
+                location.href = location.href;
+            });
+        }
+    </script>
 @endsection

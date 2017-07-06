@@ -251,10 +251,11 @@ class MemberController extends Controller
         $common->Send_sms($request->get('mobile'));
     }
 
-    // 我的经纪人列表---显示
+    // 我的经纪人列表---显示---改成推客
     public function UnionList($member_id,Member $member){
-        $union =$member->where('member_parent_id',$member_id)->get();
-        return view('mobile.member.union-list',['union'=>$union]);
+        $union =$member->where(['member_parent_id'=>'10'.$member_id])->orderBy('updated_at','desc')->get();
+        $total = count($union);
+        return view('mobile.member.union-list',['union'=>$union,'total'=>$total]);
     }
 
     // 退出
@@ -264,8 +265,15 @@ class MemberController extends Controller
         return redirect('mobile/index');
     }
 
-    // 我的合伙人设置功能
+    // 我的合伙人设置功能---是否自动开启
     public function memberCheck(Request $request,Member $member){
+        $data=$request->except(['_token']);
+        $member->where('member_id',$data['member_id'])->update($data);
+        return redirect()->back();
+    }
+
+    // 我的合伙人设置功能---是否审核状态
+    public function memberCheckStatus(Request $request,Member $member){
         $data=$request->except(['_token']);
         $member->where('member_id',$data['member_id'])->update($data);
         return redirect()->back();
