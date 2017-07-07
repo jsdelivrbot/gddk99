@@ -68,6 +68,15 @@ return [
             'root' => public_path('build/uploads'),
         ],
 
+        'upyun' => [
+            'driver'        => 'upyun',
+            'bucket'        => 'gddk99',     // 服务名字
+            'operator'      => 'cxl',        // 操作员的名字
+            'password'      => 'ym123456',    // 操作员的密码
+            'domain'        => 'gddk99.b0.upaiyun.com', // 服务分配的域名
+            'protocol'      => 'http',                // 服务使用的协议，如需使用 http，在此配置 http
+        ],
+
     ],
 
 ];

@@ -189,6 +189,8 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
 
+        JellyBool\Flysystem\Upyun\UpyunServiceProvider::class,
+
     ],
 
     /*
