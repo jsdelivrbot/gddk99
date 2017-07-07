@@ -167,7 +167,11 @@ Route::prefix('admin')->middleware('admin.login')->get('index','Admin\IndexContr
 // 会员列表
 Route::prefix('admin')->middleware('admin.login')->get('member-list','Admin\MemberController@MemberList');
 
+// 推客列表
+Route::prefix('admin')->middleware('admin.login')->get('/push/push-list','Admin\MemberController@MemberPush');
 
+// 我的合伙人设置功能---是否审核状态
+Route::prefix('admin')->middleware('admin.login')->post('/member/member-check-status','Admin\MemberController@memberCheckStatus');
 
 
 

@@ -171,7 +171,11 @@
                             </a>
                             <a href="{{ url('admin/union-list') }}">
                                 <i class="am-icon-angle-right"></i>
-                                <span>合伙人</span>
+                                <span>合伙人列表</span>
+                            </a>
+                            <a href="{{ url('admin/push/push-list') }}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>推客列表</span>
                             </a>
                         </li>
                     </ul>
