@@ -22,26 +22,6 @@
                 <span>36<i>文章</i></span>
             </div>
 
-            <div class="am-popup-bd" style="padding: 0 0 0 0;">
-                <div class="am-list-news-bd">
-                    <ul class="am-list">
-                        <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
-                            <span class="widget-name">开启扫码自动审核功能
-                                <span style="float: right;">
-                                    @if($member['member_check']==0)
-                                        <input type="hidden" id="member_check" name="member_check" value="1">
-                                        <button type="button" class="am-btn am-btn-default am-round" onclick="Check(this,{{ $member['member_id'] }})" >未开启</button>
-                                    @else
-                                        <input type="hidden" id="member_check" name="member_check" value="0">
-                                        <button type="button" class="am-btn am-btn-success am-round" onclick="Check(this,{{ $member['member_id'] }})" >已开启</button>
-                                    @endif
-                                </span>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
             <ul class="am-list am-list-border">
                 <li>
                     <a href="{{ url('/mobile/client/client-union-show',['member_id'=>$member['member_id']]) }}"><i class="am-icon-user-plus am-icon-fw"></i>
@@ -102,13 +82,4 @@
             <script>layer.msg('扫码错误！', {icon: 5}); </script>
         @endif
     @endif
-    <script type="text/javascript">
-        //发送请求
-        function Check(obj,id) {
-            var member_check = $("#member_check").val();
-            $.post("{{url('/mobile/member/member-check')}}",{'_token':'{{csrf_token()}}','member_check':member_check,'member_id':id},function(){
-              location.href = location.href;
-            });
-        }
-    </script>
 @endsection

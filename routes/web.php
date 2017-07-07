@@ -89,9 +89,6 @@ Route::prefix('mobile')->middleware('active.nav')->post('/member/send','Mobile\M
 // 我的经纪人列表---显示
 Route::prefix('mobile')->middleware('active.nav')->get('/member/union-list/{member_id}','Mobile\MemberController@UnionList');
 
-// 我的合伙人设置功能---是否自动开启
-Route::prefix('mobile')->middleware('active.nav')->post('/member/member-check','Mobile\MemberController@memberCheck');
-
 // 我的合伙人设置功能---是否审核状态
 Route::prefix('mobile')->middleware('active.nav')->post('/member/member-check-status','Mobile\MemberController@memberCheckStatus');
 

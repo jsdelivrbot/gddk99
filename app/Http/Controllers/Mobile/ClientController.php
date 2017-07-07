@@ -133,7 +133,7 @@ class ClientController extends Controller
             return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['member_parent_id'].'')->with('message', '3');
         }
 
-        // 需要审核,0未审核，1已审核
+        // 需要审核,0未审核，1初审核，2审核完成
         if ($member_parent_id['member_check']==Member::MEMBER_CHECK_ONE){
 
             $user_id->member_surname = $data['member_surname'];
@@ -148,23 +148,6 @@ class ClientController extends Controller
                 return redirect('mobile/member/ordinary-person-list')->with('message', 'ordinary1');
             }else{
                 return redirect('mobile/member/ordinary-person-list')->with('message', 'ordinary0');
-            }
-
-        }elseif($member_parent_id['member_check']==Member::MEMBER_CHECK_TWO){
-
-            $user_id->member_surname = $data['member_surname'];
-            $user_id->member_parent_id = '10'.$data['member_parent_id'];  // 10表示合伙人ID加拼接
-            $user_id->member_sex = $data['member_sex'];
-            $user_id->member_mobile = $data['member_mobile'];
-            $user_id->member_type = Member::MEMBER_TYPE_TWO;
-            $user_id->member_status = Member::MEMBER_STATUS_THREE;
-            $user_id->created_at = date('Y-m-d H:i:s',time());
-
-            if ($user_id ->save()){
-                Cache::pull('sms');
-                return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['member_parent_id'].'')->with('message', '1');
-            }else{
-                return redirect('mobile/client/client-poster-invite?member_id='.$data['member_id'].'')->with('message', '0');
             }
 
         }

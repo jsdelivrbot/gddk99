@@ -13,9 +13,13 @@
                 您当前是：{{ $groupData['type'] }}
             </div>
 
-            @if($member['member_status']==20)
+            @if($member['member_status']==\App\Member::MEMBER_STATUS_TWO)
                 <div class="pet_grzx_num_font">
-                    <font color="red">正在审核推客身份，请耐心等待...</font>
+                    <font color="red">正在初审核推客身份，请耐心等待...</font>
+                </div>
+            @elseif($member['member_status']==\App\Member::MEMBER_STATUS_THREE)
+                <div class="pet_grzx_num_font">
+                    <font color="red">初审核通过，请耐心等待...</font>
                 </div>
             @endif
 

@@ -272,14 +272,8 @@ class MemberController extends Controller
         return redirect('mobile/index');
     }
 
-    // 我的合伙人设置功能---是否自动开启
-    public function memberCheck(Request $request,Member $member){
-        $data=$request->except(['_token']);
-        $member->where('member_id',$data['member_id'])->update($data);
-        return redirect()->back();
-    }
 
-    // 我的合伙人设置功能---是否审核状态
+    // 我的合伙人设置功能---是否初审核状态
     public function memberCheckStatus(Request $request,Member $member){
         $data=$request->except(['_token']);
         $member->where('member_id',$data['member_id'])->update($data);

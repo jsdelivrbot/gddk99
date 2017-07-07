@@ -19,12 +19,14 @@ class Member extends Model
     const MEMBER_TYPE_TWO = 2; // 会员类型 (VIP会员)
     const MEMBER_TYPE_THREE = 3; // 合伙人类型 (合伙人会员)
 
-    const MEMBER_STATUS_ONE = 10; // 会员状态 默认
-    const MEMBER_STATUS_TWO = 20; // 会员状态 需要审核
-    const MEMBER_STATUS_THREE = 30; // 会员状态 无需审核
+    const MEMBER_STATUS_ONE = 10; // 会员状态     默认
+    const MEMBER_STATUS_TWO = 20; // 会员状态     需要初审核状态
+    const MEMBER_STATUS_THREE = 30; // 会员状态   初审完成状态
+    const MEMBER_STATUS_FOUR = 40; // 会员状态    完成审核状态
 
     const MEMBER_CHECK_ONE = 0; // 会员审核 默认
-    const MEMBER_CHECK_TWO = 1; // 会员审核
+    const MEMBER_CHECK_TWO = 1; // 会员初审核
+    const MEMBER_CHECK_THREE = 2; // 会员审核完成
 
     public $primaryKey = 'member_id';
 
