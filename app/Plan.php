@@ -24,6 +24,8 @@ class Plan extends Model
         'plan_type_c'
     ];
 
+    protected $hidden = [];
+
 
     public function planType(){
       return   $planType =[
@@ -34,4 +36,5 @@ class Plan extends Model
                     ['id'=>5, 'name'=>'房贷'],
                 ];
     }
+
 }

@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 class PlanController extends Controller
 {
     public function Index(Plan $plan){
-        $plan = $plan->paginate(15);
-        $planType =$plan->planType();
-        return view('admin.plan-list',['plan'=>$plan,'planType'=>$planType]);
+        $plans = $plan->paginate(15);
+        $planType = $plan->planType();
+        return view('admin.plan-list',['plan'=>$plans,'planType'=>$planType]);
     }
 
     public function Insert(Plan $plan){
@@ -29,9 +29,9 @@ class PlanController extends Controller
     }
 
     public function Update($id,Plan $plan){
-        $plan = $plan->find($id);
+        $plans = $plan->find($id);
         $planType =$plan->planType();
-        return view('admin.plan-update',['plan'=>$plan,'planType'=>$planType]);
+        return view('admin.plan-update',['plan'=>$plans,'planType'=>$planType]);
     }
 
     public function UpdateStore(Request $request,Plan $plan){
