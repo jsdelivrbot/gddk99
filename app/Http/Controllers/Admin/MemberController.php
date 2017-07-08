@@ -16,25 +16,28 @@ class MemberController extends Controller
     }
 
     // 合伙人列表
-    public function UnionList(){
-        $member = Member::all();
-        $union_users[]='';
-        foreach ($member as $list){
-            $member_parent= Member::where('member_parent_id',$list['member_id'])->get();
-            foreach ($member_parent as $parent_list){
-                $union_users[]= [
-                    'member_id'=>$parent_list['member_id'],
-                    'member_avatar'=>$parent_list['wechat_headimgurl'] ? $parent_list['wechat_headimgurl'] : asset('build/uploads/'.$parent_list['member_avatar'].''),
-                    'member_name'=>$parent_list['member_name'] ? $parent_list['member_name'] : $parent_list['wechat_nickname'],
-                    'member_mobile'=>$parent_list['member_mobile'],
-                    'member_parent_id'=>$parent_list['member_parent_id'],
-                    'updated_at'=>$parent_list['updated_at'],
-                    'member_parent_name'=>$list['member_name'] ? $list['member_name'] : $list['wechat_nickname'],
+    public function UnionList(Member $member,Common $common){
+        // 读取合伙人信息
+        $union_user = $member->all();
+        $data[]='';
+        foreach ($union_user as $unionList){
+            $current_user = $member->where('member_parent_id',$unionList['member_id'])->get();
+            foreach ($current_user as $currentList){
+                $data[]=[
+                  'current_id' => $currentList['member_id'],
+                  'current_avatar' => $common->If_val($currentList['member_avatar'],$currentList['wechat_headimgurl']),
+                  'current_name' => $currentList['member_surname'],
+                  'current_mobile' => $currentList['member_mobile'],
+                  'updated_at' => $currentList['updated_at'],
+
+                  'union_id' => $unionList['member_id'],
+                  'union_name' => $unionList['member_surname'],
+                  'union_mobile' => $unionList['member_mobile'],
                 ];
             }
         }
-        $union_user = array_filter($union_users);
-        return view('admin.union-list',['union_user'=>$union_user]);
+        $union = array_filter($data);
+        return view('admin.union-list',['union'=>$union]);
     }
 
     // 推客列表

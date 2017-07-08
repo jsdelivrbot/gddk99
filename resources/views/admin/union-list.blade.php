@@ -60,25 +60,27 @@
                                     <th class="table-title">头像</th>
                                     <th class="table-title">姓名</th>
                                     <th class="table-title">手机号</th>
-                                    <th class="table-type">所属上级</th>
+                                    <th class="table-type">所属合伙人</th>
+                                    <th class="table-type">O2O加盟店</th>
                                     <th class="table-date am-hide-sm-only">创建时间</th>
                                     <th class="table-set">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($union_user as $list)
+                                @foreach($union as $list)
                                 <tr>
                                     <td><input type="checkbox"></td>
-                                    <td>{{ $list['member_id'] }}</td>
-                                    <td><a href="#"><img src="{{ $list['member_avatar'] }}" alt="" width="50" height="30"></a></td>
-                                    <td>{{ $list['member_name'] }}</td>
-                                    <td class="am-hide-sm-only">{{ $list['member_mobile'] or '无' }}</td>
-                                    <td class="am-hide-sm-only">{{ $list['member_parent_name'] }}</td>
+                                    <td>{{ $list['current_id'] }}</td>
+                                    <td><a href="#"><img src="{{ $list['current_avatar'] }}" alt="" width="50" height="30"></a></td>
+                                    <td>{{ $list['current_name'] }}</td>
+                                    <td class="am-hide-sm-only">{{ $list['current_mobile'] }}</td>
+                                    <td class="am-hide-sm-only">{{ $list['union_name'] }}</td>
+                                    <td class="am-hide-sm-only">暂时未开发</td>
                                     <td class="am-hide-sm-only">{{ $list['updated_at'] }}</td>
                                     <td>
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 解除经纪人</button>
+                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 解除合伙人</button>
                                             </div>
                                         </div>
                                     </td>

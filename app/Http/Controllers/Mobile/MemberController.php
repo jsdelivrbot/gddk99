@@ -280,4 +280,21 @@ class MemberController extends Controller
         return redirect()->back();
     }
 
+    // 申请成为推客---列表
+    public function PushApplyList(Member $member){
+        $members = $member->where('member_parent_id','>',0)->get();
+        $total = count($members);
+        return view('mobile.member.push-apply-list',['member'=>$members,'total'=>$total]);
+    }
+
+    // 个人申请成为推客--填写资料
+    public function PushPersonApply($member_id){
+        return view('mobile.member.push-person-apply');
+    }
+
+    // 企业申请成为推客--填写资料
+    public function PushFirmApply($member_id){
+        return view('mobile.member.push-firm-apply');
+    }
+
 }
