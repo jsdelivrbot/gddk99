@@ -283,9 +283,21 @@ class MemberController extends Controller
 
     // 申请成为推客---列表
     public function PushApplyList(Member $member){
-        $members = $member->where('member_parent_id','>',0)->get();
-        $total = count($members);
-        return view('mobile.member.push-apply-list',['member'=>$members,'total'=>$total]);
+        // 读取所有数据，循环查找相等数据
+        $memberAll = $member->all();
+        $members[]="";
+        foreach ($memberAll as $list){
+            $mem = $member->where('member_parent_id',$list['member_id'])->get()->toArray();
+            foreach ($mem as $lien){
+                $members[] =$lien;
+            }
+        }
+
+        // 过滤空数组
+        $result = array_filter($members);
+        // 统计
+        $total = count($result);
+        return view('mobile.member.push-apply-list',['member'=>$result,'total'=>$total]);
     }
 
     // 个人申请成为推客--填写资料
@@ -298,6 +310,11 @@ class MemberController extends Controller
         if ($members['member_card']==""){
             return redirect('/mobile/member/person-edit/'.$memberId.'')->with('message','1');
         }
+        // 判定当前用户是否申请过
+        if ($members['member_status']==Member::MEMBER_STATUS_TWO){
+            return redirect('/mobile/member/push-apply-list')->with('message','apply');
+        }
+
         $sex = $member->Sex();
         $cardType = $member->cardType();
         return view('mobile.member.push-person-apply',['member'=>$members,'sex'=>$sex,'cardType'=>$cardType,'id'=>$member_id]);

@@ -24,3 +24,12 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+    @if(Session::has('message'))
+        @if(Session::get('message')=='apply')
+            <script>layer.msg('您已经申请过，请等待审核！', {icon: 6}); </script>
+        @endif
+    @endif
+
+@endsection
