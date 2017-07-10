@@ -276,7 +276,28 @@ class MemberController extends Controller
 
     // 我的合伙人设置功能---是否初审核状态
     public function memberCheckStatus(Request $request,Member $member){
+        // 接收参数
         $data=$request->except(['_token']);
+
+        // 读取更新状态数据
+        $member->where('member_id',$data['member_id'])->update($data);
+        return redirect()->back();
+    }
+
+    // 我的合伙人设置功能---是否初审核状态---取消
+    public function memberCancelStatus(Request $request,Member $member,Common $common,Application $application){
+        // 接收参数
+        $data=$request->except(['_token']);
+
+        // 删除图片,删除数据
+        $mem = $member->find($data['member_id']);
+        $str = substr($mem['member_parent_id'],2,100);
+        $app = $application->where('member_id',$str)->first();
+        $common->DataPicDel($app['app_pic_z']);
+        $common->DataPicDel($app['app_pic_b']);
+        $app->delete($app['app_id']);
+
+        // 读取更新状态数据
         $member->where('member_id',$data['member_id'])->update($data);
         return redirect()->back();
     }

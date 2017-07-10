@@ -55,7 +55,7 @@
         function cancelCheck(obj,id) {
             var member_status = $("#cancel_status").val();
             var member_parent_id = $("#cancel_member_parent_id").val();
-            $.post("{{url('/mobile/member/member-check-status')}}",{'_token':'{{csrf_token()}}','member_status':member_status,'member_parent_id':member_parent_id,'member_id':id},function(){
+            $.post("{{url('/mobile/member/member-cancel-status')}}",{'_token':'{{csrf_token()}}','member_status':member_status,'member_parent_id':member_parent_id,'member_id':id},function(){
                 location.href = location.href;
             });
         }
