@@ -12,16 +12,20 @@
                     <ul class="am-list">
 
                         <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_hd_list">
-                            <div class="pet_hd_block_title">{{ $union['member_surname'] }}</div>
-                            <div class="pet_hd_block_map">证件号码：362330198406391708</div>
-                            <div class="pet_hd_block_map">手机号码：{{ $union['member_mobile'] }}</div>
-                            <div class="pet_hd_block_map">申请时间：{{ $union['created_at'] }} </div>
+                            <div class="pet_hd_block_title">{{ $app['app_name'] }}</div>
+                            <div class="pet_hd_block_map">申请人：{{ $union['member_surname'] }} </div>
+                            <div class="pet_hd_block_map">申请类型：@if($app['app_type']==1) <font color="red">企业</font> @else <font color="red">个体</font> @endif </div>
+                            <div class="pet_hd_block_map">证件号码：{{ $app['app_number'] }}</div>
+                            <div class="pet_hd_block_map">手机号码：{{ $app['app_mobile'] }}</div>
+                            <div class="pet_hd_block_map">申请时间：{{ $app['created_at'] }} </div>
                         </li>
 
                         <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_hd_list">
                             <div class="pet_hd_block_map">证件照片</div>
-                            <div class="pet_hd_con_head"><img src="http://img0.imgtn.bdimg.com/it/u=880594281,3535686199&fm=26&gp=0.jpg" alt="" width="100%"></div>
-                            <div class="pet_hd_con_head"><img src="http://img0.imgtn.bdimg.com/it/u=880594281,3535686199&fm=26&gp=0.jpg" alt="" width="100%"></div>
+                            <div class="pet_hd_con_head"><img src="{{ url('/build/uploads/'.$app['app_pic_z']) }}" alt="" width="100%"></div>
+                            @if($app['app_pic_z']=='')
+                            <div class="pet_hd_con_head"><img src="{{ url('/build/uploads/'.$app['app_pic_b']) }}" alt="" width="100%"></div>
+                            @endif
                         </li>
 
                     </ul>

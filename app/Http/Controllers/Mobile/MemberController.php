@@ -254,16 +254,39 @@ class MemberController extends Controller
     }
 
     // 我的经纪人列表---显示---改成推客
-    public function UnionList($member_id,Member $member){
+    public function UnionList($member_id,Member $member,Application $application){
         $union =$member->where(['member_parent_id'=>'10'.$member_id])->orderBy('updated_at','desc')->get();
-        $total = count($union);
-        return view('mobile.member.union-list',['union'=>$union,'total'=>$total]);
+        $app[]='';
+        foreach ($union as $list){
+            $str = substr($list['member_parent_id'],2,100);
+            $apps = $application->where('member_id',$str)->get()->toArray();
+            foreach ($apps as $line){
+                $app[]=[
+                  'member_id' => $list['member_id'],
+                  'member_status' => $list['member_status'],
+
+                  'app_id' => $line['app_id'],
+                  'app_name' => $line['app_name'],
+                  'app_mobile' => $line['app_mobile'],
+                  'app_pic_z' => $line['app_pic_z'],
+                  'app_pic_b' => $line['app_pic_b'],
+                  'app_type' => $line['app_type'],
+                  'created_at' => $line['created_at'],
+                ];
+            }
+        }
+        $res = array_filter($app);
+
+        $total = count($res);
+        return view('mobile.member.union-list',['union'=>$res,'total'=>$total]);
     }
 
     // 我的合伙人设置功能---是否审核状态---详细资料
-    public function unionListDetails($member_id,Member $member){
+    public function unionListDetails($member_id,Member $member,Application $application){
         $union = $member->where('member_id',$member_id)->first();
-        return view('mobile.member.union-list-details',['union'=>$union]);
+        $str = substr($union['member_parent_id'],2,100);
+        $app = $application->where('member_id',$str)->first();
+        return view('mobile.member.union-list-details',['union'=>$union,'app'=>$app]);
     }
 
     // 退出

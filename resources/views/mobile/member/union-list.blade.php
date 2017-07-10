@@ -14,8 +14,9 @@
                         @foreach($union as $list)
                         <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_hd_list">
                             <a href="{{ url('/mobile/member/union-list-details',['member_id'=>$list['member_id']]) }}" class="pet_hd_block">
-                            <div class="pet_hd_block_title">{{ $list['member_surname'] }}</div>
-                            <div class="pet_hd_block_map">手机号码：{{ $list['member_mobile'] }}</div>
+                            <div class="pet_hd_block_title">{{ $list['app_name'] }}</div>
+                            <div class="pet_hd_block_map">手机号码：{{ $list['app_mobile'] }}</div>
+                            <div class="pet_hd_block_map">申请类型：@if($list['app_type']==1) <font color="red">企业</font> @else <font color="red">个体</font> @endif </div>
                             <div class="pet_hd_block_map">申请时间：{{ $list['created_at'] }} </div>
                             </a>
                             @if($list['member_status']==\App\Member::MEMBER_STATUS_TWO)
