@@ -347,6 +347,7 @@ class MemberController extends Controller
         // 接收参数
         $picz =$request->file('app_pic_z');
         $picb =$request->file('app_pic_b');
+
         $data = $request->only(['app_name','app_mobile','app_sms','member_id']);
         $memberId = $common->If_com(session('mobile_user')['member_id']);
 
@@ -354,7 +355,7 @@ class MemberController extends Controller
         $cacheSms = Cache::get('sms');
 
         if ($data['app_sms'] != $cacheSms){
-            return redirect('mobile/member/push-person-apply/'.$data['member_id'].'')->with('message', '2');
+            return redirect('mobile/member/push-person-apply/'.$data['member_id'].'')->with('message', 'yzm');
         }
 
         // 上传图片

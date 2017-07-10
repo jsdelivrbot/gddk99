@@ -113,3 +113,38 @@
 
     </div>
 @endsection
+
+@section('script')
+    @if(Session::has('message'))
+        @if(Session::get('message')=='yzm')
+            <script>layer.msg('验证码错误！', {icon: 5}); </script>
+        @endif
+    @endif
+
+    <script type="text/javascript">
+        // 秒数JS
+        var countdown=60;
+        function settime(obj) {
+            if (countdown == 0) {
+                obj.removeAttribute("disabled");
+                obj.value="发送验证码";
+                countdown = 60;
+                return;
+            } else {
+                obj.setAttribute("disabled", true);
+                obj.value="重新发送(" + countdown + ")";
+                countdown--;
+            }
+            setTimeout(function() {
+                    settime(obj) }
+                ,1000)
+        }
+
+        //发送请求
+        function Sms() {
+            var app_mobile = $("#app_mobile").val();
+            $.post("{{url('/mobile/member/send')}}",{'_token':'{{csrf_token()}}','mobile':app_mobile});
+        }
+    </script>
+
+@endsection
