@@ -99,6 +99,7 @@ Route::prefix('mobile')->middleware('active.nav')->post('/member/push-person-app
 
 // 企业申请成为推客--填写资料
 Route::prefix('mobile')->middleware('active.nav')->get('/member/push-firm-apply/{member_id}','Mobile\MemberController@PushFirmApply');
+Route::prefix('mobile')->middleware('active.nav')->post('/member/push-firm-apply','Mobile\MemberController@PushFirmApplyStore');
 
 // 我的合伙人设置功能---是否审核状态
 Route::prefix('mobile')->middleware('active.nav')->post('/member/member-check-status','Mobile\MemberController@memberCheckStatus');

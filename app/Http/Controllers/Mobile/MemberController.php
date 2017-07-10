@@ -402,4 +402,9 @@ class MemberController extends Controller
 
     }
 
+    // 企业申请成为推客--填写资料---存储
+    public function PushFirmApplyStore(Request $request,Common $common,Member $member){
+
+    }
+
 }
