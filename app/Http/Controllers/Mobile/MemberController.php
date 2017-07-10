@@ -378,8 +378,28 @@ class MemberController extends Controller
     }
 
     // 企业申请成为推客--填写资料
-    public function PushFirmApply($member_id){
-        return view('mobile.member.push-firm-apply');
+    public function PushFirmApply($member_id,Common $common,Member $member){
+
+        // 接收参数
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
+
+        // 读取当前用户信息
+        $members = $member->find($memberId);
+
+        // 判定是否完善信息
+        if ($members['member_card']==""){
+            return redirect('/mobile/member/person-edit/'.$memberId.'')->with('message','1');
+        }
+
+        // 判定当前用户是否申请过
+        if ($members['member_status']==Member::MEMBER_STATUS_TWO){
+            return redirect('/mobile/member/push-apply-list')->with('message','apply');
+        }
+
+        $cardType = $member->cardType();
+
+        return view('mobile.member.push-firm-apply',['member'=>$members,'cardType'=>$cardType,'id'=>$member_id]);
+
     }
 
 }
