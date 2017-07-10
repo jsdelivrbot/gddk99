@@ -57,7 +57,8 @@ class WechatController extends Controller
 
     // 封装存储数据方法
     protected function BackData($result){
-        $member = Member::where('wechat_openid',$result['openid'])->first();
+        $res = (new Common())->if_empty($result['openid']);
+        $member = Member::where('wechat_openid',$res)->first();
         $memberId =$member['member_id'];
         $row = (new Common())->if_empty($memberId);
         if ($row == 0){

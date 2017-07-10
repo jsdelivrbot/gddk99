@@ -67,11 +67,6 @@
             </div>
 
             <div class="am-form-group">
-                <label for="member_bank_card">银行卡号：</label>
-                <input type="text" id="member_bank_card" value="{{ $member['member_bank_card'] }}" name="member_bank_card" minlength="1" placeholder="输入您的银行卡号" required/>
-            </div>
-
-            <div class="am-form-group">
                 <label for="member_card_type">卡号类型</label>
                 <select id="member_card_type" name="member_card_type" required>
 
@@ -82,6 +77,11 @@
                     @endforeach
 
                 </select>
+            </div>
+
+            <div class="am-form-group">
+                <label for="member_bank_card">银行卡号：</label>
+                <input type="text" id="member_bank_card" value="{{ $member['member_bank_card'] }}" name="member_bank_card" minlength="1" placeholder="输入您的银行卡号" required/>
             </div>
 
             <div class="am-form-group">

@@ -403,7 +403,33 @@ class MemberController extends Controller
     }
 
     // 企业申请成为推客--填写资料---存储
-    public function PushFirmApplyStore(Request $request,Common $common,Member $member){
+    public function PushFirmApplyStore(Request $request,Common $common,Member $member,Application $application){
+
+        $pic = $request->file('app_pic_z');
+        $data = $request->only(['app_name','member_id','app_nature','app_username','app_number','app_mobile']);
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
+
+        // 判定验证码是否匹配
+        $cacheSms = Cache::get('sms');
+
+        if ($request->get('app_sms') != $cacheSms){
+            return redirect('mobile/member/push-firm-apply/'.$data['member_id'].'')->with('message', 'yzm');
+        }
+
+        // 上传图片
+        $arrPicZ = $common->FileOne($pic);
+
+        // 修改当前用户状态
+        $member->where('member_id',$memberId)->update(['member_status'=>Member::MEMBER_STATUS_TWO,'member_parent_id'=>'10'.$data['member_id']]);
+
+        // 存储审核数据
+        $result = $application->create(array_merge($data,['app_pic_z'=>$arrPicZ,'app_type'=>1]));
+        if ($result){
+            Cache::forget('sms');
+            return redirect('mobile/member/person-list')->with('message', '1');
+        }else{
+            return redirect('mobile/member/person-list')->with('message', '0');
+        }
 
     }
 

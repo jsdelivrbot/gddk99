@@ -6,13 +6,13 @@
             <div class="pet_hd_con_head"><img src="{{ url('build/img/client-list.jpg') }}" alt=""></div>
         </div>
 
-        {!! Form::open(['url'=>'/mobile/client/client-list','files'=>'true','class'=>'am-form','data-am-validator']) !!}
+        {!! Form::open(['url'=>'/mobile/member/push-firm-apply','files'=>'true','class'=>'am-form','data-am-validator']) !!}
         <fieldset>
             <legend>企业申请成为推客</legend>
             <div class="am-form-group">
                 <label for="app_name">公司名称：</label>
                 <input type="text" id="app_name" name="app_name" minlength="2" placeholder="输入您的公司名称" required/>
-                <input type="hidden" id="member_id" name="member_id" value="{{ $id }}" />
+                <input type="hidden" id="member_id" name="member_id" value="{{ $id }}"/>
             </div>
 
             <div class="am-form-group">
@@ -50,11 +50,6 @@
             </div>
 
             <div class="am-form-group">
-                <label for="member_bank_card">银行卡号：</label>
-                <input type="text" id="member_bank_card" name="member_bank_card" value="{{ $member['member_bank_card'] }}" minlength="1" placeholder="输入您的银行卡号" required/>
-            </div>
-
-            <div class="am-form-group">
                 <label for="member_card_type">卡号类型</label>
                 <select id="member_card_type" name="member_card_type" required>
                     @foreach($cardType as $list)
@@ -63,6 +58,11 @@
                         </option>
                     @endforeach
                 </select>
+            </div>
+
+            <div class="am-form-group">
+                <label for="member_bank_card">银行卡号：</label>
+                <input type="text" id="member_bank_card" name="member_bank_card" value="{{ $member['member_bank_card'] }}" minlength="1" placeholder="输入您的银行卡号" required/>
             </div>
 
             <div class="am-form-group">
