@@ -95,6 +95,7 @@ Route::prefix('mobile')->middleware('active.nav')->get('/member/push-apply-list'
 
 // 个人申请成为推客--填写资料
 Route::prefix('mobile')->middleware('active.nav')->get('/member/push-person-apply/{member_id}','Mobile\MemberController@PushPersonApply');
+Route::prefix('mobile')->middleware('active.nav')->post('/member/push-person-apply','Mobile\MemberController@PushPersonApplyStore');
 
 // 企业申请成为推客--填写资料
 Route::prefix('mobile')->middleware('active.nav')->get('/member/push-firm-apply/{member_id}','Mobile\MemberController@PushFirmApply');

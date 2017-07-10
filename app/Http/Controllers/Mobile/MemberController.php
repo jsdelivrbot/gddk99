@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mobile;
 
+use App\Application;
 use App\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -288,8 +289,53 @@ class MemberController extends Controller
     }
 
     // 个人申请成为推客--填写资料
-    public function PushPersonApply($member_id){
-        return view('mobile.member.push-person-apply');
+    public function PushPersonApply($member_id,Member $member,Common $common){
+        // 接收参数
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
+       // 读取当前用户信息
+        $members = $member->find($memberId);
+        // 判定是否完善信息
+        if ($members['member_card']==""){
+            return redirect('/mobile/member/person-edit/'.$memberId.'')->with('message','1');
+        }
+        $sex = $member->Sex();
+        $cardType = $member->cardType();
+        return view('mobile.member.push-person-apply',['member'=>$members,'sex'=>$sex,'cardType'=>$cardType,'id'=>$member_id]);
+    }
+
+    // 个人申请成为推客--填写资料--存储
+    public function PushPersonApplyStore(Request $request,Member $member,Application $application,Common $common){
+
+        // 接收参数
+        $picz =$request->file('app_pic_z');
+        $picb =$request->file('app_pic_b');
+        $data = $request->only(['app_name','app_mobile','app_sms','member_id']);
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
+
+        // 判定验证码是否匹配
+        $cacheSms = Cache::get('sms');
+
+        if ($data['app_sms'] != $cacheSms){
+            return redirect('mobile/member/push-person-apply/'.$data['member_id'].'')->with('message', '2');
+        }
+
+        // 上传图片
+        $arrPicZ = $common->FileOne($picz);
+        $arrPicB = $common->FileOne($picb);
+        $arrData = array_except($data,['app_sms']);
+
+
+        // 修改当前用户状态
+        $member->where('member_id',$memberId)->update(['member_status'=>Member::MEMBER_STATUS_TWO,'member_parent_id'=>'10'.$data['member_id']]);
+        // 存储审核数据
+        $result = $application->create(array_merge($arrData,['app_pic_z'=>$arrPicZ,'app_pic_b'=>$arrPicB]));
+        if ($result){
+            Cache::forget('sms');
+            return redirect('mobile/member/person-list')->with('message', '1');
+        }else{
+            return redirect('mobile/member/person-list')->with('message', '0');
+        }
+
     }
 
     // 企业申请成为推客--填写资料
