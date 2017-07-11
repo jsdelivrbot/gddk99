@@ -16,20 +16,16 @@
             <div class="pet_grzx_num_font">
                您当前是：{{ $groupData['type'] }}
             </div>
+            <br>
             <div class="pet_grzx_num">
                 <span>653<i>喜欢</i></span>
                 <span>236<i>关注</i></span>
                 <span>36<i>文章</i></span>
             </div>
-
+            <br>
             <ul class="am-list am-list-border">
                 <li>
-                    <a href="{{ url('/mobile/member/union-list',['member_id'=>$member['member_id']]) }}"><i class="am-icon-user am-icon-fw"></i>
-                        我的推客
-                    </a>
-                </li>
-                <li>
-                    <a href="#"><i class="am-icon-briefcase am-icon-fw"></i>
+                    <a href="{{ url('/mobile/client/client-vip-show',['member_id'=>$member['member_id']]) }}"><i class="am-icon-briefcase am-icon-fw"></i>
                         我的客户
                     </a>
                 </li>
@@ -48,19 +44,7 @@
 
 @section('script')
     @if(Session::has('message'))
-        @if(Session::get('message')==1)
-            <script>
-                layer.open({
-                    type: 1,
-                    title: false,
-                    skin:'layui-layer-demo',
-                    area: ['78%', '18%'],
-                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，关联成功！</div><div class="am-panel-bd">我们一起共赢</div></div>'
-                });
-            </script>
-        @elseif(Session::get('message')==0)
-            <script>layer.msg('关联失败！', {icon: 5}); </script>
-        @elseif(Session::get('message')==3)
+        @if(Session::get('message')==3)
             <script>layer.msg('信息完善成功！', {icon: 6}); </script>
         @elseif(Session::get('message')==2)
             <script>layer.msg('信息完善失败！', {icon: 5}); </script>

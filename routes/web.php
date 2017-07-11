@@ -137,6 +137,9 @@ Route::prefix('mobile')->middleware('active.nav')->get('/client/client-union-lis
 // 我的合伙人--申报客户列表--详情
 Route::prefix('mobile')->middleware('active.nav')->get('/client/client-union-details/{info_id}/{member_id}','Mobile\ClientController@ClientUnionDetails');
 
+// 我的客户列表---vip--显示
+Route::prefix('mobile')->middleware('active.nav')->get('/client/client-vip-show/{member_id}','Mobile\ClientController@ClientVipShow');
+
 
 //--------------------------------- 顾问管理区 ------------------------------//
 

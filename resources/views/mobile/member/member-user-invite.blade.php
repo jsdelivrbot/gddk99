@@ -53,7 +53,7 @@
                     <button type="submit" class="am-btn am-btn-warning am-btn-block">提交申请</button>
                 </div>
                 <div class="am-u-sm-6" style="margin: 0; padding: 0;">
-                    <button type="button" class="am-btn am-btn-default am-btn-block" onclick="javascript:window.location='{{ url('mobile/index') }}'" >返回首页</button>
+                    <button type="button" class="am-btn am-btn-default am-btn-block" onclick="javascript:window.location='{{ url('mobile/client/client-vip-show',['member_id'=>$current]) }}'" >返回列表</button>
                 </div>
             </div>
 
@@ -74,11 +74,36 @@
                     title: false,
                     skin:'layui-layer-demo',
                     area: ['78%', '18%'],
-                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，提交成功！</div><div class="am-panel-bd">我们一起共赢</div></div>'
+                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，提交成功！</div><div class="am-panel-bd">查看提交状态，返回客户列表</div></div>'
                 });
             </script>
         @elseif(Session::get('message')==0)
             <script>layer.msg('提交失败，或者填写资料有误！', {icon: 5}); </script>
         @endif
     @endif
+    <script type="text/javascript">
+        // 秒数JS
+        var countdown=60;
+        function settime(obj) {
+            if (countdown == 0) {
+                obj.removeAttribute("disabled");
+                obj.value="发送验证码";
+                countdown = 60;
+                return;
+            } else {
+                obj.setAttribute("disabled", true);
+                obj.value="重新发送(" + countdown + ")";
+                countdown--;
+            }
+            setTimeout(function() {
+                    settime(obj) }
+                ,1000)
+        }
+
+        //发送请求
+        function Sms() {
+            var info_mobile = $("#info_mobile").val();
+            $.post("{{url('/mobile/member/send')}}",{'_token':'{{csrf_token()}}','mobile':info_mobile});
+        }
+    </script>
 @endsection

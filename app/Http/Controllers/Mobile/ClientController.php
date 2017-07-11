@@ -227,4 +227,9 @@ class ClientController extends Controller
         return view('mobile.client-union-details',['info'=>$info_data,'member'=>$member_data,'info_member'=>$info_member]);
     }
 
+    // 我的客户列表---vip--显示
+    public function ClientVipShow($member_id){
+        dd($member_id);
+    }
+
 }
