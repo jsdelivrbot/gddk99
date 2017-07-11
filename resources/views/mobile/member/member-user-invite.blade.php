@@ -1,109 +1,65 @@
 @extends('layouts.mobile')
 @section('content')
 
-    <div class="pet_grzx">
-        <div class="pet_grzx_nr">
-            <div class="pet_grzx_ico">
-                <img src="{{ $member_parent['avatar']  }}" alt="">
-            </div>
-            <div class="pet_grzx_name">扫码成功！</div>
+    <div class="pet_mian"  style="background-color: white;">
 
-            <div class="pet_grzx_num_font">
-                即将成为<font color="red">{{ $member_parent['name'] }}</font>下线发展经纪人
-            </div>
-
-            <br>
-            {!! Form::open(['url'=>'mobile/member/member-user-invite','method'=>'POST','class'=>'am-form','data-am-validator']) !!}
-            <fieldset>
-                <legend>申请成为经纪人</legend>
-                <div class="am-form-group">
-                    <label for="member_surname">姓名：</label>
-                    <input type="text" id="member_surname" name="member_surname" value="{{ $member_user['member_surname'] }}" minlength="2" placeholder="输入您的姓名" required/>
-                    <input type="hidden" name="member_id" value="{{ $member_user['member_id'] }}">
-                    <input type="hidden" name="member_parent_id" value="{{ $member_parent['id'] }}">
-                </div>
-
-                <div class="am-form-group">
-                    <label for="member_sex">性别</label>
-                    <select id="member_sex" name="member_sex" required>
-                        @foreach($member_sex as $sex)
-                            <option value="{{ $sex['sex_number'] }}" @if($sex['sex_number'] == $member_user['member_sex']) selected @endif>
-                                {{ $sex['sex_name'] }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="am-form-group">
-                    <label for="member_mobile">手机号：</label>
-                    <div class="am-input-group">
-                        <input type="text" id="member_mobile" name="member_mobile" minlength="2" placeholder="输入您的手机号" required class="am-form-field">
-                        <span class="am-input-group-btn">
-                            <input type="button" id="btn" value="获取验证码" class="am-btn am-btn-default" onclick="settime(this),Sms()" />
-                        </span>
-                    </div>
-                </div>
-
-                <div class="am-form-group">
-                    <label for="member_sms">验证码：</label>
-                    <input type="text" id="member_sms" name="member_sms" minlength="2" placeholder="输入您的手机验证码" required/>
-                </div>
-
-                <div class="am-form-group">
-                    <label for="member_card">身份证号：</label>
-                    <input type="text" id="member_card" name="member_card" minlength="2" value="{{ $member_user['member_card'] }}" placeholder="输入您的身份证号" required/>
-                </div>
-
-                <div class="am-form-group">
-                    <label for="member_add">地址：</label>
-                    <input type="text" id="member_add" name="member_add" value="{{ $member_user['member_add'] }}" minlength="2" placeholder="输入您的地址" required/>
-                </div>
-
-                <div class="am-g am-g-fixed">
-                    <div class="am-u-sm-6" style="margin: 0; padding: 0;">
-                        <button type="submit" class="am-btn am-btn-primary am-btn-block">确定</button>
-                    </div>
-                    <div class="am-u-sm-6" style="margin: 0; padding: 0;">
-                        <a href="{{ url('mobile/member/person-list') }}" class="am-btn am-btn-success am-btn-block">取消</a>
-                    </div>
-                </div>
-
-            </fieldset>
-            {!! Form::close() !!}
+        <div class="pet_content_block pet_hd_con">
+            <div class="pet_hd_con_head"><img src="{{ url('build/img/client-list.jpg') }}" alt=""></div>
         </div>
-        <div style="height: 30px;"></div>
+
+        {!! Form::open(['url'=>'/mobile/member/member-user-invite','class'=>'am-form','data-am-validator']) !!}
+        <fieldset>
+            <legend>推荐客户-申请贷款</legend>
+            <div class="am-form-group">
+                <label for="info_name">客户姓名：</label>
+                <input type="text" id="info_name" name="info_name" minlength="2" placeholder="输入您的姓名" required/>
+                <input type="text" id="info_invite" value="{{ $parent }}" name="info_invite"/>
+                <input type="text" id="member_id" value="{{ $current }}" name="member_id"/>
+            </div>
+
+            <div class="am-form-group">
+                <label for="info_sex">性别</label>
+                <select id="info_sex" name="info_sex" required>
+                    <option value="">选择性别</option>
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                    <option value="0">保密</option>
+                </select>
+                <span class="am-form-caret"></span>
+            </div>
+
+            <div class="am-form-group">
+                <label for="info_quota">贷款额度(万元)：</label>
+                <input type="text" id="info_quota" name="info_quota" minlength="1" placeholder="输入贷款额度" required/>
+            </div>
+
+            <div class="am-form-group">
+                <label for="info_mobile">手机号：</label>
+                <div class="am-input-group">
+                    <input type="text" id="info_mobile" name="info_mobile" minlength="3" placeholder="输入您的手机号" required class="am-form-field">
+                    <span class="am-input-group-btn">
+                        <input type="button" id="btn" value="获取验证码" class="am-btn am-btn-default" onclick="settime(this),Sms()" />
+                    </span>
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <label for="info_sms">验证码：</label>
+                <input type="text" id="info_sms" name="info_sms" minlength="3" placeholder="输入您的手机验证码" required/>
+            </div>
+
+            <div class="am-g am-g-fixed">
+                <div class="am-u-sm-6" style="margin: 0; padding: 0;">
+                    <button type="submit" class="am-btn am-btn-warning am-btn-block">提交申请</button>
+                </div>
+                <div class="am-u-sm-6" style="margin: 0; padding: 0;">
+                    <button type="button" class="am-btn am-btn-default am-btn-block" onclick="javascript:window.location='{{ url('mobile/index') }}'" >返回首页</button>
+                </div>
+            </div>
+
+        </fieldset>
+        {!! Form::close() !!}
+
     </div>
 
-@endsection
-@section('script')
-    <script type="text/javascript">
-        // 秒数JS
-        var countdown=60;
-        function settime(obj) {
-            if (countdown == 0) {
-                obj.removeAttribute("disabled");
-                obj.value="发送验证码";
-                countdown = 60;
-                return;
-            } else {
-                obj.setAttribute("disabled", true);
-                obj.value="重新发送(" + countdown + ")";
-                countdown--;
-            }
-            setTimeout(function() {
-                    settime(obj) }
-                ,1000)
-        }
-
-        //发送请求
-        function Sms() {
-            var member_mobile = $("#member_mobile").val();
-            $.post("{{url('/mobile/member/send')}}",{'_token':'{{csrf_token()}}','mobile':member_mobile});
-        }
-    </script>
-    @if(Session::has('message'))
-        @if(Session::get('message')==2)
-            <script>layer.msg('验证码错误！', {icon: 5}); </script>
-        @endif
-    @endif
 @endsection

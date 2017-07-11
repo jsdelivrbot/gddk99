@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mobile;
 
 use App\Application;
+use App\Info;
 use App\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -130,8 +131,9 @@ class MemberController extends Controller
 
         // 判断图片是否存在，不存在生成图片---取反
         if(!file_exists($poster)){
-            $common->Poster($common->picUrlPath('haibao.png'),$common->PublicPath('qrcode',$memberId),$common->PublicPath('sc',$memberId));
+            $common->Poster($common->picUrlPath('posterbg.png'),$common->PublicPath('qrcode',$memberId),$common->PublicPath('sc',$memberId),$dst_x='229',$dst_y='680');
         }
+
         // 获取图片输出到前端界面
         $poster_pic = $common->picUrlPath('sc'.$memberId.'.png');
 
@@ -144,48 +146,29 @@ class MemberController extends Controller
     {
         // http://gddk99.tunnel.qydev.com/mobile/member/member-user-invite?member_parent_id=2
 
-        // 接收ID参数
+        // 接收ID参数,父级ID，当前用户ID
         $member_parent_id = $request->get('member_parent_id');
         $memberId = $common->If_com(session('mobile_user')['member_id']);
 
-        // 显示所属上级资料
-        $member_parent = $member->find($member_parent_id);
-
-        // 判断父级ID不能与主见ID相同------调试阶段可以注释
-        if ($member_parent_id==$memberId){
-            return redirect('mobile/member/person-list')->with('message', '4');
-        }elseif(!$member_parent['member_id']==$member_parent_id){
-            return redirect('mobile/member/person-list')->with('message', '5');
-        }
-
-        // 显示当前用户资料
-        $member_user = $member->find($memberId);
-        // 性别方法
-        $member_sex = $member->Sex();
-
-        // 组装判断数据，减少前端代码优雅
-        $groupData =[
-            'id'=> $member_parent['member_id'],
-            'avatar' => $common->If_val($common->picUrlPath($member_parent['member_avatar']),$member_parent['wechat_headimgurl']),
-            'name' => $common->If_val($member_parent['member_surname'],$member_parent['wechat_nickname']),
-        ];
-
-        return view('mobile.member.member-user-invite',['member_parent'=>$groupData,'member_user'=>$member_user,'member_sex'=>$member_sex]);
+        return view('mobile.member.member-user-invite',['parent'=>$member_parent_id,'current'=>$memberId]);
 
     }
 
     //会员管理---个人中心--生成海报页面--扫码成为经纪人--扫码跳转页面--存储---改成推客
-    public function MemberUserInviteStore(Request $request,Member $member){
+    public function MemberUserInviteStore(Request $request,Info $info){
 
         // 接收POST参数
-        $data = $request->except(['_token','member_sms']);
+        $data = $request->except(['_token','info_sms']);
+
         // 判断手机验证码是否正确
         $cacheSms = Cache::get('sms');
-        if ($request->get('member_sms') != $cacheSms){
-            return redirect('mobile/member/member-user-invite?member_parent_id='.$data['member_parent_id'].'')->with('message', '2');
+        if ($request->get('info_sms') != $cacheSms){
+            return redirect('mobile/member/member-user-invite?member_parent_id='.$data['info_invite'].'')->with('message', '2');
         }
-        // 更新操作，成功与否
-        $result = $member->where('member_id',$data['member_id'])->update(array_merge($data));
+
+        // 存储数据库
+        $result = $info->create($data);
+
         if ($result){
             Cache::forget('sms');
             return redirect('mobile/member/person-list')->with('message', '1');

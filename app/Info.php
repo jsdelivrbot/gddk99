@@ -21,7 +21,6 @@ class Info extends Model
       'info_remark',
       'member_id',
       'info_invite',
-      'info_invite',
     ];
 
     protected $hidden = [];

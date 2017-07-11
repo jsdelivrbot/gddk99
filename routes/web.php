@@ -72,10 +72,10 @@ Route::prefix('mobile')->middleware('active.nav')->get('/member/union-person-lis
 // 会员管理---级别判定进入相应页面---个人中心列表显示
 Route::prefix('mobile')->middleware('active.nav')->get('/member/person-level','Mobile\MemberController@Level');
 
-// 会员管理---个人中心--生成海报页面--扫码成为经纪人
+// 会员管理---个人中心--生成海报页面--扫码成为经纪人---改推客
 Route::prefix('mobile')->middleware('active.nav')->get('/member/poster-list','Mobile\MemberController@Poster');
 
-//会员管理---个人中心--生成海报页面--扫码成为经纪人--扫码跳转页面
+//会员管理---个人中心--生成海报页面--扫码成为经纪人--扫码跳转页面---改推客
 Route::prefix('mobile')->middleware('active.nav')->get('/member/member-user-invite','Mobile\MemberController@MemberUserInvite');
 Route::prefix('mobile')->middleware('active.nav')->post('/member/member-user-invite','Mobile\MemberController@MemberUserInviteStore');
 
