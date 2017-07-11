@@ -161,19 +161,23 @@ class MemberController extends Controller
         $data = $request->except(['_token','info_sms']);
 
         // 判断手机验证码是否正确
-        $cacheSms = Cache::get('sms');
+       /* $cacheSms = Cache::get('sms');
         if ($request->get('info_sms') != $cacheSms){
             return redirect('mobile/member/member-user-invite?member_parent_id='.$data['info_invite'].'')->with('message', '2');
-        }
+        }*/
+
+       // 组装存储数据
+        $arr = array_except($data,'member_id');
+        $id = ['member_id'=>'10'.$data['member_id']];
 
         // 存储数据库
-        $result = $info->create($data);
+        $result = $info->create(array_merge($arr,$id));
 
         if ($result){
             Cache::forget('sms');
-            return redirect('mobile/member/person-list')->with('message', '1');
+            return redirect('mobile/member/member-user-invite?member_parent_id='.$data['info_invite'].'')->with('message', 'push');
         }else{
-            return redirect('mobile/member/person-list')->with('message', '0');
+            return redirect('mobile/member/member-user-invite?member_parent_id='.$data['info_invite'].'')->with('message', '0');
         }
 
     }

@@ -13,8 +13,8 @@
             <div class="am-form-group">
                 <label for="info_name">客户姓名：</label>
                 <input type="text" id="info_name" name="info_name" minlength="2" placeholder="输入您的姓名" required/>
-                <input type="text" id="info_invite" value="{{ $parent }}" name="info_invite"/>
-                <input type="text" id="member_id" value="{{ $current }}" name="member_id"/>
+                <input type="hidden" id="info_invite" value="{{ $parent }}" name="info_invite"/>
+                <input type="hidden" id="member_id" value="{{ $current }}" name="member_id"/>
             </div>
 
             <div class="am-form-group">
@@ -62,4 +62,23 @@
 
     </div>
 
+@endsection
+
+
+@section('script')
+    @if(Session::has('message'))
+        @if(Session::get('message')=='push')
+            <script>
+                layer.open({
+                    type: 1,
+                    title: false,
+                    skin:'layui-layer-demo',
+                    area: ['78%', '18%'],
+                    content: '<div class="am-panel am-panel-primary"><div class="am-panel-hd">恭喜，提交成功！</div><div class="am-panel-bd">我们一起共赢</div></div>'
+                });
+            </script>
+        @elseif(Session::get('message')==0)
+            <script>layer.msg('提交失败，或者填写资料有误！', {icon: 5}); </script>
+        @endif
+    @endif
 @endsection
