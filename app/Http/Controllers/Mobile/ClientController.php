@@ -228,8 +228,11 @@ class ClientController extends Controller
     }
 
     // 我的客户列表---vip--显示
-    public function ClientVipShow($member_id){
-        dd($member_id);
+    public function ClientVipShow($member_id,Info $info){
+        // 读取所有客户信息
+        $infos = $info->where('info_invite',$member_id)->get();
+        $total = count($infos);
+        return view('mobile.client.client-vip-show',['info'=>$infos,'total'=>$total]);
     }
 
 }
