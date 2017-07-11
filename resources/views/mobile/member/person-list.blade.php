@@ -12,7 +12,7 @@
             <div class="pet_grzx_num_font">
                 <a href="{{ url('/mobile/member/poster-list') }}" class="am-btn am-btn-warning am-btn-block">个人专属二维码</a>
             </div>
-
+            <br>
             <div class="pet_grzx_num_font">
                您当前是：{{ $groupData['type'] }}
             </div>
@@ -60,6 +60,8 @@
             </script>
         @elseif(Session::get('message')==5)
             <script>layer.msg('扫码错误！', {icon: 5}); </script>
+        @elseif(Session::get('message')=='current')
+            <script>layer.msg('您目前是推客身份，不能扫推客二维码！', {icon: 6}); </script>
         @endif
     @endif
 @endsection

@@ -31,5 +31,4 @@
             <script>layer.msg('您已经申请过，请等待审核！', {icon: 6}); </script>
         @endif
     @endif
-
 @endsection

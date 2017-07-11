@@ -8,7 +8,7 @@
                 <img src="{{ $groupData['avatar']  }}" alt="">
             </div>
             <div class="pet_grzx_name">{{ $groupData['name'] }}</div>
-
+            <br>
             <div class="pet_grzx_num_font">
                 您当前是：{{ $groupData['type'] }}
             </div>
@@ -22,13 +22,13 @@
                     <font color="red">初审核通过，请耐心等待...</font>
                 </div>
             @endif
-
+            <br>
             <div class="pet_grzx_num">
                 <span>653<i>喜欢</i></span>
                 <span>236<i>关注</i></span>
                 <span>36<i>文章</i></span>
             </div>
-
+            <br>
             <ul class="am-list am-list-border">
 
                 <li>
@@ -36,11 +36,7 @@
                         客户列表
                     </a>
                 </li>
-                <li>
-                    <a href="#"> <i class="am-icon-book am-icon-fw"></i>
-                        我的佣金
-                    </a>
-                </li>
+
                 <li>
                     <a href="{{ url('/mobile/member/push-apply-list') }}"> <i class="am-icon-user-plus am-icon-fw"></i>
                         申请成为推客
