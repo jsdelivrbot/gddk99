@@ -18,6 +18,7 @@ class Info extends Model
       'info_mobile',
       'info_quota',
       'info_unit',
+      'info_status',
       'info_remark',
       'member_id',
       'info_invite',

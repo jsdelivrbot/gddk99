@@ -20,8 +20,10 @@ class ClientController extends Controller
 
 
     // 立即申请贷款----客户列表
-    public function ClientList(){
-        return view('mobile.client.client-list');
+    public function ClientList(Common $common){
+        // 接收ID参数
+        $memberId = $common->If_com(session('mobile_user')['member_id']);
+        return view('mobile.client.client-list',['member_id'=>$memberId]);
     }
 
     // 立即申请贷款----客户列表--存储
@@ -245,7 +247,7 @@ class ClientController extends Controller
 
     // 我的客户列表---vip--显示
     public function ClientVipShow($member_id,Info $info){
-        // 读取所有客户信息
+        // 读取推客所有客户信息
         $infos = $info->where('info_invite',$member_id)->get();
         $total = count($infos);
         return view('mobile.client.client-vip-show',['info'=>$infos,'total'=>$total]);

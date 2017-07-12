@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#"><i class="am-icon-briefcase am-icon-fw"></i>
+                    <a href="{{ url('/mobile/client/client-vip-show',['member_id'=>$member['member_id']]) }}"><i class="am-icon-briefcase am-icon-fw"></i>
                         我的客户
                     </a>
                 </li>
