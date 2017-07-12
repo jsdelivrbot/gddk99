@@ -32,7 +32,7 @@
             <ul class="am-list am-list-border">
 
                 <li>
-                    <a href="#"><i class="am-icon-briefcase am-icon-fw"></i>
+                    <a href="{{ url('/mobile/client/client-vip-show',['member_id'=>$member['member_id']]) }}"><i class="am-icon-briefcase am-icon-fw"></i>
                         客户列表
                     </a>
                 </li>
