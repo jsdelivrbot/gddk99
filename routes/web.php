@@ -90,6 +90,9 @@ Route::prefix('mobile')->middleware('active.nav')->post('/member/send','Mobile\M
 // 我的经纪人列表---显示
 Route::prefix('mobile')->middleware('active.nav')->get('/member/union-list/{member_id}','Mobile\MemberController@UnionList');
 
+// 我的个人中心---推客列表---查看客户
+Route::prefix('mobile')->middleware('active.nav')->get('/member/push-list-client-show/{member_id}','Mobile\MemberController@PushListClientShow');
+
 // 申请成为推客---列表
 Route::prefix('mobile')->middleware('active.nav')->get('/member/push-apply-list','Mobile\MemberController@PushApplyList');
 

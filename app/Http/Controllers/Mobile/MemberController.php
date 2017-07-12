@@ -268,6 +268,13 @@ class MemberController extends Controller
         return view('mobile.member.union-list',['union'=>$res,'total'=>$total]);
     }
 
+    // 我的个人中心---推客列表---查看客户
+    public function PushListClientShow($member_id,Info $info){
+        $info = $info->where('info_invite',$member_id)->get();
+        $total =count($info);
+        return view('mobile.member.push-list-client-show',['info'=>$info,'total'=>$total]);
+    }
+
     // 我的合伙人设置功能---是否审核状态---详细资料
     public function unionListDetails($member_id,Member $member,Application $application){
         $union = $member->where('member_id',$member_id)->first();

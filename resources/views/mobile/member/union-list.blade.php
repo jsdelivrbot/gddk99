@@ -28,7 +28,7 @@
                                 <div class="pet_hd_block_map"><font color="red">请等待总部审核...</font></div>
                                 <div class="pet_hd_block_tag"><span class="hd_tag_js">初审通过</span></div>
                             @elseif($list['member_status']==\App\Member::MEMBER_STATUS_FOUR)
-                                <div class="pet_hd_block_tag"><span class="hd_tag_js">审核完成</span> <span style="background-color:#429842">查看客户</span></div>
+                                <div class="pet_hd_block_tag"><span class="hd_tag_js">审核完成</span> <span style="background-color:#429842" onclick="javascript:window.location='{{ url('mobile/member/push-list-client-show',['member_id'=>$list['member_id']]) }}'">查看客户</span></div>
                             @endif
                         </li>
                         @endforeach
