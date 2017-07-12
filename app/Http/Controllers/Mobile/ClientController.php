@@ -51,7 +51,7 @@ class ClientController extends Controller
 
     }
 
-    // 推客----客户海报列表，生成海报页面---显示
+    // 推客----客户海报列表，生成海报页面---显示---改了推客
     public function ClientPoster(Request $request,Common $common){
 
         // http://gddk99.tunnel.qydev.com/mobile/client/client-poster-invite?member_id=1
@@ -74,7 +74,7 @@ class ClientController extends Controller
 
     }
 
-    // 推客----客户海报列表---扫码跳转---填写绑定合伙人----跳转发展推客
+    // 推客----客户海报列表---扫码跳转---填写绑定合伙人----跳转发展推客---改了推客
     public function ClientPosterInvite(Request $request,Common $common,Member $member){
 
         // http://gddk99.tunnel.qydev.com/mobile/client/client-poster-invite?member_id=5
@@ -82,6 +82,7 @@ class ClientController extends Controller
         // 接收ID参数
         $member_id = $request->get('member_id');
         $memberId = $common->If_com(session('mobile_user')['member_id']);
+        dd($member_id);// 明天处理这里
 
         // 显示所属上级资料
         $level = $member->find($member_id);
