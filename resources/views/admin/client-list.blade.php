@@ -61,6 +61,7 @@
                                     <th class="table-title">性别</th>
                                     <th class="table-title">手机号</th>
                                     <th class="table-type">贷款额度</th>
+                                    <th class="table-type">推客姓名</th>
                                     <th class="table-type">渠道</th>
                                     <th class="table-date am-hide-sm-only">申请时间</th>
                                     <th class="table-set">操作</th>
@@ -72,9 +73,10 @@
                                     <td><input type="checkbox"></td>
                                     <td>{{ $list['info_id'] }}</td>
                                     <td>{{ $list['info_name'] }}</td>
-                                    <td class="am-hide-sm-only">{{ $list['info_sex_text'] }}</td>
+                                    <td class="am-hide-sm-only">{{ $list['info_sex'] }}</td>
                                     <td class="am-hide-sm-only">{{ $list['info_mobile'] }}</td>
-                                    <td class="am-hide-sm-only">{{ $list['info_quota'] }} 元</td>
+                                    <td class="am-hide-sm-only">{{ $list['info_quota'] }} 万元</td>
+                                    <td class="am-hide-sm-only">{{ $list['push_name'] }}</td>
                                     <td class="am-hide-sm-only">{{ $list['member_id'] > 0 ? '微信端':'PC端'}}</td>
                                     <td class="am-hide-sm-only">{{ $list['created_at'] }}</td>
                                     <td>

@@ -20,8 +20,8 @@ class Info extends Model
       'info_unit',
       'info_status',
       'info_remark',
-      'member_id',
-      'info_invite',
+      'member_id',  // 提示目前会员ID已经是info的类型，不在在是会员ID，
+      'info_invite', // 邀请可以讲是会员ID
     ];
 
     protected $hidden = [];
