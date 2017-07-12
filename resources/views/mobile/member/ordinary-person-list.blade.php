@@ -38,7 +38,10 @@
                 </li>
 
                 <li>
-                    <a href="{{ url('/mobile/member/push-apply-list') }}"> <i class="am-icon-user-plus am-icon-fw"></i>
+                    {{--<a href="{{ url('/mobile/member/push-apply-list') }}"> <i class="am-icon-user-plus am-icon-fw"></i>
+                        申请成为推客
+                    </a>--}}
+                    <a href="#"> <i class="am-icon-user-plus am-icon-fw"></i>
                         申请成为推客
                     </a>
                 </li>
