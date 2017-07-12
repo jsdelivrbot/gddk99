@@ -11,23 +11,17 @@
 
             <div class="am-list-news-bd">
                 <ul class="am-list">
-                    @if(!empty($member[0]['member_id']))
                     @foreach($member as $list)
                     <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                         <a href="#">
-                            <img class="widget-icon am-img-thumbnail am-circle" src="{{ $list['wechat_headimgurl'] }}" style="width: 50px; height: 50px;">
+                            <img class="widget-icon am-img-thumbnail am-circle" src="{{ $list['union_user_avatar'] }}" style="width: 50px; height: 50px;">
                             <span class="widget-name" style="padding-left: 10px;">
-                                {{ empty($list['member_surname']) ? $list['wechat_nickname'] : $list['member_surname'] }}
-                                <span style="float: right; margin-top: 10px;">{{ $list['created_at'] }}</span>
+                                {{ $list['union_user_name'] }}
+                                <span style="float: right; margin-top: 10px;">{{ $list['union_user_time'] }}</span>
                             </span>
                         </a>
                     </li>
                     @endforeach
-                    @else
-                        <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
-                            <span class="widget-name" style="padding-left: 10px;">没有数据哦</span>
-                        </li>
-                    @endif
                 </ul>
             </div>
 

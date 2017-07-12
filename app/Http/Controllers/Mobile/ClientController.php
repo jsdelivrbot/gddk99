@@ -207,7 +207,23 @@ class ClientController extends Controller
 
     // 我的合伙人列表
     public function ClientUnionShow($member_id,Member $member){
-        $member_union = $member->where('member_parent_id','10'.$member_id)->get();
+
+        // 接收参数读取数据
+        $members = $member->find($member_id);
+        // 定义数组
+        $mem_union[]='';
+        // 遍历数据
+        $union = $member->where('member_parent_id',$members['member_id'])->get();
+        foreach ($union as $unList){
+            $mem_union[]=[
+                'union_user_id' => $unList['member_id'],
+                'union_user_name' => $unList['member_surname'],  //我名下的合伙人姓名
+                'union_user_time' => $unList['created_at'],
+                'union_user_avatar' => $unList['wechat_headimgurl'],
+            ];
+        }
+        $member_union = array_filter($mem_union);
+
         return view('mobile.client.client-union-show',['member'=>$member_union,'total'=>count($member_union)]);
     }
 
