@@ -104,7 +104,7 @@
                     <button type="submit" class="am-btn am-btn-warning am-btn-block">提交申请</button>
                 </div>
                 <div class="am-u-sm-6" style="margin: 0; padding: 0;">
-                    <button type="button" class="am-btn am-btn-default am-btn-block" onclick="javascript:window.location='{{ url('mobile/member/push-apply-list') }}'" >返回首页</button>
+                    <button type="button" class="am-btn am-btn-default am-btn-block" onclick="javascript:window.location='{{ url('mobile/index') }}'" >返回首页</button>
                 </div>
             </div>
 
