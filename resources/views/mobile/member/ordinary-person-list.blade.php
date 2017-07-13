@@ -63,6 +63,8 @@
             <script>layer.msg('审核提交成功！', {icon: 6}); </script>
         @elseif(Session::get('message')=='ordinary0')
             <script>layer.msg('审核提交失败！', {icon: 5}); </script>
+        @elseif(Session::get('message')=='apply')
+            <script>layer.msg('您已经申请过，请等待审核！', {icon: 6}); </script>
         @endif
     @endif
 @endsection

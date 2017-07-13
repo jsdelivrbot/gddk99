@@ -22,7 +22,7 @@ class CreateInfosTable extends Migration
             $table->integer('info_unit')->default('0')->comment('单位');
             $table->integer('info_status')->default('0')->comment('状态');
             $table->string('info_remark')->nullable()->comment('备注');
-            $table->integer('member_id')->default('0')->comment('会员ID');
+            $table->string('member_id')->nullable()->default('0')->comment('会员ID');
             $table->integer('info_invite')->default('0')->comment('合伙人邀请ID');
             $table->timestamps();
         });

@@ -242,7 +242,22 @@ class MemberController extends Controller
 
     // 我的经纪人列表---显示---改成推客
     public function UnionList($member_id,Member $member,Application $application){
-        $union =$member->where(['member_parent_id'=>'10'.$member_id])->orderBy('updated_at','desc')->get();
+
+        $appall = $application->all();
+        foreach ($appall as $valall){
+            $str = $valall['member_id'];
+            $arr = explode("|",$str);
+            foreach($arr as $a){
+                $b[]=$a;
+            }
+        }
+
+        foreach ($b as $cval){
+
+        }
+        dd($b);
+
+        /*$union =$member->where(['member_parent_id'=>'10'.$member_id])->get();
         $app[]='';
         foreach ($union as $list){
             $str = substr($list['member_parent_id'],2,100);
@@ -261,11 +276,12 @@ class MemberController extends Controller
                   'created_at' => $line['created_at'],
                 ];
             }
+
         }
         $res = array_filter($app);
 
         $total = count($res);
-        return view('mobile.member.union-list',['union'=>$res,'total'=>$total]);
+        return view('mobile.member.union-list',['union'=>$res,'total'=>$total]);*/
     }
 
     // 我的个人中心---推客列表---查看客户
@@ -350,7 +366,7 @@ class MemberController extends Controller
         }
         // 判定当前用户是否申请过
         if ($members['member_status']==Member::MEMBER_STATUS_TWO){
-            return redirect('/mobile/member/push-apply-list')->with('message','apply');
+            return redirect('/mobile/member/ordinary-person-list')->with('message','apply');
         }
 
         $sex = $member->Sex();
@@ -364,6 +380,7 @@ class MemberController extends Controller
         // 接收参数
         $picz =$request->file('app_pic_z');
         $picb =$request->file('app_pic_b');
+        $member_id =$request->get('member_id');
 
         $data = $request->only(['app_name','app_mobile','app_sms','member_id']);
         $memberId = $common->If_com(session('mobile_user')['member_id']);
@@ -378,13 +395,13 @@ class MemberController extends Controller
         // 上传图片
         $arrPicZ = $common->FileOne($picz);
         $arrPicB = $common->FileOne($picb);
-        $arrData = array_except($data,['app_sms']);
+        $arrData = array_except($data,['app_sms','member_id']);
 
 
         // 修改当前用户状态
         $member->where('member_id',$memberId)->update(['member_status'=>Member::MEMBER_STATUS_TWO,'member_parent_id'=>'10'.$data['member_id']]);
         // 存储审核数据
-        $result = $application->create(array_merge($arrData,['app_pic_z'=>$arrPicZ,'app_pic_b'=>$arrPicB]));
+        $result = $application->create(array_merge($arrData,['app_pic_z'=>$arrPicZ,'app_pic_b'=>$arrPicB,'member_id'=>$member_id.'|'.$memberId]));
         if ($result){
             Cache::forget('sms');
             return redirect('mobile/member/person-list')->with('message', '1');
