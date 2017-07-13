@@ -243,45 +243,33 @@ class MemberController extends Controller
     // 我的经纪人列表---显示---改成推客
     public function UnionList($member_id,Member $member,Application $application){
 
-        $appall = $application->all();
-        foreach ($appall as $valall){
-            $str = $valall['member_id'];
-            $arr = explode("|",$str);
-            foreach($arr as $a){
-                $b[]=$a;
-            }
-        }
-
-        foreach ($b as $cval){
-
-        }
-        dd($b);
-
-        /*$union =$member->where(['member_parent_id'=>'10'.$member_id])->get();
+        // 读取父级数据
+        $union =$member->where(['member_parent_id'=>'10'.$member_id])->orderBy('member_id','desc')->get();
+        // 定义数据
         $app[]='';
+        // 循环数组数据
         foreach ($union as $list){
-            $str = substr($list['member_parent_id'],2,100);
-            $apps = $application->where('member_id',$str)->get()->toArray();
+            // 读取属于父级数据，并且拼接当前申请用户ID，和，所属名下ID，读取数据
+            $apps = $application->where('member_id',$member_id.'|'.$list['member_id'])->get();
+            // 循环数据，并且组装数据，过滤空数组数据
             foreach ($apps as $line){
                 $app[]=[
-                  'member_id' => $list['member_id'],
-                  'member_status' => $list['member_status'],
+                    'member_id' => $list['member_id'],
+                    'member_status' => $list['member_status'],
 
-                  'app_id' => $line['app_id'],
-                  'app_name' => $line['app_name'],
-                  'app_mobile' => $line['app_mobile'],
-                  'app_pic_z' => $line['app_pic_z'],
-                  'app_pic_b' => $line['app_pic_b'],
-                  'app_type' => $line['app_type'],
-                  'created_at' => $line['created_at'],
+                    'app_id' => $line['app_id'],
+                    'app_name' => $line['app_name'],
+                    'app_mobile' => $line['app_mobile'],
+                    'app_pic_z' => $line['app_pic_z'],
+                    'app_pic_b' => $line['app_pic_b'],
+                    'app_type' => $line['app_type'],
+                    'created_at' => $line['created_at'],
                 ];
             }
-
         }
         $res = array_filter($app);
-
         $total = count($res);
-        return view('mobile.member.union-list',['union'=>$res,'total'=>$total]);*/
+        return view('mobile.member.union-list',['union'=>$res,'total'=>$total]);
     }
 
     // 我的个人中心---推客列表---查看客户
@@ -295,7 +283,7 @@ class MemberController extends Controller
     public function unionListDetails($member_id,Member $member,Application $application){
         $union = $member->where('member_id',$member_id)->first();
         $str = substr($union['member_parent_id'],2,100);
-        $app = $application->where('member_id',$str)->first();
+        $app = $application->where('member_id',$str.'|'.$union['member_id'])->first();
         return view('mobile.member.union-list-details',['union'=>$union,'app'=>$app]);
     }
 
@@ -346,7 +334,6 @@ class MemberController extends Controller
                 $members[] =$lien;
             }
         }
-
         // 过滤空数组
         $result = array_filter($members);
         // 统计

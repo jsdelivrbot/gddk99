@@ -15,7 +15,7 @@
                             <div class="pet_hd_block_title">{{ $app['app_name'] }}</div>
                             <div class="pet_hd_block_map">申请人：{{ $union['member_surname'] }} </div>
                             <div class="pet_hd_block_map">申请类型：@if($app['app_type']==1) <font color="red">企业</font> @else <font color="red">个体</font> @endif </div>
-                            <div class="pet_hd_block_map">证件号码：{{ $app['app_number'] }}</div>
+                            <div class="pet_hd_block_map">证件号码：@if(empty($app['app_number'])) {{ $union['member_card'] }} @else {{ $app['app_number'] }} @endif</div>
                             <div class="pet_hd_block_map">手机号码：{{ $app['app_mobile'] }}</div>
                             <div class="pet_hd_block_map">申请时间：{{ $app['created_at'] }} </div>
                         </li>
