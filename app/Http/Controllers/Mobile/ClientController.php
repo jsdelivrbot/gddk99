@@ -75,138 +75,18 @@ class ClientController extends Controller
     }
 
     // 推客----客户海报列表---扫码跳转---填写绑定合伙人----跳转发展推客---改了推客
-    public function ClientPosterInvite(Request $request,Common $common,Member $member){
-
-        // http://gddk99.tunnel.qydev.com/mobile/client/client-poster-invite?member_id=5
+    public function ClientPosterInvite(Request $request,Member $member){
 
         // 接收ID参数
         $member_id = $request->get('member_id');
-        $memberId = $common->If_com(session('mobile_user')['member_id']);
-        dd($member_id);// 明天处理这里
 
-        // 显示所属上级资料
-        $level = $member->find($member_id);
+        // 读取父级用户信息
+        $members = $member->find($member_id);
 
-        // 判断父级ID不能与主见ID相同------调试阶段可以注释
-        if ($member_id==$memberId){
-            return redirect('mobile/client/client-poster-list')->with('message', '4');
-        }elseif(!$level['member_id']==$member_id){
-            return redirect('mobile/client/client-poster-list')->with('message', '5');
-        }
-
-        // 显示当前用户资料
-        $member_user = $member->find($memberId);
-        // 性别方法
-        $member_sex = $member->Sex();
-
-        // 组装判断数据，减少前端代码优雅
-        $groupData =[
-            'id'=> $level['member_id'],
-            'avatar' => $common->If_val($common->picUrlPath($level['member_avatar']),$level['wechat_headimgurl']),
-            'level_name' => $common->If_val($level['member_surname'],$level['wechat_nickname']),
-            'user_name' => $common->If_val($member_user['member_surname'],$member_user['wechat_nickname']),
-        ];
-
-        return view('mobile.client.client-poster-invite',['member'=>$groupData,'member_user'=>$member_user,'member_sex'=>$member_sex]);
+        return view('mobile.client.client-poster-invite',['member'=>$members]);
 
     }
 
-    // 推客----客户海报列表---扫码跳转---填写绑定合伙人----跳转发展推客--存储
-    public function ClientPosterInviteStore(Request $request,Member $member){
-
-        // 接收POST参数
-        $data = $request->except(['_token']);
-        // 读取缓存验证码
-        $cacheSms = Cache::get('sms');
-        // 判断缓存的验证是否和传递过来的验证码是否相同
-        if ($data['member_sms'] != $cacheSms){
-            return redirect('mobile/client/client-poster-invite?member_id='.$data['member_parent_id'].'')->with('message', '2');
-        }
-
-        //读取父级用户数据
-        $member_parent_id = $member->find($data['member_parent_id']);
-
-        // 读取当前用户数据，推客父级以10开头，截取后位数，是否等等于10，保存数据
-        $user_id = $member->find($data['member_id']);
-        $str = $user_id['member_parent_id'];
-        $num = substr($str,0,2);
-
-        // 是否等等于10，如果是跳转，你已经是推客身份了，不是则改变，保存数据
-        if ($num==10){
-            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['member_parent_id'].'')->with('message', '3');
-        }
-
-        // 需要审核,0未审核，1初审核，2审核完成
-        if ($member_parent_id['member_check']==Member::MEMBER_CHECK_ONE){
-
-            $user_id->member_surname = $data['member_surname'];
-            $user_id->member_parent_id = '10'.$data['member_parent_id'];  // 10表示合伙人ID加拼接
-            $user_id->member_sex = $data['member_sex'];
-            $user_id->member_mobile = $data['member_mobile'];
-            $user_id->member_status = Member::MEMBER_STATUS_TWO;
-            $user_id->created_at = date('Y-m-d H:i:s',time());
-
-            if ($user_id ->save()){
-                Cache::pull('sms');
-                return redirect('mobile/member/ordinary-person-list')->with('message', 'ordinary1');
-            }else{
-                return redirect('mobile/member/ordinary-person-list')->with('message', 'ordinary0');
-            }
-
-        }
-
-    }
-
-    // 推客----客户海报列表---扫码跳转---填写绑定合伙人----推客--邀请合伙人---跳转发展推客
-    public function ClientPosterInviteApply(Request $request,Common $common,Member $member){
-
-        //http://gddk99.tunnel.qydev.com/mobile/client/client-poster-invite-apply?member_id=5
-
-        // 接收当前用户参数
-        $member_id = $request->get('member_id');
-        $memberId = $common->If_com(session('mobile_user')['member_id']);
-
-        // 显示所属上级资料
-        $level_user = $member->find($member_id);
-        if ($member_id==$memberId){
-            return redirect('mobile/client/client-poster-list')->with('message', '4');
-        }elseif(!$member['member_id']==$member_id){
-            return redirect('mobile/client/client-poster-list')->with('message', '5');
-        }
-
-        //显示当前用户资料
-        $member_user = $member->find($memberId);
-        // 性别方法
-        $member_sex = $member->Sex();
-
-        return view('mobile.client/client-poster-invite-apply',['member'=>$level_user,'member_user'=>$member_user,'member_sex'=>$member_sex]);
-
-    }
-
-    // 推客----客户海报列表---扫码跳转---填写绑定合伙人----推客--邀请合伙人---跳转发展推客--存储
-    public function ClientPosterInviteApplyStore(Request $request,Info $info){
-
-        // 接收POST参数，并且组装数据
-        $data =$request->except(['_token']);
-        $guopData =$request->except(['_token','info_sms','member_id']);
-        $member_id = ['member_id'=>'10'.$data['member_id']];
-
-        // 读取缓存验证码
-        $cacheSms = Cache::get('sms');
-        if ($data['info_sms'] != $cacheSms){
-            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['info_invite'].'')->with('message', '2');
-        }
-        // 插入数据
-        $result = $info->create(array_merge($guopData,$member_id));
-
-        // 重定向
-        if ($result){
-            Cache::forget('sms');
-            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['info_invite'].'')->with('message', '4');
-        }else{
-            return redirect('mobile/client/client-poster-invite-apply?member_id='.$data['info_invite'].'')->with('message', '5');
-        }
-    }
 
     // 我的合伙人列表
     public function ClientUnionShow($member_id,Member $member){

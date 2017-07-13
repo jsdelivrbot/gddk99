@@ -119,13 +119,8 @@ Route::prefix('mobile')->middleware('active.nav')->get('/member/union-list-detai
 // 推客----客户海报列表，生成海报页面---显示
 Route::prefix('mobile')->middleware('active.nav')->get('/client/client-poster-list','Mobile\ClientController@ClientPoster');
 
-// 推客----客户海报列表---扫码跳转---填写绑定合伙人----跳转发展推客
+// 推客----客户海报列表---扫码跳转---填写绑定合伙人----跳转发展推客--改了
 Route::prefix('mobile')->middleware('active.nav')->get('/client/client-poster-invite','Mobile\ClientController@ClientPosterInvite');
-Route::prefix('mobile')->middleware('active.nav')->post('/client/client-poster-invite','Mobile\ClientController@ClientPosterInviteStore');
-
-// 推客----客户海报列表---扫码跳转---填写绑定合伙人----推客--邀请合伙人---跳转发展推客
-Route::prefix('mobile')->middleware('active.nav')->get('/client/client-poster-invite-apply','Mobile\ClientController@ClientPosterInviteApply');
-Route::prefix('mobile')->middleware('active.nav')->post('/client/client-poster-invite-apply','Mobile\ClientController@ClientPosterInviteApplyStore');
 
 // 立即申请贷款----客户列表
 Route::prefix('mobile')->middleware('active.nav')->get('/client/client-list','Mobile\ClientController@ClientList');
