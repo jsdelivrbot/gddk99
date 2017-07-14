@@ -324,21 +324,8 @@ class MemberController extends Controller
     }
 
     // 申请成为推客---列表
-    public function PushApplyList(Member $member){
-        // 读取所有数据，循环查找相等数据
-        $memberAll = $member->all();
-        $members[]="";
-        foreach ($memberAll as $list){
-            $mem = $member->where('member_parent_id',$list['member_id'])->get()->toArray();
-            foreach ($mem as $lien){
-                $members[] =$lien;
-            }
-        }
-        // 过滤空数组
-        $result = array_filter($members);
-        // 统计
-        $total = count($result);
-        return view('mobile.member.push-apply-list',['member'=>$result,'total'=>$total]);
+    public function PushApplyList(){
+        return view('mobile.member.push-apply-list');
     }
 
     // 个人申请成为推客--填写资料
