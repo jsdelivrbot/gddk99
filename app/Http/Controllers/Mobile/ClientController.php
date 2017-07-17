@@ -130,8 +130,9 @@ class ClientController extends Controller
     public function ClientVipShow($member_id,Info $info){
         // 读取推客所有客户信息
         $infos = $info->where('info_invite',$member_id)->get();
-        $total = count($infos);
-        return view('mobile.client.client-vip-show',['info'=>$infos,'total'=>$total]);
+        $data = $info->where('member_id','10'.$member_id)->get();
+        $total = count($infos)+count($data);
+        return view('mobile.client.client-vip-show',['info'=>$infos,'total'=>$total,'data'=>$data]);
     }
 
 }

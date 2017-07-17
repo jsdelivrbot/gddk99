@@ -20,6 +20,19 @@
                             </a>
                         </li>
                         @endforeach
+
+                        @foreach($data as $lien)
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_hd_list">
+                                <a href="javascript:void(0);" class="pet_hd_block">
+                                    <div class="pet_hd_block_title">{{ $lien['info_name'] }} {{ $lien['info_mobile'] }}</div>
+                                    <div class="pet_hd_block_map">贷款额度：{{ $lien['info_quota'] }} 万元</div>
+                                    <div class="pet_hd_block_map">申请渠道：@if(substr($lien['member_id'],0,2)==10) 来自扫码推客 @else 来自立即申请 @endif</div>
+                                    <div class="pet_hd_block_map">申请时间：{{ $lien['created_at'] }}</div>
+                                    <div class="pet_hd_block_map">客户状态：@if($lien['info_status']==0) <font color="red">申办中...</font> @else <font color="red">已办结...</font> @endif</div>
+                                </a>
+                            </li>
+                        @endforeach
+
                     </ul>
                 </div>
             </div>
