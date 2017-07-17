@@ -71,10 +71,13 @@ class MemberController extends Controller
                 ];
             }
         }
-
         $user = array_filter($data);
 
-        return view('admin.push.push-list',['member'=>$user]);
+        // 创建自定义分页方法
+        $list = $common->Page($user);
+
+        return view('admin.push.push-list',['member'=>$list,]);
+
     }
 
     // 我的合伙人设置功能---是否初审核状态

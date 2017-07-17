@@ -3,6 +3,7 @@ namespace App\Common;
 
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Cache;
 use Request;
 
@@ -255,6 +256,18 @@ class Common
                 }
             }
         }
+    }
+
+
+    // 组装数据，创建自定义分页方法
+    public function Page($data,$pge=15){
+        $list = $data; //你查询出来的结果
+        $page = \Request::get('page', 1); // 获取页码
+        $perPage = $pge; //每页的条数
+        $offset = ($page * $perPage) - $perPage; //计算每页分页的初始位置
+        $list = new LengthAwarePaginator(array_slice($list,$offset,$perPage,true),count($list),$perPage,
+        $page,['path' => \Request::url(), 'query' => \Request::query()]);
+        return $list;
     }
 
 }
