@@ -37,7 +37,11 @@ class MemberController extends Controller
             }
         }
         $union = array_filter($data);
-        return view('admin.union-list',['union'=>$union]);
+
+        // 创建自定义分页方法
+        $list = $common->Page($union);
+
+        return view('admin.union-list',['union'=>$list]);
     }
 
     // 推客列表
