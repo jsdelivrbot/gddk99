@@ -9,32 +9,11 @@ use App\Http\Controllers\Controller;
 
 class ClientController extends Controller
 {
-    public function Index(Info $info,Member $member){
+    public function Index(Info $info){
 
-        $info = $info->all();
-        $data[]='';
-        foreach ($info as $list){
-            $members = $member->where('member_id',$list['info_invite'])->get();
-            foreach ($members as $line){
-                $data[] = [
-                    'info_id' =>$list['info_id'],
-                    'info_name' => $list['info_name'],
-                    'info_sex' => $list['info_sex'],
-                    'info_mobile' => $list['info_mobile'],
-                    'info_quota' => $list['info_quota'],
-                    'info_status' => $list['info_status'],
-                    'member_id' => $list['member_id'],
-                    'info_invite' => $list['info_invite'],
-                    'created_at' => $list['created_at'],
+        // 关联读取所有数据,并且把重复字段别名
+        $info_data = $info->select('members.*','members.member_id as me_id','infos.*','infos.member_id as in_id')->join('members','infos.info_invite','=','members.member_id')->paginate(15);
 
-                    'push_name' => $line['member_surname'],
-                    'push_mobile' => $line['member_mobile'],
-                ];
-            }
-        }
-
-        $client_info = array_filter($data);
-
-        return view('admin.client-list',['client_info'=>$client_info]);
+        return view('admin.client-list',['client_info'=>$info_data]);
     }
 }

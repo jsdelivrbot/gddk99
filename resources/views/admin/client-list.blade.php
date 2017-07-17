@@ -73,11 +73,11 @@
                                     <td><input type="checkbox"></td>
                                     <td>{{ $list['info_id'] }}</td>
                                     <td>{{ $list['info_name'] }}</td>
-                                    <td class="am-hide-sm-only">{{ $list['info_sex'] }}</td>
+                                    <td class="am-hide-sm-only">{{ $list['info_sex_text'] }}</td>
                                     <td class="am-hide-sm-only">{{ $list['info_mobile'] }}</td>
                                     <td class="am-hide-sm-only">{{ $list['info_quota'] }} 万元</td>
-                                    <td class="am-hide-sm-only">{{ $list['push_name'] }}</td>
-                                    <td class="am-hide-sm-only">{{ $list['member_id'] > 0 ? '微信端':'PC端'}}</td>
+                                    <td class="am-hide-sm-only">{{ $list['member_surname'] }}</td>
+                                    <td class="am-hide-sm-only"> @if(substr($list['in_id'],0,2)==10) 来自扫码推客 @else 来自立即申请 @endif</td>
                                     <td class="am-hide-sm-only">{{ $list['created_at'] }}</td>
                                     <td>
                                         <div class="am-btn-toolbar">
@@ -92,20 +92,13 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="am-cf">
 
+                            <div class="am-cf">
                                 <div class="am-fr">
-                                    <ul class="am-pagination tpl-pagination">
-                                        <li class="am-disabled"><a href="#">«</a></li>
-                                        <li class="am-active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">»</a></li>
-                                    </ul>
+                                    {{ $client_info->links() }}
                                 </div>
                             </div>
+
                             <hr>
 
                         </form>
