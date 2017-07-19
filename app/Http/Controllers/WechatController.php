@@ -65,7 +65,7 @@ class WechatController extends Controller
             session()->forget('mobile_user');
             $mem = new Member();
             $mem->wechat_openid = $result['openid'];
-            $mem->wechat_nickname = $result['nickname'];
+            $mem->wechat_nickname = $this->filterEmoji($result['nickname']);
             $mem->member_sex = $result['sex'];
             $mem->wechat_headimgurl = $result['headimgurl'];
             $mem->member_type = Member::MEMBER_TYPE_ONE;
@@ -77,6 +77,18 @@ class WechatController extends Controller
         session(['mobile_user'=>$member]);
 
         return redirect()->action('WechatController@login');
+    }
+
+    // 过滤掉emoji表情  $this->filterEmoji($res['nickname'])
+    function filterEmoji($str)
+    {
+        $str = preg_replace_callback(
+            '/./u',
+            function (array $match) {
+                return strlen($match[0]) >= 4 ? '' : $match[0];
+            },
+            $str);
+        return $str;
     }
 
     // 登录成功进入对应页面方法
