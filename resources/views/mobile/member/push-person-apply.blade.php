@@ -36,7 +36,7 @@
                 <input type="text" id="member_card" value="{{ $member['member_card'] }}" name="member_card" minlength="1" placeholder="输入您的身份证号码" required/>
             </div>
 
-            <div class="am-form-group">
+            {{--<div class="am-form-group">
                 <label for="app_pic_z">身份证正面：</label>
                 <table class="am-table am-table-bordered">
                     <tr>
@@ -64,7 +64,7 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+            </div>--}}
 
             <div class="am-form-group">
                 <label for="member_card_type">卡号类型</label>

@@ -131,7 +131,7 @@ class MemberController extends Controller
 
         // 判断图片是否存在，不存在生成图片---取反
         if(!file_exists($poster)){
-            $common->Poster($common->picUrlPath('hbbg.png'),$common->PublicPath('qrcode',$memberId),$common->PublicPath('sc',$memberId),$dst_x='270',$dst_y='910');
+            $common->Poster($common->picUrlPath('hbbg.png'),$common->PublicPath('qrcode',$memberId),$common->PublicPath('sc',$memberId),$dst_x='310',$dst_y='900');
         }
 
         // 获取图片输出到前端界面

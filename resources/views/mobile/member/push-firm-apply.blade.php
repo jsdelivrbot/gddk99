@@ -34,7 +34,7 @@
                 <input type="text" id="app_number" name="app_number" minlength="1" placeholder="输入机构代码号" required/>
             </div>
 
-            <div class="am-form-group">
+            {{--<div class="am-form-group">
                 <label for="app_pic_z">营业执照：</label>
                 <table class="am-table am-table-bordered">
                     <tr>
@@ -47,7 +47,7 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+            </div>--}}
 
             <div class="am-form-group">
                 <label for="member_card_type">卡号类型</label>
