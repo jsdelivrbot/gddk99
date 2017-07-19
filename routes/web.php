@@ -198,8 +198,17 @@ Route::prefix('admin')->middleware('admin.login')->get('user-list','Admin\UserCo
 // 经纪关系列表
 Route::prefix('admin')->middleware('admin.login')->get('union-list','Admin\MemberController@UnionList');
 
+
+
+//--------------------------------- 客户管理区 ------------------------------//
+
 // 客户列表
 Route::prefix('admin')->middleware('admin.login')->get('client-list','Admin\ClientController@Index');
+Route::prefix('admin')->middleware('admin.login')->get('/client/client-list-edit/{info_id}','Admin\ClientController@ClientListEdit');
+
+
+
+
 
 // 顾问列表
 Route::prefix('admin')->middleware('admin.login')->get('consultant-list','Admin\ConsultantController@ConsultantList');

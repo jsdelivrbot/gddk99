@@ -44,4 +44,13 @@ class Info extends Model
         }
     }
 
+    public function InfoStatus()
+    {
+        $info_status =[
+            ['id'=>0,'name'=>'申办中','number'=>'0'],
+            ['id'=>1,'name'=>'已结办','number'=>'1'],
+        ];
+        return $info_status;
+    }
+
 }
