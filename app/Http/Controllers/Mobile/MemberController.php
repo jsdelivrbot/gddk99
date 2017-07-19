@@ -121,10 +121,10 @@ class MemberController extends Controller
         $memberId = $common->If_com(session('mobile_user')['member_id']);
 
         // 查询当前用户，判断当前用户资料是否完善
-        $members = $member->where('member_id',$memberId)->first();
+        /*$members = $member->where('member_id',$memberId)->first();
         if ($members['member_mobile']==""){
             return redirect('/mobile/member/person-edit/'.$memberId.'')->with('message','1');
-        }
+        }*/
 
         // 读取图片
         $poster = $common->PublicPath('sc',$memberId);

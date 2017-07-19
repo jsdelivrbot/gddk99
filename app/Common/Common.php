@@ -158,7 +158,7 @@ class Common
     }
 
     // 生成二维码方法函数
-    public function QrCode($Id,$path,$HttpUrl){
+    public function QrCode($Id,$path,$HttpUrl,$size=200){
         // $Id = 1;
         // $path = 'uploads/qrcode';
         // $HttpUrl = 'api/member-user-invite?member_parent_id=';
@@ -166,7 +166,7 @@ class Common
         $url='http://'.Request::getHttpHost().'/'.$HttpUrl.$Id;
         $qrcode_url = 'http://'.Request::getHttpHost().'/'.$path.$Id.'.png';
         if(!file_exists($qrcode_pictrue)){
-            QrCode::encoding('UTF-8')->format('png')->size(200)->margin(1)->generate($url,public_path($path.$Id.'.png'));
+            QrCode::encoding('UTF-8')->format('png')->size($size)->margin(1)->generate($url,public_path($path.$Id.'.png'));
         }
         return ['qrcode_url'=>$qrcode_url,'url'=>$url];
     }

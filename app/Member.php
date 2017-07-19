@@ -89,12 +89,14 @@ class Member extends Model
 
     public function cardType(){
         return   $cardType =[
+
+            ['id'=>6, 'name'=>'支付宝'],
+
             ['id'=>1, 'name'=>'中国银行'],
             ['id'=>2, 'name'=>'中国工商银行'],
             ['id'=>3, 'name'=>'中国农业银行'],
             ['id'=>4, 'name'=>'汇丰银行'],
             ['id'=>5, 'name'=>'东莞农村商业银行'],
-            ['id'=>6, 'name'=>'支付宝'],
 
             ['id'=>7, 'name'=>'中国建设银行'],
             ['id'=>8, 'name'=>'中国邮政银行'],
