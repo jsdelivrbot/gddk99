@@ -205,6 +205,7 @@ Route::prefix('admin')->middleware('admin.login')->get('union-list','Admin\Membe
 // 客户列表
 Route::prefix('admin')->middleware('admin.login')->get('client-list','Admin\ClientController@Index');
 Route::prefix('admin')->middleware('admin.login')->get('/client/client-list-edit/{info_id}','Admin\ClientController@ClientListEdit');
+Route::prefix('admin')->middleware('admin.login')->post('/client/client-list-edit','Admin\ClientController@ClientListEditStore');
 
 
 

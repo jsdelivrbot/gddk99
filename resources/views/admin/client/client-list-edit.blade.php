@@ -20,7 +20,7 @@
                                 <label for="info_name" class="am-u-sm-3 am-form-label">客户姓名</label>
                                 <div class="am-u-sm-9">
                                     <input type="text" id="info_name" name="info_name" value="{{ $info['info_name'] }}" placeholder="输入客户姓名" required>
-                                    <input type="hidden" name="member_id" value="{{ $info['member_id'] }}">
+                                    <input type="hidden" name="info_id" value="{{ $info['info_id'] }}">
                                 </div>
                             </div>
 
@@ -71,11 +71,11 @@
                             </div>
 
                             <div class="am-form-group">
-                                <label for="plan_type_a" class="am-u-sm-3 am-form-label">客户状态</label>
+                                <label for="info_status" class="am-u-sm-3 am-form-label">客户状态</label>
                                 <div class="am-u-sm-9">
-                                    <select id="plan_type_a" name="plan_type_a" required>
+                                    <select id="info_status" name="info_status" required>
                                         @foreach($status as $line)
-                                        <option value="{{ $line['number'] }}" @if($line['number']==$info['member_id']) selected @endif>
+                                        <option value="{{ $line['number'] }}" @if($line['number']==$info['info_status']) selected @endif>
                                             {{ $line['name'] }}
                                         </option>
                                         @endforeach

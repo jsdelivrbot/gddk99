@@ -29,4 +29,10 @@ class ClientController extends Controller
         return view('admin.client.client-list-edit',['info'=>$data,'sex'=>$sex,'member'=>$members,'status'=>$inf_status]);
     }
 
+    // 客户列表---编辑---存储
+    public function ClientListEditStore(Request $request){
+        $data = $request->except(['_token','in_id','member_surname']);
+        dd($data);
+    }
+
 }
