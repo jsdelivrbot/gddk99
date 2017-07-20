@@ -37,7 +37,7 @@
             </div>
 
             <div class="am-form-group">
-                <label for="member_surname">姓名：</label>
+                <label for="member_surname">真实姓名：</label>
                 <input type="text" id="member_surname" name="member_surname" minlength="2" value="{{ $member['member_surname'] }}" placeholder="输入您的姓名" required/>
             </div>
 

@@ -30,9 +30,14 @@ class ClientController extends Controller
     }
 
     // 客户列表---编辑---存储
-    public function ClientListEditStore(Request $request){
+    public function ClientListEditStore(Request $request,Info $info){
         $data = $request->except(['_token','in_id','member_surname']);
-        dd($data);
+        $result = $info->where('info_id',$data['info_id'])->update(array_except($data,['info_id']));
+        if ($result){
+            return redirect('/admin/client-list')->with('message','1');
+        }else{
+            return redirect('/admin/client-list')->with('message','0');
+        }
     }
 
 }

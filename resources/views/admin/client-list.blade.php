@@ -118,3 +118,13 @@
     </div>
 
 @endsection
+
+@section('script')
+    @if(Session::has('message'))
+        @if(Session::get('message')==1)
+            <script>layer.msg('数据处理成功！', {icon: 6}); </script>
+        @elseif(Session::get('message')==0)
+            <script>layer.msg('数据处理失败！', {icon: 5}); </script>
+        @endif
+    @endif
+@endsection
