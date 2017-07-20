@@ -18,7 +18,8 @@ class MemberController extends Controller
     // 会员列表---编辑
     public function MemberListEdit($member_id,Member $member){
         $data = $member->find($member_id);
-        return view('admin.member-list-edit',['member'=>$data]);
+        $sex = $member->Sex();
+        return view('admin.member-list-edit',['member'=>$data,'sex'=>$sex]);
     }
 
     // 会员列表---编辑---存储
