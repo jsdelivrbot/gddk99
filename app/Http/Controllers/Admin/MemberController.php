@@ -15,6 +15,17 @@ class MemberController extends Controller
         return view('admin.member-list',['member' =>$member ]);
     }
 
+    // 会员列表---编辑
+    public function MemberListEdit($member_id,Member $member){
+        $data = $member->find($member_id);
+        return view('admin.member-list-edit',['member'=>$data]);
+    }
+
+    // 会员列表---编辑---存储
+    public function MemberListEditStore(){
+
+    }
+
     // 合伙人列表
     public function UnionList(Member $member,Common $common){
         // 读取合伙人信息

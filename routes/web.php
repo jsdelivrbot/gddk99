@@ -183,6 +183,12 @@ Route::prefix('admin')->middleware('admin.login')->get('index','Admin\IndexContr
 // 会员列表
 Route::prefix('admin')->middleware('admin.login')->get('member-list','Admin\MemberController@MemberList');
 
+// 会员列表---编辑
+Route::prefix('admin')->middleware('admin.login')->get('member-list-edit/{member_id}','Admin\MemberController@MemberListEdit');
+
+// 会员列表---编辑---存储
+Route::prefix('admin')->middleware('admin.login')->post('member-list-edit','Admin\MemberController@MemberListEditStore');
+
 // 推客列表
 Route::prefix('admin')->middleware('admin.login')->get('/push/push-list','Admin\MemberController@MemberPush');
 
