@@ -67,7 +67,7 @@
                 <input type="text" id="member_tel" name="member_tel" minlength="3" value="{{ $member['member_tel'] }}" placeholder="输入联系电话" required/>
             </div>--}}
 
-            <div class="am-form-group">
+            {{--<div class="am-form-group">
                 <label for="member_card_type">卡号类型</label>
                 <select id="member_card_type" name="member_card_type" required>
                     <option value="">请选择卡号类型</option>
@@ -77,12 +77,12 @@
                         </option>
                     @endforeach
                 </select>
-            </div>
+            </div>--}}
 
-            <div class="am-form-group">
+            {{--<div class="am-form-group">
                 <label for="member_bank_card">银行卡号：</label>
                 <input type="text" id="member_bank_card" name="member_bank_card" minlength="3" value="{{ $member['member_bank_card'] }}" placeholder="输入银行卡号" required/>
-            </div>
+            </div>--}}
 
             <div class="am-form-group">
                 <label for="member_card">身份证：</label>
