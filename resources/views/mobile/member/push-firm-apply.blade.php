@@ -70,7 +70,7 @@
                 <div class="am-input-group">
                     <input type="text" id="app_mobile" name="app_mobile" value="{{ $member['member_mobile'] }}" minlength="3" placeholder="输入您的手机号" required class="am-form-field">
                     <span class="am-input-group-btn">
-                        <input type="button" id="btn" value="获取验证码" class="am-btn am-btn-default" onclick="settime(this),Sms()" />
+                        <input type="button" id="btn" value="获取验证码" class="am-btn am-btn-warning" onclick="settime(this),Sms()" />
                     </span>
                 </div>
             </div>
