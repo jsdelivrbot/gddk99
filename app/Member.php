@@ -165,4 +165,15 @@ class Member extends Model
         }
     }
 
+    public function memberLevel(){
+        return [
+          ['id'=>0,'name'=>'普通用户','number'=>1],
+          ['id'=>1,'name'=>'VIP用户','number'=>2],
+          ['id'=>2,'name'=>'合伙人用户','number'=>3],
+          ['id'=>3,'name'=>'加盟商用户','number'=>4],
+          ['id'=>4,'name'=>'运营商用户','number'=>5],
+          ['id'=>5,'name'=>'总部用户','number'=>6],
+        ];
+    }
+
 }

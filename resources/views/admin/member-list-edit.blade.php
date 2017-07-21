@@ -78,14 +78,12 @@
                                 </div>
                             </div>
 
-
                             <div class="am-form-group">
                                 <label for="member_mobile" class="am-u-sm-3 am-form-label">手机号</label>
                                 <div class="am-u-sm-9">
                                     <input type="text" id="member_mobile" name="member_mobile" value="{{ $member['member_mobile'] }}" placeholder="输入手机号" required>
                                 </div>
                             </div>
-
 
 
                             <div class="am-form-group">
